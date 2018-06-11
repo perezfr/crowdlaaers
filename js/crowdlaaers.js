@@ -89,7 +89,8 @@ $( document ).ready(function() {
         var bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
         var calendar = new google.visualization.Calendar(document.getElementById('graph'));
         var opts = {
-          width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' }
+          width: '100%', height: '100%', page: 'enable', pageSize: 25, 
+          legend: { position: 'none' }
         };
         var view = new google.visualization.DataView(data);
         view.hideColumns([4]);
@@ -148,7 +149,7 @@ $( document ).ready(function() {
           $( "#calendarClick" ).attr("class", "nav-link");
           $( "#contributorsClick" ).attr("class", "nav-link active");
           $( "#threadsClick" ).attr("class", "nav-link");
-          $( "#graphLabel" ).text("Messages per User");
+          $( "#graphLabel" ).text("Messages per Participant");
           bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
           bar_graph.draw(messagesPerUser, opts);
         });

@@ -30,19 +30,19 @@
               <li class="nav-item">
                 <a class="nav-link active" href="#" id="contributorsClick">
                   <span data-feather="bar-chart-2"></span>
-                  Contributors
+                  Participants
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" id="calendarClick">
-                  <span data-feather="calendar"></span>
-                  Calendar
+                  <span data-feather="calendar"></span> 
+                  Calendar <span class="badge badge-pill badge-secondary">11</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" id="threadsClick">
                   <span data-feather="share-2"></span>
-                  Threads
+                  Threads <span class="badge badge-pill badge-secondary">11</span>
                 </a>
               </li>
             </ul>
@@ -175,24 +175,17 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2" id="graphLabel">Messages per User</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <!--<div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>-->
-              <button class="btn btn-sm btn-outline-secondary" id="resetButton">
+          <div id="graph"></div>
+          <!--<h6>Participants: <span class="badge badge-pill badge-secondary">21</span></h6>-->
+          <button type="button" class="btn btn-secondary">
+            Participants <span class="badge badge-light">21</span>
+          </button>
+          <div class="row btn-toolbar mb-2 mb-md-0 float-right">
+            <button class="btn btn-sm btn-outline-secondary" id="resetButton">
                 <span data-feather="x-circle"></span>
                 Reset
-              </button>
-            </div>
+            </button>
           </div>
-
-          <div id="graph"></div>
-          <!--
-          <h2>Section title</h2>-->
-          <br>
           <div id="table_div"></div>
         </main>
       </div>
