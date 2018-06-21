@@ -206,7 +206,7 @@ $( document ).ready(function() {
       view.setRows(r);
       table.draw(view, opts);
     });
-
+      
     google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
       alert(data.getValue(row, 2));
