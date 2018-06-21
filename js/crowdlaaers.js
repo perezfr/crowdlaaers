@@ -134,8 +134,14 @@ $( document ).ready(function() {
 
         google.visualization.events.addListener(table, 'select', function() {
           var row = table.getSelection()[0].row;
-          alert(data.getValue(row, 2));
+          // Nead to figure out which is the real field
+          //alert(data.getValue(row, 2));
         });
+
+        //Fill the pillbox notifications
+        $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
+        $( "#calendarCounter" ).text(messagesPerThread.getNumberOfRows());
+        $( "#threadCounter" ).text(messagesPerDay.getNumberOfRows());
 
         $( "#calendarClick" ).click(function() {
           $( "#calendarClick" ).attr("class", "nav-link active");
@@ -307,7 +313,6 @@ $( document ).ready(function() {
         $( "#urlSearch" ).click(function() {
           inactivate();
           var url = $('#urlBar').val();
-          console.log(url);
           xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
           xhttp.setRequestHeader("Content-type", "application/json");
           xhttp.send();
