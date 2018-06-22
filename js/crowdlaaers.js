@@ -95,7 +95,6 @@ $( document ).ready(function() {
     $( "#contributorsClick" ).attr("class", "nav-link active");
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
-    $( "#graphLabel" ).text("Messages per Day");
     $( "#august2016" ).attr("class", "nav-link");
     $( "#september2016" ).attr("class", "nav-link");
     $( "#october2016" ).attr("class", "nav-link");
@@ -114,15 +113,17 @@ $( document ).ready(function() {
     $( "#april2017" ).attr("class", "nav-link");
     $( "#may2017" ).attr("class", "nav-link");
     $( "#june2017" ).attr("class", "nav-link");
+    $( "#graphLabel" ).text("Annotations per Contributor");
   };
 
   function drawTable(response) {
     var data = new google.visualization.DataTable();
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
-    data.addColumn({type: 'string', id: 'user', label: 'Participant'});
+    data.addColumn({type: 'string', id: 'user', label: 'Contributor'});
     data.addColumn({type: 'string', id: 'textSummary', label: 'Annotation'});
     data.addColumn({type: 'string', id: 'NodeMsg', label: 'Anchor'});
-    data.addColumn({type: 'string', id: 'textComplete'});
+    data.addColumn({type: 'string', id: 'textComplete', role: 'annotationText'});
+    data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
 
     var rows = response['rows'];
     var threads = [];
@@ -137,14 +138,22 @@ $( document ).ready(function() {
       //Count the threads
       var nodeMsg = "Document";
       if (threads.includes(s['id'])){
+        //if message is anchor annotation in the thread sets anchor ID it to
+        //message ID 
         nodeMsg = s['id'];
       }
 
       if (s['references']){
-        //if (!threads.includes(s['references'][0])){
-          //threads.push(s['references'][0]);
+        //Sets anchor ID to the first anchor annotation
         nodeMsg = s['references'][0];
       }
+
+      if (s['text'].length > 50){
+        var textSummary = s['text'].slice(0, 50) + "...";
+      } else {
+        var textSummary = s['text'];
+      }
+
       var date = new Date(s['created']);
       var year = date.getYear() + 1900;
       var month = date.getMonth();
@@ -153,12 +162,12 @@ $( document ).ready(function() {
       var mins = date.getMinutes();
       var second = date.getSeconds();
       var username = s['user'].slice(5,-12);
-      var textSummary = s['text'].slice(0, 50) + "...";
       var textTotal = s['text'];
       var link = s['links']['incontext'];
+      var tags = s['tags'].join(", ").toLowerCase();
       data.addRows([
         //[new Date(year, month, dateDay, hour, mins, second), username, textSummary, textTotal ]
-        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal ]
+        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags ]
       ]);
     }
     var table = new google.visualization.Table(document.getElementById('table_div'));
@@ -168,7 +177,7 @@ $( document ).ready(function() {
       width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' }
     };
     var view = new google.visualization.DataView(data);
-    view.hideColumns([4]);
+    view.hideColumns([3,4]);
 
     //*TODO count unique first value IDs in the reference field as a number for threads
     var messagesPerUser = google.visualization.data.group(
@@ -201,6 +210,11 @@ $( document ).ready(function() {
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
 
+    google.visualization.events.addListener(table, 'select', function() {
+      var row = table.getSelection()[0].row;
+      alert(data.getValue(row, 4));
+    });
+
     google.visualization.events.addListener(bar_graph, 'select', function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([4]);
@@ -209,18 +223,19 @@ $( document ).ready(function() {
       var r = view.getFilteredRows([{column: 1, value: name}]);
       view.setRows(r);
       table.draw(view, opts);
-    });
-      
-    google.visualization.events.addListener(table, 'select', function() {
-      var row = table.getSelection()[0].row;
-      alert(data.getValue(row, 4));
+
+      //
+      google.visualization.events.addListener(table, 'select', function() {
+        var row = table.getSelection()[0].row;
+        alert(view.getValue(row, 4));
+      });
     });
 
     $( "#calendarClick" ).click(function() {
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
-      $( "#graphLabel" ).text("Messages per Day");
+      $( "#graphLabel" ).text("Annotations per Day");
       calendar = new google.visualization.Calendar(document.getElementById('graph'));
       calendar.draw(messagesPerDay, opts);
     });
@@ -228,7 +243,7 @@ $( document ).ready(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link active");
       $( "#threadsClick" ).attr("class", "nav-link");
-      $( "#graphLabel" ).text(syllabus['august2016']['url']);
+      $( "#graphLabel" ).text("Annotations per Contributor");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(messagesPerUser, opts);
     });
@@ -236,7 +251,7 @@ $( document ).ready(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link active");
-      $( "#graphLabel" ).text("Messages per Thread");
+      $( "#graphLabel" ).text("Annotations per Thread");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(messagesPerThread, opts);
 
