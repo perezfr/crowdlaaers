@@ -197,6 +197,10 @@ $( document ).ready(function() {
     bar_graph.draw(messagesPerUser, opts);
     table.draw(view, opts);
 
+    $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
+    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
+    $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
+
     google.visualization.events.addListener(bar_graph, 'select', function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([4]);
@@ -209,7 +213,7 @@ $( document ).ready(function() {
       
     google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
-      alert(data.getValue(row, 2));
+      alert(data.getValue(row, 4));
     });
 
     $( "#calendarClick" ).click(function() {
