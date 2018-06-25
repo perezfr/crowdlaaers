@@ -259,6 +259,7 @@ $( document ).ready(function() {
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
+      $( "#tagsClick" ).attr("class", "nav-link");
       $( "#graphLabel" ).text("Annotations per Day");
       calendar = new google.visualization.Calendar(document.getElementById('graph'));
       calendar.draw(messagesPerDay, opts);
@@ -267,6 +268,7 @@ $( document ).ready(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link active");
       $( "#threadsClick" ).attr("class", "nav-link");
+      $( "#tagsClick" ).attr("class", "nav-link");
       $( "#graphLabel" ).text("Annotations per Contributor");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(messagesPerUser, opts);
@@ -291,6 +293,7 @@ $( document ).ready(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link active");
+      $( "#tagsClick" ).attr("class", "nav-link");
       $( "#graphLabel" ).text("Annotations per Thread");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(messagesPerThread, opts);
