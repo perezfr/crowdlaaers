@@ -270,6 +270,22 @@ $( document ).ready(function() {
       $( "#graphLabel" ).text("Annotations per Contributor");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(messagesPerUser, opts);
+
+      google.visualization.events.addListener(bar_graph, 'select', function() {
+        view = new google.visualization.DataView(data);
+        view.hideColumns([4]);
+        var row = bar_graph.getSelection()[0].row;
+        var name = messagesPerUser.getValue(row, 0);
+        var r = view.getFilteredRows([{column: 1, value: name}]);
+        view.setRows(r);
+        table.draw(view, opts);
+
+        //
+        google.visualization.events.addListener(table, 'select', function() {
+          var row = table.getSelection()[0].row;
+          alert(view.getValue(row, 4));
+        });
+      });
     });
     $( "#threadsClick" ).click(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
@@ -286,6 +302,7 @@ $( document ).ready(function() {
         var name = messagesPerThread.getValue(row, 0);
         console.log(name);
         var r = view.getFilteredRows([{column: 3, value: name}]);
+        view.hideColumns([3]);
         view.setRows(r);
         table.draw(view, opts);
       });
@@ -301,12 +318,18 @@ $( document ).ready(function() {
 
       google.visualization.events.addListener(bar_graph, 'select', function() {
         view = new google.visualization.DataView(data);
-        view.hideColumns([4]);
+        view.hideColumns([3,4]);
         var row = bar_graph.getSelection()[0].row;
         var name = tagData.getValue(row, 0);
-        var r = view.getFilteredRows([{column: 4, value: name}]);
-        view.setRows(r);
-        table.draw(view, opts);
+        var r = view.getFilteredRows([{column: 3, value: name}]);
+        //var r = view.getFilteredRows([{column: 3, test: 
+        //  function(value, row, column, table) {
+        //    return data.getValue(row, 0).includes(name)
+        //  }
+        //}]);
+
+        //view.setRows(r);
+        //table.draw(view, opts);
       });
     });
 
