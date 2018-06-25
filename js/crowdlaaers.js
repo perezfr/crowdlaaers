@@ -118,20 +118,32 @@ $( document ).ready(function() {
 
   function drawTable(response) {
     var data = new google.visualization.DataTable();
+    var tagData = new google.visualization.DataTable();
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
     data.addColumn({type: 'string', id: 'user', label: 'Contributor'});
     data.addColumn({type: 'string', id: 'textSummary', label: 'Annotation'});
     data.addColumn({type: 'string', id: 'NodeMsg', label: 'Anchor'});
     data.addColumn({type: 'string', id: 'textComplete', role: 'annotationText'});
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
+    tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
+    tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
 
     var rows = response['rows'];
     var threads = [];
+    var tagArray = [];
+    var tagCounts = {};
+
     for (ss of rows){
       if (ss['references']){
         if (!threads.includes(ss['references'][0])){
           threads.push(ss['references'][0]);
         }
+      }
+      
+      if (ss['tags'].length > 0){
+        ss['tags'].forEach(function (fruit) {
+          tagArray.push(fruit.toLowerCase());
+        });
       }
     }
     for (s of rows) {
@@ -164,12 +176,22 @@ $( document ).ready(function() {
       var username = s['user'].slice(5,-12);
       var textTotal = s['text'];
       var link = s['links']['incontext'];
-      var tags = s['tags'].join(", ").toLowerCase();
+      var tags = s['tags'].join().toLowerCase();
       data.addRows([
         //[new Date(year, month, dateDay, hour, mins, second), username, textSummary, textTotal ]
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags ]
       ]);
     }
+    for (var i = 0; i < tagArray.length; i++) {
+      tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
+    }
+    for (var t in tagCounts) {
+      tagData.addRows([
+        [ t, tagCounts[t] ]
+      ]);
+    }
+    tagData.sort({column: 1, desc: true});
+
     var table = new google.visualization.Table(document.getElementById('table_div'));
     var bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
     var calendar = new google.visualization.Calendar(document.getElementById('graph'));
@@ -210,6 +232,7 @@ $( document ).ready(function() {
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
+    $( "#tagCounter" ).text(Object.keys(tagCounts).length);
 
     google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
@@ -267,6 +290,26 @@ $( document ).ready(function() {
         table.draw(view, opts);
       });
     });
+    $( "#tagsClick" ).click(function() {
+      $( "#calendarClick" ).attr("class", "nav-link");
+      $( "#contributorsClick" ).attr("class", "nav-link");
+      $( "#threadsClick" ).attr("class", "nav-link");
+      $( "#tagsClick" ).attr("class", "nav-link active");
+      $( "#graphLabel" ).text("Tags");
+      bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
+      bar_graph.draw(tagData, opts);
+
+      google.visualization.events.addListener(bar_graph, 'select', function() {
+        view = new google.visualization.DataView(data);
+        view.hideColumns([4]);
+        var row = bar_graph.getSelection()[0].row;
+        var name = tagData.getValue(row, 0);
+        var r = view.getFilteredRows([{column: 4, value: name}]);
+        view.setRows(r);
+        table.draw(view, opts);
+      });
+    });
+
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([4]);
@@ -409,13 +452,13 @@ $( document ).ready(function() {
       xhttp.send();
       $("#conversation_summary").html(syllabus['may2017']['summary']);
     });
-    $( "#june2016" ).click(function() {
+    $( "#june2017" ).click(function() {
       inactivate();
       $( "#june2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['june2016']['url'] + "&limit=200", true);
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['june2017']['url'] + "&limit=200", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
-      $("#conversation_summary").html(syllabus['june2016']['summary']);
+      $("#conversation_summary").html(syllabus['june2017']['summary']);
     });
     $( "#urlSearch" ).click(function() {
       inactivate();
