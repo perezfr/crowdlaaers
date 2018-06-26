@@ -236,7 +236,11 @@ $( document ).ready(function() {
 
     google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
-      alert(data.getValue(row, 4));
+      //alert(data.getValue(row, 4));
+      $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+      $('#annotationModalBody').text(data.getValue(row, 4));
+      //add in context link
+      $('#annotationModal').modal('show');
     });
 
     google.visualization.events.addListener(bar_graph, 'select', function() {
