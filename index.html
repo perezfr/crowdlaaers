@@ -13,14 +13,15 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">CROWDLAAERS</a>
+    <nav class="navbar navbar-dark fixed-top bg-secondary flex-md-nowrap p-0 shadow">
+      <span class="navbar-brand col-sm-3 col-md-2 mr-0 bg-dark" href="#">CROWDLAAERS</span>
+      <!--<h6 class="h4 bg-secondary" id="graphLabel" >Annotations per Contributor</h6>
       <input class="form-control form-control-dark w-100" type="text" placeholder="URL" aria-label="Search" id="urlBar">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#" id="urlSearch">Search</a>
         </li>
-      </ul>
+      </ul>-->
     </nav>
     <div class="container-fluid">
       <div class="row">
@@ -31,7 +32,7 @@
                 <a class="nav-link active" href="#" id="contributorsClick">
                   <span data-feather="bar-chart-2"></span>
                   Participants <span id="participantCounter" class="badge badge-pill badge-secondary"></span>
-                </a>
+                </a> 
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" id="calendarClick">
@@ -45,117 +46,25 @@
                   Threads <span id="threadCounter" class="badge badge-pill badge-secondary"></span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="tagsClick">
+                  <span data-feather="tag"></span>
+                  Tags <span id="tagCounter" class="badge badge-pill badge-secondary"></span>
+                </a>
+              </li>
             </ul>
             <hr>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2016" class="nav-link" data-toggle="collapse">
-                <span data-feather="archive"></span>
-                2016-17 Syllabus 
-              </a>
-            </h8>
-            <ul class="nav flex-column mb-2 collapse" id="collapse2016">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="august2016">
-                  <span data-feather="file-text"></span>
-                  August
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="september2016">
-                  <span data-feather="file-text"></span>
-                  September
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2016">
-                  <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2016">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2016">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2016">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2016">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2016">
-                  <span data-feather="file-text"></span>
-                  April
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="may2016">
-                  <span data-feather="file-text"></span>
-                  May
-                </a>
-              </li>
-            </ul>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2017" class="nav-link" data-toggle="collapse">
+              <a href="#collapse2017" class="nav-link" data-toggle="collapse" aria-expanded="true">
                 <span data-feather="archive"></span>
                 2017-18 Syllabus 
               </a>
             </h8>
-            <ul class="nav flex-column mb-2 collapse" id="collapse2017">
+            <ul class="nav flex-column mb-2 collapse show" id="collapse2017">
               <li class="nav-item">
-                <a class="nav-link" href="#" id="october2017">
+                <a class="nav-link active" href="#" id="june2017">
                   <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2017">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="december2017">
-                  <span data-feather="file-text"></span>
-                  December
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2017">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2017">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2017">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2017">
-                  <span data-feather="file-text"></span>
-                  April
+                  June
                 </a>
               </li>
               <li class="nav-item">
@@ -165,9 +74,107 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" id="june2017">
+                <a class="nav-link" href="#" id="april2017">
                   <span data-feather="file-text"></span>
-                  June
+                  April
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="march2017">
+                  <span data-feather="file-text"></span>
+                  March
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="february2017">
+                  <span data-feather="file-text"></span>
+                  February
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="january2017">
+                  <span data-feather="file-text"></span>
+                  January
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="december2017">
+                  <span data-feather="file-text"></span>
+                  December
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="november2017">
+                  <span data-feather="file-text"></span>
+                  November
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="october2017">
+                  <span data-feather="file-text"></span>
+                  October
+                </a>
+              </li>    
+            </ul>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#collapse2016" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                2016-17 Syllabus 
+              </a>
+            </h8>
+            <ul class="nav flex-column mb-2 collapse" id="collapse2016">
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="may2016">
+                  <span data-feather="file-text"></span>
+                  May
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="april2016">
+                  <span data-feather="file-text"></span>
+                  April
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="march2016">
+                  <span data-feather="file-text"></span>
+                  March
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="february2016">
+                  <span data-feather="file-text"></span>
+                  February
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="january2016">
+                  <span data-feather="file-text"></span>
+                  January
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="november2016">
+                  <span data-feather="file-text"></span>
+                  November
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="october2016">
+                  <span data-feather="file-text"></span>
+                  October
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="september2016">
+                  <span data-feather="file-text"></span>
+                  September
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="august2016">
+                  <span data-feather="file-text"></span>
+                  August
                 </a>
               </li>
             </ul>
@@ -176,7 +183,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h3 class="h5" id="graphLabel" style="color: #999;">Messages per User</h3>
+            <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
             <div class="btn-toolbar mb-2 mb-md-0">
               <!--<div class="btn-group mr-2">
                 <button class="btn btn-sm btn-outline-secondary">Share</button>
