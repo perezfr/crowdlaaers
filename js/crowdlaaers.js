@@ -125,6 +125,7 @@ $( document ).ready(function() {
     data.addColumn({type: 'string', id: 'NodeMsg', label: 'Anchor'});
     data.addColumn({type: 'string', id: 'textComplete', role: 'annotationText'});
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
+    data.addColumn({type: 'string', id: 'link', label: 'Link'});
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
 
@@ -179,7 +180,7 @@ $( document ).ready(function() {
       var tags = s['tags'].join().toLowerCase();
       data.addRows([
         //[new Date(year, month, dateDay, hour, mins, second), username, textSummary, textTotal ]
-        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags ]
+        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link ]
       ]);
     }
     for (var i = 0; i < tagArray.length; i++) {
@@ -200,7 +201,7 @@ $( document ).ready(function() {
       vAxis: { format: '#' }
     };
     var view = new google.visualization.DataView(data);
-    view.hideColumns([3,4]);
+    view.hideColumns([3,4,6]);
 
     //*TODO count unique first value IDs in the reference field as a number for threads
     var messagesPerUser = google.visualization.data.group(
@@ -239,7 +240,7 @@ $( document ).ready(function() {
       //alert(data.getValue(row, 4));
       $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
       $('#annotationModalBody').text(data.getValue(row, 4));
-      //add in context link
+      $('#inContextButton').attr("href", data.getValue(row, 6));
       $('#annotationModal').modal('show');
     });
 
