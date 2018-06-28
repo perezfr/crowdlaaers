@@ -120,6 +120,7 @@ $( document ).ready(function() {
   };
 
   function drawTable(response) {
+    $('[data-toggle="tooltip"]').tooltip();
     var data = new google.visualization.DataTable();
     var tagData = new google.visualization.DataTable();
     //Table columns
