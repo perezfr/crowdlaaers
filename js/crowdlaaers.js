@@ -119,6 +119,7 @@ $( document ).ready(function() {
   function drawTable(response) {
     var data = new google.visualization.DataTable();
     var tagData = new google.visualization.DataTable();
+    //Table columns
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
     data.addColumn({type: 'string', id: 'user', label: 'Contributor'});
     data.addColumn({type: 'string', id: 'textSummary', label: 'Annotation'});
@@ -126,6 +127,7 @@ $( document ).ready(function() {
     data.addColumn({type: 'string', id: 'textComplete', role: 'annotationText'});
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
     data.addColumn({type: 'string', id: 'link', label: 'Link'});
+    //Tag chart columns
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
 
@@ -135,15 +137,17 @@ $( document ).ready(function() {
     var tagCounts = {};
 
     for (ss of rows){
+      //create array of annotations with replies as root for threads
       if (ss['references']){
         if (!threads.includes(ss['references'][0])){
           threads.push(ss['references'][0]);
         }
       }
       
+      //create array of tags to build tag column graph
       if (ss['tags'].length > 0){
-        ss['tags'].forEach(function (fruit) {
-          tagArray.push(fruit.toLowerCase());
+        ss['tags'].forEach(function (t) {
+          tagArray.push(t.toLowerCase());
         });
       }
     }
@@ -161,6 +165,7 @@ $( document ).ready(function() {
         nodeMsg = s['references'][0];
       }
 
+      //Creates a annotation clip to display in table
       if (s['text'].length > 50){
         var textSummary = s['text'].slice(0, 50) + "...";
       } else {
@@ -178,14 +183,16 @@ $( document ).ready(function() {
       var textTotal = s['text'];
       var link = s['links']['incontext'];
       var tags = s['tags'].join().toLowerCase();
+      //Add the table graph rows
       data.addRows([
-        //[new Date(year, month, dateDay, hour, mins, second), username, textSummary, textTotal ]
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link ]
       ]);
     }
+    //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
       tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
     }
+    //Build the rows for the tag table/graph
     for (var t in tagCounts) {
       tagData.addRows([
         [ t, tagCounts[t] ]
@@ -194,6 +201,10 @@ $( document ).ready(function() {
     tagData.sort({column: 1, desc: true});
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
+    /*
+    ** use the chartwrapper here **
+    **
+    */
     var bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
     var calendar = new google.visualization.Calendar(document.getElementById('graph'));
     var opts = {
@@ -203,17 +214,16 @@ $( document ).ready(function() {
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
 
-    //*TODO count unique first value IDs in the reference field as a number for threads
     var messagesPerUser = google.visualization.data.group(
       data,
-      [1], //Change to 1 to get msgs/user; 0 to get per day
+      [1], //aggregate annotations by users
       [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number'}]
     );
     messagesPerUser.sort({column: 1, desc: true});
 
     var messagesPerThread = google.visualization.data.group(
       data,
-      [3], //Change to 1 to get msgs/user; 0 to get per day
+      [3], //aggregate annotations by thread
       [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number'}]
     );
     messagesPerThread.sort({column: 1, desc: true});
@@ -221,7 +231,7 @@ $( document ).ready(function() {
 
     var messagesPerDay = google.visualization.data.group(
       data,
-      [0], //Change to 1 to get msgs/user; 0 to get per day
+      [0], //aggregate annotations by day
       [{'column': 0, 'aggregation': google.visualization.data.count, 'type': 'number'}]
     );
     messagesPerDay.sort({column: 1, desc: true});
@@ -230,14 +240,16 @@ $( document ).ready(function() {
     bar_graph.draw(messagesPerUser, opts);
     table.draw(view, opts);
 
+    //Left nav pill notifications counter 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
 
-    google.visualization.events.addListener(table, 'select', function() {
+    //create event handler object.
+    //to be removed when table is filtered. Then create new event handler object 
+    var event = google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
-      //alert(data.getValue(row, 4));
       $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
       $('#annotationModalBody').text(data.getValue(row, 4));
       $('#inContextButton').attr("href", data.getValue(row, 6));
@@ -245,22 +257,27 @@ $( document ).ready(function() {
     });
 
     google.visualization.events.addListener(bar_graph, 'select', function() {
+      google.visualization.events.removeListener(event);
       view = new google.visualization.DataView(data);
-      view.hideColumns([4]);
+      view.hideColumns([3,4,6]);
       var row = bar_graph.getSelection()[0].row;
       var name = messagesPerUser.getValue(row, 0);
       var r = view.getFilteredRows([{column: 1, value: name}]);
       view.setRows(r);
+      table.clearChart();
       table.draw(view, opts);
 
-      //
-      google.visualization.events.addListener(table, 'select', function() {
-        var row = table.getSelection()[0].row;
-        alert(view.getValue(row, 4));
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
       });
     });
 
     $( "#calendarClick" ).click(function() {
+      //make graph div taller to fit three years
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
@@ -268,6 +285,8 @@ $( document ).ready(function() {
       $( "#graphLabel" ).text("Annotations per Day");
       calendar = new google.visualization.Calendar(document.getElementById('graph'));
       calendar.draw(messagesPerDay, opts);
+
+      //TODO Filter by day
     });
     $( "#contributorsClick" ).click(function() {
       $( "#calendarClick" ).attr("class", "nav-link");
@@ -279,18 +298,21 @@ $( document ).ready(function() {
       bar_graph.draw(messagesPerUser, opts);
 
       google.visualization.events.addListener(bar_graph, 'select', function() {
+        google.visualization.events.removeListener(event);
         view = new google.visualization.DataView(data);
-        view.hideColumns([4]);
         var row = bar_graph.getSelection()[0].row;
         var name = messagesPerUser.getValue(row, 0);
         var r = view.getFilteredRows([{column: 1, value: name}]);
+        view.hideColumns([3,4,6]);
         view.setRows(r);
         table.draw(view, opts);
 
-        //
-        google.visualization.events.addListener(table, 'select', function() {
-          var row = table.getSelection()[0].row;
-          alert(view.getValue(row, 4));
+        var event = google.visualization.events.addListener(table, 'select', function() {
+          var row = view.getTableRowIndex(table.getSelection()[0].row);
+          $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+          $('#annotationModalBody').text(data.getValue(row, 4));
+          $('#inContextButton').attr("href", data.getValue(row, 6));
+          $('#annotationModal').modal('show');
         });
       });
     });
@@ -305,14 +327,20 @@ $( document ).ready(function() {
 
       google.visualization.events.addListener(bar_graph, 'select', function() {
         view = new google.visualization.DataView(data);
-        view.hideColumns([4]);
         var row = bar_graph.getSelection()[0].row;
         var name = messagesPerThread.getValue(row, 0);
-        console.log(name);
         var r = view.getFilteredRows([{column: 3, value: name}]);
-        view.hideColumns([3]);
+        view.hideColumns([3,4,6]);
         view.setRows(r);
         table.draw(view, opts);
+
+        var event = google.visualization.events.addListener(table, 'select', function() {
+          var row = view.getTableRowIndex(table.getSelection()[0].row);
+          $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+          $('#annotationModalBody').text(data.getValue(row, 4));
+          $('#inContextButton').attr("href", data.getValue(row, 6));
+          $('#annotationModal').modal('show');
+        });
       });
     });
     $( "#tagsClick" ).click(function() {
@@ -324,6 +352,7 @@ $( document ).ready(function() {
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
       bar_graph.draw(tagData, opts);
 
+      /* TODO: Filter by contains instead of equals
       google.visualization.events.addListener(bar_graph, 'select', function() {
         view = new google.visualization.DataView(data);
         view.hideColumns([3,4]);
@@ -339,13 +368,15 @@ $( document ).ready(function() {
         //view.setRows(r);
         //table.draw(view, opts);
       });
+      */
     });
 
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
-      view.hideColumns([4]);
+      view.hideColumns([3,4,6]);
       table.draw(view, opts);
     });
+
     $( "#august2016" ).click(function() {
       inactivate();
       $( "#august2016" ).attr("class", "nav-link active");
