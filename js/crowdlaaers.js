@@ -56,7 +56,7 @@ $( document ).ready(function() {
       summary:"Starting in January 2018, Marginal Syllabus text-participants read and discussed “Night Teaching,” the second chapter from Our Declaration: A Reading of the Declaration of Independence in Defense of Equality by Danielle Allen. Daniell’s chapter, part of the Writing Our Civic Futures syllabus, recalls her experiences teaching the Declaration of Independence to night students at the University of Chicago, and includes incisive reflections about political equality, freedom, and the power of language."
     },
     february2017:{
-      url:"https://educatorinnovator.org/wp-content/uploads/2018/02/Educating-for-Democracy-in-a-Partisan-Age.pdf",
+      url:"https://educatorinnovator.org/wp-content/uploads/2018/02/Educating-for-Democracy-in-a-Partisan-Age.pdf.pdf",
       summary:"Starting in February 2018, Marginal Syllabus text-participants read and discussed “Educating for Democracy in a Partisan Age: Confronting the Challenges of Motivated Reasoning and Misinformation,” an article in American Educational Research Journal by Joseph Kahne and Benjamin Bowyer. Joseph and Benjamin’s article, part of the Writing Our Civic Futures syllabus, presents a study that Investigated youth judgments of the accuracy of truth claims tied to controversial public issues. The authors found that youth’s political knowledge did not improve judgments of accuracy but that media literacy education did."
     },
     march2017:{
@@ -64,7 +64,7 @@ $( document ).ready(function() {
       summary:"Starting in March 2018, Marginal Syllabus text-participants read and discussed “The Stories They Tell: Mainstream Media, Pedagogies of Healing, and Critical Media Literacy,” an article in English Education by April Baker-Bell, Raven Jones Stanbrough, and Sakeena Everett. April, Raven, and Sakeena’s article, part of the Writing Our Civic Futures syllabus, discusses how pedagogies of healing and critical media literacy are necessary in the wake of racial violence when mainstream media stigmatize, characterize, and marginalize Black youth. The article includes sample lesson plans and a discussion of how English educators have a responsibility to raise awareness about racial injustice."
     },
     april2017:{
-      url:"https://educatorinnovator.org/wp-content/uploads/2018/03/Educating-Youth-for-Online-Civic-and-Political-Dialogue_-A-Conceptual-Framework-for-the-Digital-Age-_-Journal-of-Digital-and-Media-Literacy.pd",
+      url:"https://educatorinnovator.org/wp-content/uploads/2018/03/Educating-Youth-for-Online-Civic-and-Political-Dialogue_-A-Conceptual-Framework-for-the-Digital-Age-_-Journal-of-Digital-and-Media-Literacy.pdf",
       summary:"Starting in April 2018, Marginal Syllabus text-participants read and discussed “Educating Youth for Online Civic and Political Dialogue: A Conceptual Framework for the Digital Age,” an article in the Journal of Digital and Media Literacy by Erica Hodgin. Erica’s article, part of the Writing Our Civic Futures syllabus, reports upon four high school teachers’ work on a participatory academic platform and details five stages of opportunity that built young people’s capacity for civic voice and influence."
     },
     may2017:{
@@ -127,6 +127,7 @@ $( document ).ready(function() {
     data.addColumn({type: 'string', id: 'textComplete', role: 'annotationText'});
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
     data.addColumn({type: 'string', id: 'link', label: 'Link'});
+    data.addColumn({type: 'number', id: 'level', label: 'Level'});
     //Tag chart columns
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
@@ -135,6 +136,7 @@ $( document ).ready(function() {
     var threads = [];
     var tagArray = [];
     var tagCounts = {};
+    var level = 0;
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -158,11 +160,13 @@ $( document ).ready(function() {
         //if message is anchor annotation in the thread sets anchor ID it to
         //message ID 
         nodeMsg = s['id'];
+        level = 0;
       }
 
       if (s['references']){
         //Sets anchor ID to the first anchor annotation
         nodeMsg = s['references'][0];
+        level = s['references'].length;
       }
 
       //Creates a annotation clip to display in table
@@ -185,7 +189,7 @@ $( document ).ready(function() {
       var tags = s['tags'].join().toLowerCase();
       //Add the table graph rows
       data.addRows([
-        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link ]
+        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
       ]);
     }
     //Count instances of unique tags
@@ -217,14 +221,16 @@ $( document ).ready(function() {
     var messagesPerUser = google.visualization.data.group(
       data,
       [1], //aggregate annotations by users
-      [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number'}]
+      [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number',
+      'label': 'Contributions'}]
     );
     messagesPerUser.sort({column: 1, desc: true});
 
     var messagesPerThread = google.visualization.data.group(
       data,
       [3], //aggregate annotations by thread
-      [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number'}]
+      [{'column': 1, 'aggregation': google.visualization.data.count, 'type': 'number',
+      'label': 'Annotations'}]
     );
     messagesPerThread.sort({column: 1, desc: true});
     messagesPerThread.removeRow(0);
@@ -232,7 +238,8 @@ $( document ).ready(function() {
     var messagesPerDay = google.visualization.data.group(
       data,
       [0], //aggregate annotations by day
-      [{'column': 0, 'aggregation': google.visualization.data.count, 'type': 'number'}]
+      [{'column': 0, 'aggregation': google.visualization.data.count, 'type': 'number',
+      'label': 'Annotations'}]
     );
     messagesPerDay.sort({column: 1, desc: true});
     messagesPerDay.removeRow(0);
