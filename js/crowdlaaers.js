@@ -138,6 +138,7 @@ $( document ).ready(function() {
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
 
     var rows = response['rows'];
+    var total = response['total'];
     var threads = [];
     var tagArray = [];
     var tagCounts = {};
@@ -197,6 +198,7 @@ $( document ).ready(function() {
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
       ]);
     }
+
     //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
       tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
@@ -257,7 +259,7 @@ $( document ).ready(function() {
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
-    $( "#annotationCounter" ).text(data.getNumberOfRows());
+    $( "#annotationCounter" ).text(total);
 
     //create event handler object.
     //to be removed when table is filtered. Then create new event handler object 
@@ -268,6 +270,16 @@ $( document ).ready(function() {
       $('#inContextButton').attr("href", data.getValue(row, 6));
       $('#annotationModal').modal('show');
     });
+
+    //Adjust Calander Graph div height based on number of years with annotations
+    var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
+    if ( activeYears == 2 ){
+      graphDivHeight = "455px";
+    } else if ( activeYears == 1 ){
+      graphDivHeight = "350px";
+    } else {
+      graphDivHeight = "250px";
+    }
 
     google.visualization.events.addListener(bar_graph, 'select', function() {
       google.visualization.events.removeListener(event);
@@ -291,7 +303,7 @@ $( document ).ready(function() {
 
     $( "#calendarClick" ).click(function() {
       //make graph div taller to fit three years
-      $( "#graph" ).css("height","455px");
+      $( "#graph" ).css("height",graphDivHeight);
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
