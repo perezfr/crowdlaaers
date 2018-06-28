@@ -95,6 +95,7 @@ $( document ).ready(function() {
     $( "#contributorsClick" ).attr("class", "nav-link active");
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
+    $( "#tagsClick" ).attr("class", "nav-link");
     $( "#august2016" ).attr("class", "nav-link");
     $( "#september2016" ).attr("class", "nav-link");
     $( "#october2016" ).attr("class", "nav-link");
@@ -114,6 +115,8 @@ $( document ).ready(function() {
     $( "#may2017" ).attr("class", "nav-link");
     $( "#june2017" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
+    $( "#graph" ).css("height","300px");
+    $( "#graph" ).html('<h3>Loading...</h3>');
   };
 
   function drawTable(response) {
@@ -285,6 +288,7 @@ $( document ).ready(function() {
 
     $( "#calendarClick" ).click(function() {
       //make graph div taller to fit three years
+      $( "#graph" ).css("height","500px");
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
@@ -296,6 +300,7 @@ $( document ).ready(function() {
       //TODO Filter by day
     });
     $( "#contributorsClick" ).click(function() {
+      $( "#graph" ).css("height","300px");
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link active");
       $( "#threadsClick" ).attr("class", "nav-link");
@@ -324,6 +329,7 @@ $( document ).ready(function() {
       });
     });
     $( "#threadsClick" ).click(function() {
+      $( "#graph" ).css("height","300px");
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link active");
@@ -351,6 +357,7 @@ $( document ).ready(function() {
       });
     });
     $( "#tagsClick" ).click(function() {
+      $( "#graph" ).css("height","300px");
       $( "#calendarClick" ).attr("class", "nav-link");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
