@@ -117,6 +117,7 @@ $( document ).ready(function() {
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
+    $( "#annotationCounter" ).text("*");
   };
 
   function drawTable(response) {
@@ -256,6 +257,7 @@ $( document ).ready(function() {
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
+    $( "#annotationCounter" ).text(data.getNumberOfRows());
 
     //create event handler object.
     //to be removed when table is filtered. Then create new event handler object 
@@ -289,7 +291,7 @@ $( document ).ready(function() {
 
     $( "#calendarClick" ).click(function() {
       //make graph div taller to fit three years
-      $( "#graph" ).css("height","500px");
+      $( "#graph" ).css("height","455px");
       $( "#calendarClick" ).attr("class", "nav-link active");
       $( "#contributorsClick" ).attr("class", "nav-link");
       $( "#threadsClick" ).attr("class", "nav-link");
@@ -298,7 +300,7 @@ $( document ).ready(function() {
       calendar = new google.visualization.Calendar(document.getElementById('graph'));
       calendar.draw(messagesPerDay, opts);
 
-      //TODO Filter by day
+    //TODO Filter by day
     });
     $( "#contributorsClick" ).click(function() {
       $( "#graph" ).css("height","300px");
