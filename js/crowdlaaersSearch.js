@@ -174,7 +174,6 @@ $( document ).ready(function() {
 
     //Adjust Calander Graph div height based on number of years with annotations
     var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
-    console.log(activeYears);
     if ( activeYears == 4 ){
       graphDivHeight = "750px";
     } else if ( activeYears == 3 ){
