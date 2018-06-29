@@ -72,7 +72,7 @@ $( document ).ready(function() {
       summary:"Starting in May 2018, Marginal Syllabus text-participants read and discussed the introduction of From Inquiry to Action: Civic Engagement with Project-Based Learning in All Content Areas by Steven Zemelman. Steve’s chapter, part of the Writing Our Civic Futures syllabus, provides practice-based examples and strategies to engage students in social action projects with a focus on amplifying student choice, strengthening engagement, and addressing injustices in the community."
     },
     june2017:{
-      url:"http://marginalsyllab.us/wp-content/uploads/2016/08/PWFlow-Intro.pdf",
+      url:"http://www.ncte.org/library/NCTEFiles/Resources/Journals/VM/0254-may2018/VM0254Leading.pdf",
       summary:"Starting in June 2018, Marginal Syllabus text-participants read and discussed “The Next Decade of Digital Writing,” an article in Voices from the Middle by Troy Hicks. Troy’s article, an interest-driven addition to the Writing Our Civic Futures syllabus, argues that educators need to provide intellectual and emotional space for students to explore new ideas, gather their own evidence, and present academic arguments through media other than just the printed word."
     }
   }
