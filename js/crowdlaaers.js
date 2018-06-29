@@ -40,7 +40,7 @@ $( document ).ready(function() {
       summary:"Starting in May 2017, and in collaboration with Educator Innovator, Marginal Syllabus text-participants read and discussed “Revising Narrative Truth,” a chapter from Personal Narrative, Revised by Bronwyn Clare LaMay. Bronwyn’s chapter shares a challenging and inspiring story about how to develop inclusive classroom communities that nurture student risk-taking, expression, and learning."
     },
     october2017:{
-      url:"https://educatorinnovator.org/wp-content/uploads/2017/10/Critical-Literacy-And-Our-Students-Lives.pdf",
+      url:"http://educatorinnovator.org/how-young-activists-deploy-digital-tools-for-social-change",
       summary:"Starting in October 2017, Marginal Syllabus text-participants read and discussed “How Young Activists Deploy Digital Tools for Social Change,” a blog post for DML Central by Henry Jenkins. Henry’s post, part of the Writing Our Civic Futures syllabus, discusses how youth from different cultural contexts participate in digital politics and contribute to social movements."
     },
     november2017:{
