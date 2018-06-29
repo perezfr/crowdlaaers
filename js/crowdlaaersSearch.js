@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-
   google.charts.load('current', {'packages':['table','corechart','calendar']});
   var response;
 
@@ -313,6 +312,14 @@ $( document ).ready(function() {
       table.draw(view, opts);
     });
   };
+  var startURL = new URL(window.location.href);
+  if (startURL.searchParams.get("url")){
+    $( "#graph" ).html('<h3>Loading...</h3>');
+    var u = startURL.searchParams.get("url");
+    xhttp.open("GET", "https://hypothes.is/api/search?url=" + u + "&limit=200", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  } 
 
   $( "#urlSearch" ).click(function() {
     inactivate();
