@@ -16,24 +16,6 @@ $( document ).ready(function() {
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
     $( "#tagsClick" ).attr("class", "nav-link");
-    $( "#august2016" ).attr("class", "nav-link");
-    $( "#september2016" ).attr("class", "nav-link");
-    $( "#october2016" ).attr("class", "nav-link");
-    $( "#november2016" ).attr("class", "nav-link");
-    $( "#january2016" ).attr("class", "nav-link");
-    $( "#february2016" ).attr("class", "nav-link");
-    $( "#march2016" ).attr("class", "nav-link");
-    $( "#april2016" ).attr("class", "nav-link");
-    $( "#may2016" ).attr("class", "nav-link");
-    $( "#october2017" ).attr("class", "nav-link");
-    $( "#november2017" ).attr("class", "nav-link");
-    $( "#december2017" ).attr("class", "nav-link");
-    $( "#january2017" ).attr("class", "nav-link");
-    $( "#february2017" ).attr("class", "nav-link");
-    $( "#march2017" ).attr("class", "nav-link");
-    $( "#april2017" ).attr("class", "nav-link");
-    $( "#may2017" ).attr("class", "nav-link");
-    $( "#june2017" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
@@ -193,7 +175,12 @@ $( document ).ready(function() {
 
     //Adjust Calander Graph div height based on number of years with annotations
     var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
-    if ( activeYears == 2 ){
+    console.log(activeYears);
+    if ( activeYears == 4 ){
+      graphDivHeight = "750px";
+    } else if ( activeYears == 3 ){
+      graphDivHeight = "600px";
+    } else if ( activeYears == 2 ){
       graphDivHeight = "455px";
     } else if ( activeYears == 1 ){
       graphDivHeight = "350px";
