@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121574943-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-121574943-1');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>CROWDLAAERS</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="js/crowdlaaersSearch.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top bg-secondary flex-md-nowrap p-0 shadow">
+      <span class="navbar-brand col-sm-3 col-md-2 mr-0 bg-dark" href="#">CROWDLAAERS</span>
+      <input class="form-control form-control-light w-100" type="text" placeholder="URL" aria-label="Search" id="urlBar">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" id="urlSearch">Search</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#" id="contributorsClick">
+                  <span data-feather="bar-chart-2"></span>
+                  Participants <span id="participantCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Participants"></span>
+                </a> 
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="calendarClick">
+                  <span data-feather="calendar"></span> 
+                  Calendar <span id="calendarCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Days"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="threadsClick">
+                  <span data-feather="share-2"></span>
+                  Threads <span id="threadCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Threads"></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="tagsClick">
+                  <span data-feather="tag"></span>
+                  Tags <span id="tagCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Unique Tags"></span>
+                </a>
+              </li>
+            </ul>
+            <hr>
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <!--<div class="btn-group mr-2">
+                  <button class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button class="btn btn-sm btn-outline-secondary">Export</button>
+                </div>-->
+                <button class="btn btn-secondary float-right" disabled>
+                  Annotations <span class="badge badge-light" id="annotationCounter">*</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="graph"></div>
+          <!--
+          <h2>Section title</h2>-->
+          <br>
+          <div id="table_div"></div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <!--<div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>-->
+              <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                <span data-feather="refresh-ccw"></span>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="annotationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="annotationModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="annotationModalBody" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+  </body>
+</html>
