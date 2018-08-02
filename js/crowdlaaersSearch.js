@@ -315,6 +315,7 @@ $( document ).ready(function() {
   if (startURL.searchParams.get("url")){
     $( "#graph" ).html('<h3>Loading...</h3>');
     var u = startURL.searchParams.get("url");
+    $('#urlBar').val(u);  //add url param to search bar for sharing 
     xhttp.open("GET", "https://hypothes.is/api/search?url=" + u + "&limit=200", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
@@ -326,5 +327,15 @@ $( document ).ready(function() {
     xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
+  });
+
+  //Share button adds the url from the search bar as a parameter to the 
+  //crowdlaaers search url.
+  $( "#urlShare" ).click(function() {
+    var baseURL = "127.0.0.1:8000/search.html?url=";
+    var searchURL = $('#urlBar').val();
+    baseURL.concat(searchURL);
+    $('#shareURLModalBody').text(baseURL + searchURL);
+    $('#shareURLModal').modal('show');
   });
 });
