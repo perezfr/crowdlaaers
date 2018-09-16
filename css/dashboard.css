@@ -23,7 +23,7 @@ body {
 }
 
 #graph {
-  height: 360px;
+  height: 300px;
 }
 
 .sidebar-sticky {
@@ -119,6 +119,3 @@ body {
   color: inherit;
 }
 
-/*
- * Hoverover
- */
