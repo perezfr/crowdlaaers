@@ -83,11 +83,13 @@ $( document ).ready(function() {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       response = JSON.parse(this.responseText);
+      console.log(response);
       drawTable(response);
     }
   };
 
   xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['june2017']['url'] + "&limit=200", true);
+  //xhttp.open("GET", "data/response.json");//, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send();
 
@@ -124,6 +126,7 @@ $( document ).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     var data = new google.visualization.DataTable();
     var tagData = new google.visualization.DataTable();
+    var messageTypeData = new google.visualization.DataTable();
     //Table columns
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
     data.addColumn({type: 'string', id: 'user', label: 'Contributor'});
@@ -136,12 +139,19 @@ $( document ).ready(function() {
     //Tag chart columns
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
+    //message type columns
+    messageTypeData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
+    messageTypeData.addColumn({type: 'number', id: 'total', label: 'Total'});
+    messageTypeData.addColumn({type: 'number', id: 'annotations', label: 'Annotations'});
+    messageTypeData.addColumn({type: 'number', id: 'replies', label: 'Replies'});
+
 
     var rows = response['rows'];
     var total = response['total'];
     var threads = [];
     var tagArray = [];
     var tagCounts = {};
+    var messageTypeCount = {};
     var level = 0;
 
     for (ss of rows){
@@ -197,8 +207,26 @@ $( document ).ready(function() {
       data.addRows([
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
       ]);
+      
+      //count annotations, replies and total messages per user
+      if (!messageTypeCount[username]){
+        messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
+        ++messageTypeCount[username]['totalMessages'];
+        if (level == 0) {
+          ++messageTypeCount[username]['annotations'];
+        } else {
+          ++messageTypeCount[username]['replies'];
+        }
+      } else {
+        ++messageTypeCount[username]['totalMessages'];
+        if (level == 0) {
+          ++messageTypeCount[username]['annotations'];
+        } else {
+          ++messageTypeCount[username]['replies'];
+        }
+      }
     }
-
+    //console.log(messageTypeCount);
     //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
       tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
@@ -211,6 +239,13 @@ $( document ).ready(function() {
     }
     tagData.sort({column: 1, desc: true});
 
+    //Build the message type graph
+    for (var m in messageTypeCount) {
+      messageTypeData.addRows([
+        [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies']]
+      ]);
+    }
+
     var table = new google.visualization.Table(document.getElementById('table_div'));
     /*
     ** use the chartwrapper here **
@@ -220,7 +255,7 @@ $( document ).ready(function() {
     var calendar = new google.visualization.Calendar(document.getElementById('graph'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' },
-      vAxis: { format: '#' }
+      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e']
     };
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
@@ -251,7 +286,11 @@ $( document ).ready(function() {
     messagesPerDay.sort({column: 1, desc: true});
     messagesPerDay.removeRow(0);
 
-    bar_graph.draw(messagesPerUser, opts);
+    //bar_graph.draw(messagesPerUser, opts);
+    messageTypeData.sort({column: 1, desc: true});
+    viewD = new google.visualization.DataView(messageTypeData);
+    viewD.hideColumns([1]);
+    bar_graph.draw(viewD, opts);
     table.draw(view, opts);
 
     //Left nav pill notifications counter 
@@ -322,7 +361,7 @@ $( document ).ready(function() {
       $( "#tagsClick" ).attr("class", "nav-link");
       $( "#graphLabel" ).text("Annotations per Contributor");
       bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
-      bar_graph.draw(messagesPerUser, opts);
+      bar_graph.draw(viewD, opts);
 
       google.visualization.events.addListener(bar_graph, 'select', function() {
         google.visualization.events.removeListener(event);
