@@ -368,7 +368,7 @@ $( document ).ready(function() {
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
   $( "#urlShare" ).click(function() {
-    var baseURL = "127.0.0.1:8000/search.html?url=";
+    var baseURL = "crowdlaaers.org/search.html?url=";
     var searchURL = $('#urlBar').val();
     baseURL.concat(searchURL);
     $('#shareURLModalBody').text(baseURL + searchURL);
