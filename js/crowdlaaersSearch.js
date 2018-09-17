@@ -227,7 +227,7 @@ $( document ).ready(function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([3,4,6]);
       var row = bar_graph.getSelection()[0].row;
-      var name = messagesPerUser.getValue(row, 0);
+      var name = viewD.getValue(row, 0);
       var r = view.getFilteredRows([{column: 1, value: name}]);
       view.setRows(r);
       table.clearChart();
@@ -269,7 +269,7 @@ $( document ).ready(function() {
         google.visualization.events.removeListener(event);
         view = new google.visualization.DataView(data);
         var row = bar_graph.getSelection()[0].row;
-        var name = messagesPerUser.getValue(row, 0);
+        var name = viewD.getValue(row, 0);
         var r = view.getFilteredRows([{column: 1, value: name}]);
         view.hideColumns([3,4,6]);
         view.setRows(r);
