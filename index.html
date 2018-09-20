@@ -19,12 +19,21 @@
     <title>CROWDLAAERS</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
-    <script type="text/javascript" src="js/crowdlaaers.js"></script>
+    <script type="text/javascript" src="js/crowdlaaersSearch.js"></script>
   </head>
 
   <body>
+    <!--<nav class="navbar navbar-dark fixed-top bg-secondary flex-md-nowrap p-0 shadow">
+      <span class="navbar-brand col-sm-3 col-md-2 mr-0 bg-dark" href="#">CROWDLAAERS</span>
+      <input class="form-control form-control-light w-100" type="text" placeholder="URL" aria-label="Search" id="urlBar">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#" id="urlSearch">Search</a>
+        </li>
+      </ul>
+    </nav>-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
-      <a class="navbar-brand  col-lg-2 col-md-2" href="#">CROWDLAAERS</a>
+      <a class="navbar-brand col-lg-2 col-md-2" href="#">CROWDLAAERS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -49,8 +58,8 @@
           </li>
         </ul>
         <form class="form-inline col-lg-6">
-          <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="URL" aria-label="Search" id="urlBar">
+          <a class="btn btn-primary my-2 my-sm-0 text-light" id="urlSearch">Search</a>
         </form>
       </div>
     </nav>
@@ -83,136 +92,22 @@
                   Tags <span id="tagCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Unique Tags"></span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="urlShare">
+                  <span data-feather="share"></span>
+                  Share <span id="tagCounter" class="badge badge-pill badge-secondary"></span>
+                </a>
+              </li>
             </ul>
             <hr>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2017" class="nav-link" data-toggle="collapse" aria-expanded="true">
-                <span data-feather="archive"></span>
-                2017-18 Syllabus 
-              </a>
-            </h8>
-            <ul class="nav flex-column mb-2 collapse show" id="collapse2017">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="june2017">
-                  <span data-feather="file-text"></span>
-                  June
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="may2017">
-                  <span data-feather="file-text"></span>
-                  May
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2017">
-                  <span data-feather="file-text"></span>
-                  April
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2017">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2017">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2017">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="december2017">
-                  <span data-feather="file-text"></span>
-                  December
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2017">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2017">
-                  <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>    
-            </ul>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2016" class="nav-link" data-toggle="collapse">
-                <span data-feather="archive"></span>
-                2016-17 Syllabus 
-              </a>
-            </h8>
-            <ul class="nav flex-column mb-2 collapse" id="collapse2016">
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="may2016">
-                  <span data-feather="file-text"></span>
-                  May
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2016">
-                  <span data-feather="file-text"></span>
-                  April
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2016">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2016">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2016">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2016">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2016">
-                  <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="september2016">
-                  <span data-feather="file-text"></span>
-                  September
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="august2016">
-                  <span data-feather="file-text"></span>
-                  August
-                </a>
-              </li>
-            </ul>
           </div>
         </nav>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="h7"><br>Use CROWDLAAERS <b>Search</b> to explore any <b>URL</b> featuring public Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document.<br><br>
+
+          <b>Or</b> explore CROWDLAAERS as applied to a curated set of online texts, providing insight into 18 equity-oriented conversations, associated with the Marginal Syllabus and other projects.<br><br>
+
+          </div>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
@@ -230,12 +125,6 @@
           <div id="graph"></div>
           <!--
           <h2>Section title</h2>-->
-          <br>
-          <div id="conversation_summary">
-            <a href="https://hypothes.is/api/search?url=http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy" id="document_link">
-            <span data-feather="file-text"></span>
-          </a> 
-          </div>
           <br>
           <div id="table_div"></div>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
@@ -267,6 +156,19 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="shareURLModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Copy this URL:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="shareURLModalBody" class="modal-body"></div>
         </div>
       </div>
     </div>
