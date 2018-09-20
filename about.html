@@ -33,17 +33,17 @@
       </ul>
     </nav>-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
-      <a class="navbar-brand col-lg-2 col-md-2" href="#">CROWDLAAERS</a>
+      <a class="navbar-brand  col-lg-2 col-md-2" href="#">CROWDLAAERS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item dropdown">
@@ -59,7 +59,7 @@
         </ul>
         <form class="form-inline col-lg-6">
           <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="URL" aria-label="Search" id="urlBar">
-          <a class="btn btn-primary my-2 my-sm-0 text-light" id="urlSearch">Search</a>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="urlSearch">Search</button>
         </form>
       </div>
     </nav>
@@ -68,25 +68,25 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="contributorsClick">
+              <li class="nav-item disabled">
+                <a class="nav-link" href="#" id="contributorsClick">
                   <span data-feather="bar-chart-2"></span>
                   Participants <span id="participantCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Participants"></span>
                 </a> 
               </li>
-              <li class="nav-item">
+              <li class="nav-item disabled">
                 <a class="nav-link" href="#" id="calendarClick">
                   <span data-feather="calendar"></span> 
                   Calendar <span id="calendarCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Days"></span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item disabled">
                 <a class="nav-link" href="#" id="threadsClick">
                   <span data-feather="share-2"></span>
                   Threads <span id="threadCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Threads"></span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item disabled">
                 <a class="nav-link" href="#" id="tagsClick">
                   <span data-feather="tag"></span>
                   Tags <span id="tagCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Unique Tags"></span>
@@ -103,16 +103,25 @@
           </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="h7"><br>Use CROWDLAAERS <b>Search</b> to explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="http://test.crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.<br><br>
+          <div class="h7"><br>University of Colorado Denver researchers have created this public dashboard for ​Capturing and Reporting Open Web Data for Learning Analytics, Annotation, and Education Researchers ​(CROWDLAAERS, pronounced “crowd layers”). As a real-time dashboard relevant to collaborative processes, CROWDLAAERS reports learning analytics associated with group – or ​<b>crowd</b>​ – discourse ​<b>layers</b>​ added via Hypothesis open web annotation to online content.<br><br>
+
+          <b>Search:</b> CROWDLAAERS is a publicly available and open-source service. Visit CROWDLAAERS <a href="http://test.crowdlaaers.org"><b>Home</b></a> and search by any URL featuring Hypothesis annotation to explore learning analytics and collaborative activity. Clicking the <b>Share</b> button generates a link which can be used to access the CROWDLAAERS analytics of a specific site through a shareable URL.<br><br>
+
+          <b>Projects:</b> CROWDLAAERS has also been applied to curated sets of online texts associated with various open education projects. Visit CROWDLAAERS <a href="http://test.crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a> and explore how this dashboard turns open annotation data into insightful learning analytics. [link "Projects" to projects page]<br><br>
+
+          CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document.<br><br>
+
+          Also, other researchers interested in studying OWA as learning analytics can adapt the CROWDLAAERS dashboard to their inquiry. CROWDLAAERS demonstrates how open web annotation data can be transparently leveraged as learning analytics, and how open processes can foster participatory and accountable data collection and analysis procedures. If you are interested in learning more about the technical features of CROWDLAAERS, please contact our research team.
           </div>
+          <!--
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
               <div class="btn-toolbar mb-2 mb-md-0">
-                <!--<div class="btn-group mr-2">
+                <div class="btn-group mr-2">
                   <button class="btn btn-sm btn-outline-secondary">Share</button>
                   <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>-->
+                </div>
                 <button class="btn btn-secondary float-right" disabled>
                   Annotations <span class="badge badge-light" id="annotationCounter">*</span>
                 </button>
@@ -120,21 +129,21 @@
             </div>
           </div>
           <div id="graph"></div>
-          <!--
+          
           <h2>Section title</h2>-->
-          <br>
+          <!--<br>
           <div id="table_div"></div>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
             <div class="btn-toolbar mb-2 mb-md-0">
-              <!--<div class="btn-group mr-2">
+              <div class="btn-group mr-2">
                 <button class="btn btn-sm btn-outline-secondary">Share</button>
                 <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>-->
+              </div>
               <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
                 <span data-feather="refresh-ccw"></span>
               </button>
             </div>
-          </div>
+          </div>-->
         </main>
       </div>
     </div>
