@@ -118,4 +118,9 @@ body {
 #document_link:hover {
   color: inherit;
 }
-
+/*
+ * in case we use a projects home page
+.dropdown:hover .dropdown-menu{
+  display:block;
+}
+*/

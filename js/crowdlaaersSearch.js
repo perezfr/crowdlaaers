@@ -359,6 +359,7 @@ $( document ).ready(function() {
 
   $( "#urlSearch" ).click(function() {
     inactivate();
+    $("#homeMessage").html("");
     var url = $('#urlBar').val();
     xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
     xhttp.setRequestHeader("Content-type", "application/json");
