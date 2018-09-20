@@ -359,6 +359,7 @@ $( document ).ready(function() {
 
   $( "#urlSearch" ).click(function() {
     inactivate();
+    $( "#contributorsClick" ).attr("class", "nav-link active");
     $("#homeMessage").html("");
     var url = $('#urlBar').val();
     xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
