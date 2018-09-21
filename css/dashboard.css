@@ -124,3 +124,8 @@ body {
   display:block;
 }
 */
+
+#marginalsyllabus_jumbotron {
+background-image: url(../img/marginalsyllabus_bg.png);
+background-size: cover;
+height: 300px;}
