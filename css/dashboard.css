@@ -126,6 +126,11 @@ body {
 */
 
 #marginalsyllabus_jumbotron {
-background-image: url(../img/marginalsyllabus_bg.png);
+background-image: url(../img/marginalsyllabus_bg.jpg);
+background-size: cover;
+height: 300px;}
+
+#equityunbound_jumbotron {
+background-image: url(../img/equityunbound.png);
 background-size: cover;
 height: 300px;}
