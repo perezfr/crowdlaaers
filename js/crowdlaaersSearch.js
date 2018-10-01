@@ -182,7 +182,6 @@ $( document ).ready(function() {
       'label': 'Annotations'}]
     );
     messagesPerDay.sort({column: 1, desc: true});
-    messagesPerDay.removeRow(0);
 
     //bar_graph.draw(messagesPerUser, opts);
     messageTypeData.sort({column: 1, desc: true});
@@ -193,7 +192,7 @@ $( document ).ready(function() {
 
     //Left nav pill notifications counter 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
-    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
+    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows() + 1);
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
     $( "#annotationCounter" ).text(total);
@@ -370,10 +369,18 @@ $( document ).ready(function() {
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
   $( "#urlShare" ).click(function() {
-    var baseURL = "crowdlaaers.org/search.html?url=";
+    var baseURL = "https://crowdlaaers.org?url=";
     var searchURL = $('#urlBar').val();
     baseURL.concat(searchURL);
     $('#shareURLModalBody').text(baseURL + searchURL);
     $('#shareURLModal').modal('show');
   });
+    
+  $(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+  });
+
 });

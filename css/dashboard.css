@@ -132,5 +132,16 @@ height: 300px;}
 
 #equityunbound_jumbotron {
 background-image: url(../img/equityunbound.png);
+opacity: 0.85;
+background-size: cover;
+height: 300px;}
+
+#equityunbound2_jumbotron {
+background-image: url(../img/background_idea1.jpg);
+background-size: cover;
+height: 300px;}
+
+#equityunbound3_jumbotron {
+background-image: url(../img/background_idea2.jpg);
 background-size: cover;
 height: 300px;}
