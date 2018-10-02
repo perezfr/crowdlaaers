@@ -283,7 +283,7 @@ $( document ).ready(function() {
       'label': 'Annotations'}]
     );
     messagesPerDay.sort({column: 1, desc: true});
-    messagesPerDay.removeRow(0);
+    //messagesPerDay.removeRow(0);
 
     //bar_graph.draw(messagesPerUser, opts);
     messageTypeData.sort({column: 1, desc: true});
@@ -294,7 +294,7 @@ $( document ).ready(function() {
 
     //Left nav pill notifications counter 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
-    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
+    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows() + 1);
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
     $( "#annotationCounter" ).text(total);

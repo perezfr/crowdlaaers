@@ -1,6 +1,19 @@
 $( document ).ready(function() {
+
   google.charts.load('current', {'packages':['table','corechart','calendar']});
   var response;
+  var syllabus = {
+    mounzer2016:{
+      url:"https://lithub.com/war-in-translation-giving-voice-to-the-women-of-syria/",
+      summary:""
+    },
+    gilliard_culik2016:{
+      url:"http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy",
+      summary:""
+    }
+  }
+
+  //$("#conversation_summary").html(syllabus['june2017']['summary']);
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -10,11 +23,18 @@ $( document ).ready(function() {
     }
   };
 
+  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['mounzer2016']['url'] + "&limit=200", true);
+  //xhttp.open("GET", "data/response.json");//, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send();
+
   function inactivate() {
     $( "#contributorsClick" ).attr("class", "nav-link active");
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
     $( "#tagsClick" ).attr("class", "nav-link");
+    $( "#mounzer2016" ).attr("class", "nav-link");
+    $( "#gilliard_culik2016" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
@@ -43,6 +63,7 @@ $( document ).ready(function() {
     messageTypeData.addColumn({type: 'number', id: 'total', label: 'Total'});
     messageTypeData.addColumn({type: 'number', id: 'annotations', label: 'Annotations'});
     messageTypeData.addColumn({type: 'number', id: 'replies', label: 'Replies'});
+
 
     var rows = response['rows'];
     var total = response['total'];
@@ -105,7 +126,7 @@ $( document ).ready(function() {
       data.addRows([
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
       ]);
-
+      
       //count annotations, replies and total messages per user
       if (!messageTypeCount[username]){
         messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
@@ -124,7 +145,7 @@ $( document ).ready(function() {
         }
       }
     }
-
+    //console.log(messageTypeCount);
     //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
       tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
@@ -182,6 +203,7 @@ $( document ).ready(function() {
       'label': 'Annotations'}]
     );
     messagesPerDay.sort({column: 1, desc: true});
+    //messagesPerDay.removeRow(0);
 
     //bar_graph.draw(messagesPerUser, opts);
     messageTypeData.sort({column: 1, desc: true});
@@ -345,42 +367,30 @@ $( document ).ready(function() {
       view.hideColumns([3,4,6]);
       table.draw(view, opts);
     });
+
+    $( "#mounzer2016" ).click(function() {
+      inactivate();
+      $( "#mounzer2016" ).attr("class", "nav-link active");
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['mounzer2016']['url'] + "&limit=200", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      //$("#conversation_summary").html(syllabus['september2016']['summary']);
+    }); 
+    $( "#gilliard_culik2016" ).click(function() {
+      inactivate();
+      $( "#gilliard_culik2016" ).attr("class", "nav-link active");
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['gilliard_culik2016']['url'] + "&limit=200", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      //$("#conversation_summary").html(syllabus['september2016']['summary']);
+    });
+    $( "#urlSearch" ).click(function() {
+      inactivate();
+      var url = $('#urlBar').val();
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      $("#conversation_summary").html("");
+    });
   };
-  var startURL = new URL(window.location.href);
-  if (startURL.searchParams.get("url")){
-    $( "#graph" ).html('<h3>Loading...</h3>');
-    var u = startURL.searchParams.get("url");
-    $('#urlBar').val(u);  //add url param to search bar for sharing 
-    xhttp.open("GET", "https://hypothes.is/api/search?url=" + u + "&limit=200", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send();
-  } 
-
-  $( "#urlSearch" ).click(function() {
-    inactivate();
-    $( "#contributorsClick" ).attr("class", "nav-link active");
-    $("#homeMessage").html("");
-    var url = $('#urlBar').val();
-    xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send();
-  });
-
-  //Share button adds the url from the search bar as a parameter to the 
-  //crowdlaaers search url.
-  $( "#urlShare" ).click(function() {
-    var baseURL = "https://crowdlaaers.org?url=";
-    var searchURL = $('#urlBar').val();
-    baseURL.concat(searchURL);
-    $('#shareURLModalBody').text(baseURL + searchURL);
-    $('#shareURLModal').modal('show');
-  });
-    
-  $(document).keypress(
-    function(event){
-      if (event.which == '13') {
-        event.preventDefault();
-      }
-  });
-
 });
