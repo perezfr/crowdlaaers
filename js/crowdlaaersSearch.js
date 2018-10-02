@@ -8,6 +8,9 @@ $( document ).ready(function() {
       response = JSON.parse(this.responseText);
       drawTable(response);
     }
+    else {
+      $( "#graph" ).html('<h3>No public annotations found...</h3>');
+    }
   };
 
   function inactivate() {
@@ -51,6 +54,11 @@ $( document ).ready(function() {
     var tagCounts = {};
     var messageTypeCount = {};
     var level = 0;
+
+    if (total == 0) {
+      $( "#graph" ).html('<h3>No public annotations found...</h3>');
+      return;
+    }
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -361,6 +369,10 @@ $( document ).ready(function() {
     $( "#contributorsClick" ).attr("class", "nav-link active");
     $("#homeMessage").html("");
     var url = $('#urlBar').val();
+    if (url == ""){
+      $( "#graph" ).html('<h3>Please enter a URL...</h3>');
+      return;
+    };
     xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
