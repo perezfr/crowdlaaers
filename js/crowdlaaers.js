@@ -74,10 +74,14 @@ $( document ).ready(function() {
     june2017:{
       url:"http://www.ncte.org/library/NCTEFiles/Resources/Journals/VM/0254-may2018/VM0254Leading.pdf",
       summary:"Starting in June 2018, Marginal Syllabus text-participants read and discussed “The Next Decade of Digital Writing,” an article in Voices from the Middle by Troy Hicks. Troy’s article, an interest-driven addition to the Writing Our Civic Futures syllabus, argues that educators need to provide intellectual and emotional space for students to explore new ideas, gather their own evidence, and present academic arguments through media other than just the printed word."
+    },
+    october2018:{
+      url:"http://educatorinnovator.org/wp-content/uploads/2018/10/Electing_to_Heal.pdf",
+      summary:"Starting in October 2018, Marginal Syllabus text-participants read and discussed 'Electing to Heal: Trauma, Healing, and Politics in Classrooms,' an article from English Education by Antero Garcia and Elizabeth Dutro. Antero and Elizabeth's article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, argues that English educators must address trauma in classrooms, while also recognizing how individuals and groups are positioned differently in the material and emotional aftermath of the 2016 presidential election."
     }
   }
 
-  $("#conversation_summary").html(syllabus['june2017']['summary']);
+  $("#conversation_summary").html(syllabus['october2018']['summary']);
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -87,7 +91,7 @@ $( document ).ready(function() {
     }
   };
 
-  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['june2017']['url'] + "&limit=200", true);
+  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2018']['url'] + "&limit=200", true);
   //xhttp.open("GET", "data/response.json");//, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send();
@@ -115,6 +119,7 @@ $( document ).ready(function() {
     $( "#april2017" ).attr("class", "nav-link");
     $( "#may2017" ).attr("class", "nav-link");
     $( "#june2017" ).attr("class", "nav-link");
+    $( "#october2018" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
@@ -592,6 +597,14 @@ $( document ).ready(function() {
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       $("#conversation_summary").html(syllabus['june2017']['summary']);
+    });
+    $( "#october2018" ).click(function() {
+      inactivate();
+      $( "#october2018" ).attr("class", "nav-link active");
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2018']['url'] + "&limit=200", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      $("#conversation_summary").html(syllabus['october2018']['summary']);
     });
     $( "#urlSearch" ).click(function() {
       inactivate();
