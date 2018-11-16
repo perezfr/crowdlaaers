@@ -8,7 +8,7 @@ $( document ).ready(function() {
       summary:"Starting in August 2016, Marginal Syllabus text-participants read and discussed “Digital Redlining, Access, and Privacy,” a blog post for Common Sense Education written by Chris Gilliard and Hugh Culik. Chris and Hugh’s post discusses how “digital redlining” creates inequitable educational opportunities for learners."
     },
     september2016:{
-      url:"http://dmlcentral.net/speculative-design-for-emergent-learning-taking-risks&https://clalliance.org/blog/speculative-design-for-emergent-learning-taking-risks/",
+      url:"http://dmlcentral.net/speculative-design-for-emergent-learning-taking-risks&ur=https://clalliance.org/blog/speculative-design-for-emergent-learning-taking-risks/",
       summary:"Starting in September 2016, Marginal Syllabus text-participants read and discussed “Speculative Design for Emergent Learning: Taking Risks,” a blog post for DML Central by Mia Zamora. Mia’s post reflects upon her “Writing Race and Ethnicity” course and shares insight about her instructional decision-making and co-design with students."
     },
     october2016:{
