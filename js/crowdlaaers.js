@@ -78,6 +78,10 @@ $( document ).ready(function() {
     october2018:{
       url:"http://educatorinnovator.org/wp-content/uploads/2018/10/Electing_to_Heal.pdf",
       summary:"Starting in October 2018, Marginal Syllabus text-participants read and discussed 'Electing to Heal: Trauma, Healing, and Politics in Classrooms,' an article from English Education by Antero Garcia and Elizabeth Dutro. Antero and Elizabeth's article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, argues that English educators must address trauma in classrooms, while also recognizing how individuals and groups are positioned differently in the material and emotional aftermath of the 2016 presidential election."
+    },
+    december2018:{
+      url:"https://educatorinnovator.org/wp-content/uploads/2018/11/What_s_Radical_marginal-syllabus.pdf",
+      summary:"Starting in December 2018, Marginal Syllabus text-participants read and discussed 'What's radical about youth writing?: Seeing and honoring youth writers and their literacies,' an article in Voices From the Middle by Marcelle Haddix. Marcelle's article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, describes the Writing Our Lives after-school program and argues that what is radical about youth writing is youth 'persistence to get their stories out in spite of prevailing narratives that suggest that they are not writing or that they do not have anything to express.'"
     }
   }
 
@@ -120,6 +124,7 @@ $( document ).ready(function() {
     $( "#may2017" ).attr("class", "nav-link");
     $( "#june2017" ).attr("class", "nav-link");
     $( "#october2018" ).attr("class", "nav-link");
+    $( "#december2018" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
@@ -605,6 +610,14 @@ $( document ).ready(function() {
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
       $("#conversation_summary").html(syllabus['october2018']['summary']);
+    });
+    $( "#december2018" ).click(function() {
+      inactivate();
+      $( "#december2018" ).attr("class", "nav-link active");
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['december2018']['url'] + "&limit=200", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      $("#conversation_summary").html(syllabus['december2018']['summary']);
     });
     $( "#urlSearch" ).click(function() {
       inactivate();
