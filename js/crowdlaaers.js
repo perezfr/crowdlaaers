@@ -85,7 +85,7 @@ $( document ).ready(function() {
     }
   }
 
-  $("#conversation_summary").html(syllabus['october2018']['summary']);
+  $("#conversation_summary").html(syllabus['december2018']['summary']);
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
