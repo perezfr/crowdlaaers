@@ -304,7 +304,7 @@ $( document ).ready(function() {
 
     //Left nav pill notifications counter 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
-    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows() + 1);
+    $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
     $( "#annotationCounter" ).text(total);
