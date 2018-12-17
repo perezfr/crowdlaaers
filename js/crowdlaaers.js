@@ -95,7 +95,7 @@ $( document ).ready(function() {
     }
   };
 
-  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2018']['url'] + "&limit=200", true);
+  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['december2018']['url'] + "&limit=200", true);
   //xhttp.open("GET", "data/response.json");//, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send();
