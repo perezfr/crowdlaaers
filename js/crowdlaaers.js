@@ -460,7 +460,6 @@ $( document ).ready(function() {
 
     $( ".month-link" ).click(function(event) {
       let m = event.target.id;
-      console.log(m);
       inactivate();
       $( "#" + m  ).attr("class", "nav-link active");
       xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus[m]['url'] + "&limit=200", true);
