@@ -458,167 +458,17 @@ $( document ).ready(function() {
       table.draw(view, opts);
     });
 
-    $( "#august2016" ).click(function() {
+    $( ".month-link" ).click(function(event) {
+      let m = event.target.id;
+      console.log(m);
       inactivate();
-      $( "#august2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['august2016']['url'] + "&limit=200", true);
+      $( "#" + m  ).attr("class", "nav-link active");
+      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus[m]['url'] + "&limit=200", true);
       xhttp.setRequestHeader("Content-type", "application/json");
       xhttp.send();
-      $("#conversation_summary").html(syllabus['august2016']['summary']);
+      $("#conversation_summary").html(syllabus[m]['summary']);
     });
-    $( "#september2016" ).click(function() {
-      inactivate();
-      $( "#september2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['september2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['september2016']['summary']);
-    });
-    $( "#october2016" ).click(function() {
-      inactivate();
-      $( "#october2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['october2016']['summary']);
-    });
-    $( "#november2016" ).click(function() {
-      inactivate();
-      $( "#november2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['november2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['november2016']['summary']);
-    });
-    $( "#january2016" ).click(function() {
-      inactivate();
-      $( "#january2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['january2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['january2016']['summary']);
-    });
-    $( "#february2016" ).click(function() {
-      inactivate();
-      $( "#february2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['february2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['february2016']['summary']);
-    });
-    $( "#march2016" ).click(function() {
-      inactivate();
-      $( "#march2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['march2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['march2016']['summary']);
-    });
-    $( "#april2016" ).click(function() {
-      inactivate();
-      $( "#april2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['april2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['april2016']['summary']);
-    });
-    $( "#may2016" ).click(function() {
-      inactivate();
-      $( "#may2016" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['may2016']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['may2016']['summary']);
-    });
-    //Marginal Syllabus 2017
-    $( "#october2017" ).click(function() {
-      inactivate();
-      $( "#october2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['october2017']['summary']);
-    });
-    $( "#november2017" ).click(function() {
-      inactivate();
-      $( "#november2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['november2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['november2017']['summary']);
-    });
-    $( "#december2017" ).click(function() {
-      inactivate();
-      $( "#december2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['december2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['december2017']['summary']);
-    });
-    $( "#january2017" ).click(function() {
-      inactivate();
-      $( "#january2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['january2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['january2017']['summary']);
-    });
-    $( "#february2017" ).click(function() {
-      inactivate();
-      $( "#february2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['february2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['february2017']['summary']);
-    });
-    $( "#march2017" ).click(function() {
-      inactivate();
-      $( "#march2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['march2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['march2017']['summary']);
-    });
-    $( "#april2017" ).click(function() {
-      inactivate();
-      $( "#april2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['april2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['april2017']['summary']);
-    });
-    $( "#may2017" ).click(function() {
-      inactivate();
-      $( "#may2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['may2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['may2017']['summary']);
-    });
-    $( "#june2017" ).click(function() {
-      inactivate();
-      $( "#june2017" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['june2017']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['june2017']['summary']);
-    });
-    $( "#october2018" ).click(function() {
-      inactivate();
-      $( "#october2018" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['october2018']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['october2018']['summary']);
-    });
-    $( "#december2018" ).click(function() {
-      inactivate();
-      $( "#december2018" ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['december2018']['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
-      $("#conversation_summary").html(syllabus['december2018']['summary']);
-    });
+
     $( "#urlSearch" ).click(function() {
       inactivate();
       var url = $('#urlBar').val();
