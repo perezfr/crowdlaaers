@@ -101,30 +101,14 @@ $( document ).ready(function() {
   xhttp.send();
 
   function inactivate() {
+    for (var key in syllabus){
+      $( "#" + key ).attr("class", "nav-link");
+    };
+
     $( "#contributorsClick" ).attr("class", "nav-link active");
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
     $( "#tagsClick" ).attr("class", "nav-link");
-    $( "#august2016" ).attr("class", "nav-link");
-    $( "#september2016" ).attr("class", "nav-link");
-    $( "#october2016" ).attr("class", "nav-link");
-    $( "#november2016" ).attr("class", "nav-link");
-    $( "#january2016" ).attr("class", "nav-link");
-    $( "#february2016" ).attr("class", "nav-link");
-    $( "#march2016" ).attr("class", "nav-link");
-    $( "#april2016" ).attr("class", "nav-link");
-    $( "#may2016" ).attr("class", "nav-link");
-    $( "#october2017" ).attr("class", "nav-link");
-    $( "#november2017" ).attr("class", "nav-link");
-    $( "#december2017" ).attr("class", "nav-link");
-    $( "#january2017" ).attr("class", "nav-link");
-    $( "#february2017" ).attr("class", "nav-link");
-    $( "#march2017" ).attr("class", "nav-link");
-    $( "#april2017" ).attr("class", "nav-link");
-    $( "#may2017" ).attr("class", "nav-link");
-    $( "#june2017" ).attr("class", "nav-link");
-    $( "#october2018" ).attr("class", "nav-link");
-    $( "#december2018" ).attr("class", "nav-link");
     $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
