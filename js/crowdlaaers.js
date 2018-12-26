@@ -87,18 +87,9 @@ $( document ).ready(function() {
 
   $("#conversation_summary").html(syllabus['december2018']['summary']);
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      response = JSON.parse(this.responseText);
-      drawTable(response);
-    }
-  };
+  params.url = syllabus['december2018']['url'];
 
-  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['december2018']['url'] + "&limit=200", true);
-  //xhttp.open("GET", "data/response.json");//, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send();
+  hlib.hApiSearch(params, processSearchResults, '');
 
   function inactivate() {
     for (var key in syllabus){
@@ -116,6 +107,10 @@ $( document ).ready(function() {
   };
 
   function drawTable(response) {
+    if(response.length == 0){
+      $( "#graph" ).html('<h3>No Data Found...</h3>');
+      return false;
+    }
     $('[data-toggle="tooltip"]').tooltip();
     var data = new google.visualization.DataTable();
     var tagData = new google.visualization.DataTable();
@@ -139,8 +134,11 @@ $( document ).ready(function() {
     messageTypeData.addColumn({type: 'number', id: 'replies', label: 'Replies'});
 
 
-    var rows = response['rows'];
-    var total = response['total'];
+    //var rows = response['rows'];
+    //var total = response['total'];
+    var rows = response;
+    var total = response.length;
+
     var threads = [];
     var tagArray = [];
     var tagCounts = {};
@@ -149,12 +147,14 @@ $( document ).ready(function() {
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
-      if (ss['references']){
-        if (!threads.includes(ss['references'][0])){
-          threads.push(ss['references'][0]);
+      //if (ss['references']){
+      //  if (!threads.includes(ss['references'][0])){
+      //    threads.push(ss['references'][0]);
+      if (ss['refs']){
+        if (!threads.includes(ss['refs'][0])){
+          threads.push(ss['refs'][0]);
         }
-      }
-      
+      }  
       //create array of tags to build tag column graph
       if (ss['tags'].length > 0){
         ss['tags'].forEach(function (t) {
@@ -172,10 +172,14 @@ $( document ).ready(function() {
         level = 0;
       }
 
-      if (s['references']){
+      //if (s['references']){
         //Sets anchor ID to the first anchor annotation
-        nodeMsg = s['references'][0];
-        level = s['references'].length;
+      //  nodeMsg = s['references'][0];
+      //  level = s['references'].length;
+      if (s['refs']){
+        //Sets anchor ID to the first anchor annotation
+        nodeMsg = s['refs'][0];
+        level = s['refs'].length;
       }
 
       //Creates a annotation clip to display in table
@@ -185,16 +189,19 @@ $( document ).ready(function() {
         var textSummary = s['text'];
       }
 
-      var date = new Date(s['created']);
+      //var date = new Date(s['created']);
+      var date = new Date(s['updated']);
       var year = date.getYear() + 1900;
       var month = date.getMonth();
       var dateDay = date.getDate();
       var hour = date.getHours();
       var mins = date.getMinutes();
       var second = date.getSeconds();
-      var username = s['user'].slice(5,-12);
+      //var username = s['user'].slice(5,-12);
+      var username = s['user'];
       var textTotal = s['text'];
-      var link = s['links']['incontext'];
+      //var link = s['links']['incontext'];
+      var link = "https://hyp.is/" + s['id']
       var tags = s['tags'].join().toLowerCase();
       //Add the table graph rows
       data.addRows([
@@ -446,19 +453,231 @@ $( document ).ready(function() {
       let m = event.target.id;
       inactivate();
       $( "#" + m  ).attr("class", "nav-link active");
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus[m]['url'] + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
+      params.url = syllabus[m]['url'];
+      hlib.hApiSearch(params, processSearchResults, '');
       $("#conversation_summary").html(syllabus[m]['summary']);
     });
 
     $( "#urlSearch" ).click(function() {
       inactivate();
-      var url = $('#urlBar').val();
-      xhttp.open("GET", "https://hypothes.is/api/search?url=" + url + "&limit=200", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send();
       $("#conversation_summary").html("");
+      var url = $('#urlBar').val();
+      if (url == ""){
+        $( "#graph" ).html('<h3>Enter valid URL...</h3>');
+        return false;
+      };
+      params.url = url;
+      hlib.hApiSearch(params, processSearchResults, '');
     });
   };
+
+  function processSearchResults(annos, replies) {
+      let csv = '';
+      let json = [];
+      let gathered = hlib.gatherAnnotationsByUrl(annos);
+      let reversedUrls = reverseChronUrls(gathered.urlUpdates);
+      let counter = 0;
+      reversedUrls.forEach(function (url) {
+          counter++;
+          let perUrlId = counter;
+          let perUrlCount = 0;
+          let idsForUrl = gathered.ids[url];
+          idsForUrl.forEach(function (id) {
+              perUrlCount++;
+              let _replies = hlib.findRepliesForId(id, replies);
+              _replies = _replies.map(r => {
+                  return hlib.parseAnnotation(r);
+              });
+              let all = [gathered.annos[id]].concat(_replies.reverse());
+              all.forEach(function (anno) {
+                  let level = 0;
+                  if (anno.refs) {
+                      level = anno.refs.length;
+                  }
+                  if (format === 'html') {
+                      worker.postMessage({
+                          perUrlId: perUrlId,
+                          anno: anno,
+                          annoId: anno.id,
+                          level: level
+                      });
+                  }
+                  else if (format === 'csv') {
+                      let _row = document.createElement('div');
+                      _row.innerHTML = hlib.csvRow(level, anno);
+                      csv += _row.innerText + '\n';
+                  }
+                  else if (format === 'json') {
+                      anno.text = anno.text.replace(/</g, '&lt;');
+                      json.push(anno);
+                  }
+              });
+          });
+          if (format === 'html') {
+              showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
+          }
+      });
+      drawTable(json);
+  };
+
+  $("#groupControlSelect").change(function(){
+    inactivate();
+    let select = document.getElementById('groupControlSelect');
+    let selectedString = select.options[select.selectedIndex].value;
+    params.group = selectedString;
+    //hlib.setSelectedGroup(hlib.getById('groupContainer'));
+    //hlib.setSelectedGroup();
+    hlib.hApiSearch(params, processSearchResults, '');
+  });
+
 });
+//hlib
+function openSetTokenModal(){
+  $('#setTokenModal').modal('show');
+};
+
+function inputQuerySelector(query) {
+    return document.querySelector(query);
+}
+
+function setTokenButton(){
+  let _token = inputQuerySelector('#tokenInputBar').value;
+  localStorage.setItem('h_token', _token);
+  $('#setTokenModal').modal('hide');
+  createGroupInputFormModified();
+}
+
+
+
+let params = {
+    user: "",//inputQuerySelector('#userContainer input').value,
+    group: "",//"G9d4q3j6"
+    url: "",//inputQuerySelector('#urlContainer input').value,
+    wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
+    tag: "",//inputQuerySelector('#tagContainer input').value,
+    any: "",//inputQuerySelector('#anyContainer input').value,
+    max: ""//inputQuerySelector('#maxContainer input').value,
+};
+
+var format = 'json';
+
+function processSearchResults(annos, replies) {
+    let csv = '';
+    let json = [];
+    let gathered = hlib.gatherAnnotationsByUrl(annos);
+    let reversedUrls = reverseChronUrls(gathered.urlUpdates);
+    let counter = 0;
+    reversedUrls.forEach(function (url) {
+        counter++;
+        let perUrlId = counter;
+        let perUrlCount = 0;
+        let idsForUrl = gathered.ids[url];
+        idsForUrl.forEach(function (id) {
+            perUrlCount++;
+            let _replies = hlib.findRepliesForId(id, replies);
+            _replies = _replies.map(r => {
+                return hlib.parseAnnotation(r);
+            });
+            let all = [gathered.annos[id]].concat(_replies.reverse());
+            all.forEach(function (anno) {
+                let level = 0;
+                if (anno.refs) {
+                    level = anno.refs.length;
+                }
+                if (format === 'html') {
+                    worker.postMessage({
+                        perUrlId: perUrlId,
+                        anno: anno,
+                        annoId: anno.id,
+                        level: level
+                    });
+                }
+                else if (format === 'csv') {
+                    let _row = document.createElement('div');
+                    _row.innerHTML = hlib.csvRow(level, anno);
+                    csv += _row.innerText + '\n';
+                }
+                else if (format === 'json') {
+                    anno.text = anno.text.replace(/</g, '&lt;');
+                    json.push(anno);
+                }
+            });
+        });
+        if (format === 'html') {
+            showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
+        }
+    });
+    console.log(json);
+};
+
+function reverseChronUrls(urlUpdates) {
+    var reverseChronUrls = [];
+    for (var urlUpdate in urlUpdates) {
+        reverseChronUrls.push([urlUpdate, urlUpdates[urlUpdate]]);
+    }
+    reverseChronUrls.sort(function (a, b) {
+        return new Date(b[1]).getTime() - new Date(a[1]).getTime();
+    });
+    return reverseChronUrls.map(item => item[0]);
+};
+hlib.getById('groupContainer')
+function createGroupInputFormModified(e, selectId) {
+    var _selectId = selectId ? selectId : 'groupsList';
+    function createGroupSelector(groups, selectId) {
+        var currentGroup = getGroup();
+        var options = '';
+        groups.forEach(function (g) {
+            var selected = '';
+            if (currentGroup == g.id) {
+                selected = 'selected';
+            }
+            options += "<option " + selected + " value=\"" + g.id + "\">" + g.name + "</option>\n";
+        });
+        return options;
+    }
+    var token = getToken();
+    var opts = {
+        method: 'get',
+        url: 'https://hypothes.is/api/profile',
+        headers: {},
+        params: {}
+    };
+    opts = hlib.setApiTokenHeaders(opts, token);
+    hlib.httpRequest(opts)
+        .then(function (data) {
+        var _data = data;
+        var response = JSON.parse(_data.response);
+        let form = createGroupSelector(response.groups);
+        let g = document.getElementById("groupControlSelect");
+        g.innerHTML = form;
+    })["catch"](function (e) {
+        console.log(e);
+    });
+};
+function getGroup() {
+    var group = getFromUrlParamOrLocalStorage('h_group');
+    return group != '' ? group : '__world__';
+};
+function getToken() {
+    return getFromUrlParamOrLocalStorage('h_token');
+}
+
+function setLocalStorageFromForm(formId, storageKey) {
+    var element = getById(formId);
+    localStorage.setItem(storageKey, element.value);
+}
+
+function getFromUrlParamOrLocalStorage(key, _default) {
+    var value;
+    if (value === '') {
+        var _value = localStorage.getItem("" + key);
+        value = _value ? _value : '';
+    }
+    if ((!value || value === '') && _default) {
+        value = _default;
+    }
+    if (!value) {
+        value = '';
+    }
+    return value;
+}
