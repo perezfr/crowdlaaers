@@ -89,7 +89,7 @@ $( document ).ready(function() {
 
   params.url = syllabus['december2018']['url'];
 
-  hlib.hApiSearch(params, processSearchResults, '');
+  hApiSearch(params, processSearchResults, '');
 
   function inactivate() {
     for (var key in syllabus){
@@ -150,7 +150,7 @@ $( document ).ready(function() {
       //if (ss['references']){
       //  if (!threads.includes(ss['references'][0])){
       //    threads.push(ss['references'][0]);
-      if (ss['refs']){
+      if (ss['refs'].length > 0){
         if (!threads.includes(ss['refs'][0])){
           threads.push(ss['refs'][0]);
         }
@@ -164,12 +164,12 @@ $( document ).ready(function() {
     }
     for (s of rows) {
       //Count the threads
+      level = 0;
       var nodeMsg = "Document";
       if (threads.includes(s['id'])){
         //if message is anchor annotation in the thread sets anchor ID it to
         //message ID 
         nodeMsg = s['id'];
-        level = 0;
       }
 
       //if (s['references']){
@@ -255,7 +255,7 @@ $( document ).ready(function() {
     var calendar = new google.visualization.Calendar(document.getElementById('graph'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' },
-      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e']
+      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
     };
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
@@ -454,7 +454,7 @@ $( document ).ready(function() {
       inactivate();
       $( "#" + m  ).attr("class", "nav-link active");
       params.url = syllabus[m]['url'];
-      hlib.hApiSearch(params, processSearchResults, '');
+      hApiSearch(params, processSearchResults, '');
       $("#conversation_summary").html(syllabus[m]['summary']);
     });
 
@@ -561,55 +561,6 @@ let params = {
 
 var format = 'json';
 
-function processSearchResults(annos, replies) {
-    let csv = '';
-    let json = [];
-    let gathered = hlib.gatherAnnotationsByUrl(annos);
-    let reversedUrls = reverseChronUrls(gathered.urlUpdates);
-    let counter = 0;
-    reversedUrls.forEach(function (url) {
-        counter++;
-        let perUrlId = counter;
-        let perUrlCount = 0;
-        let idsForUrl = gathered.ids[url];
-        idsForUrl.forEach(function (id) {
-            perUrlCount++;
-            let _replies = hlib.findRepliesForId(id, replies);
-            _replies = _replies.map(r => {
-                return hlib.parseAnnotation(r);
-            });
-            let all = [gathered.annos[id]].concat(_replies.reverse());
-            all.forEach(function (anno) {
-                let level = 0;
-                if (anno.refs) {
-                    level = anno.refs.length;
-                }
-                if (format === 'html') {
-                    worker.postMessage({
-                        perUrlId: perUrlId,
-                        anno: anno,
-                        annoId: anno.id,
-                        level: level
-                    });
-                }
-                else if (format === 'csv') {
-                    let _row = document.createElement('div');
-                    _row.innerHTML = hlib.csvRow(level, anno);
-                    csv += _row.innerText + '\n';
-                }
-                else if (format === 'json') {
-                    anno.text = anno.text.replace(/</g, '&lt;');
-                    json.push(anno);
-                }
-            });
-        });
-        if (format === 'html') {
-            showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
-        }
-    });
-    console.log(json);
-};
-
 function reverseChronUrls(urlUpdates) {
     var reverseChronUrls = [];
     for (var urlUpdate in urlUpdates) {
@@ -680,4 +631,116 @@ function getFromUrlParamOrLocalStorage(key, _default) {
         value = '';
     }
     return value;
+}
+function httpRequest(opts) {
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(opts.method, opts.url);
+        xhr.onload = function () {
+            var r = {
+                response: xhr.response,
+                status: xhr.status,
+                statusText: xhr.statusText,
+                headers: parseResponseHeaders(xhr.getAllResponseHeaders())
+            };
+            if (this.status >= 200 && this.status < 300) {
+                console.log(JSON.parse(r.response));
+                resolve(r);              
+            }
+            else {
+                console.log('http', opts.url, this.status);
+                reject(r);
+            }
+        };
+        xhr.onerror = function (e) {
+            console.log('httpRequest', opts.url, this.status);
+            reject({
+                error: e,
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        if (opts.headers) {
+            Object.keys(opts.headers).forEach(function (key) {
+                xhr.setRequestHeader(key, opts.headers[key]);
+            });
+        }
+        xhr.send(opts.params);
+    });
+}
+function _search(params, callback, offset, annos, replies, progressId) {
+    var max = 2000;
+    if (params.max) {
+        max = params.max;
+    }
+    var limit = 200;
+    if (max <= limit) {
+        limit = max;
+    }
+    if (progressId) {
+        getById(progressId).innerHTML += '.';
+    }
+    var opts = {
+        method: 'get',
+        url: "https://hypothes.is/api/search?_separate_replies=true&limit=" + limit + "&offset=" + offset,
+        headers: {},
+        params: {}
+    };
+    var facets = ['group', 'user', 'tag', 'url', 'any'];
+    facets.forEach(function (facet) {
+        if (params[facet]) {
+            var encodedValue = encodeURIComponent(params[facet]);
+            opts.url += "&" + facet + "=" + encodedValue;
+        }
+    });
+    opts = setApiTokenHeaders(opts);
+    httpRequest(opts).then(function (data) {
+        var _data = data;
+        var response = JSON.parse(_data.response);
+        annos = annos.concat(response.rows);
+        replies = replies.concat(response.replies);
+        if (response.rows.length === 0 || annos.length >= max) {
+            callback(annos, replies);
+        }
+        else {
+            _search(params, callback, offset + limit, annos, replies, progressId);
+        }
+    });
+}
+function hApiSearch(params, callback, progressId) {
+    var offset = 0;
+    var annos = [];
+    var replies = [];
+    _search(params, callback, offset, annos, replies, progressId);
+}
+function setApiTokenHeaders(opts, token) {
+    if (!token) {
+        token = getToken();
+    }
+    if (token) {
+        opts.headers = {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json;charset=utf-8'
+        };
+    }
+    return opts;
+}
+function parseResponseHeaders(headerStr) {
+    var headers = {};
+    if (!headerStr) {
+        return headers;
+    }
+    var headerPairs = headerStr.split('\u000d\u000a');
+    for (var i = 0; i < headerPairs.length; i++) {
+        var headerPair = headerPairs[i];
+        // Can't use split() here because it does the wrong thing
+        // if the header value has the string ": " in it.
+        var index = headerPair.indexOf('\u003a\u0020');
+        if (index > 0) {
+            var key = headerPair.substring(0, index);
+            var val = headerPair.substring(index + 2);
+            headers[key] = val;
+        }
+    }
+    return headers;
 }
