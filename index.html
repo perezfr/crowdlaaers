@@ -67,7 +67,7 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <a class="nav-link" href="#" id="contributorsClick">
                   <span data-feather="bar-chart-2"></span>
                   Participants <span id="participantCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Participants"></span>
@@ -90,7 +90,7 @@
                   <span data-feather="tag"></span>
                   Tags <span id="tagCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Unique Tags"></span>
                 </a>
-              </li>
+              </li>-->
               <li class="nav-item">
                 <a class="nav-link" href="#" id="urlShare">
                   <span data-feather="share"></span>
@@ -102,22 +102,112 @@
           </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="h7" id="homeMessage"><br>Use CROWDLAAERS <b>Search</b> to explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.<br><br>
+          <br>
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              CROWDLAAERS Search</div>
+            <div class="card-body" id="homeMessage">
+              <span> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
+              </span>
+            </div>
           </div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          
+          <!-- Icon Cards-->
+         <div class="row">
+           <div class="col-xl-3 col-sm-6 mb-3">
+             <div class="card text-white bg-primary o-hidden h-100">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-comments"></i>
+                 </div>
+                 <h4>126</h4>
+                 <span class="float-left">Annotations</span>
+               </div>
+             </div>
+           </div>
+           <div class="col-xl-3 col-sm-6 mb-3">
+             <div class="card text-white bg-secondary o-hidden h-100">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-list"></i>
+                 </div>
+                 <h4>16</h4>
+                 <span class="float-left">Contributors</span>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-xl-3 col-sm-4 mb-3">
+             <div class="card text-white bg-secondary o-hidden h-100">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-shopping-cart"></i>
+                 </div>
+                 <h4>27</h4>
+                 <span class="float-left">Active days</span>
+               </div>
+             </div>
+           </div>
+           <div class="col-xl-3 col-sm-4 mb-3">
+             <div class="card text-white bg-secondary o-hidden h-100">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4>6</h4>
+                 <span class="float-left">Threads</span>
+               </div>
+             </div>
+           </div>
+           <div class="col-xl-3 col-sm-4 mb-3">
+             <div class="card text-white bg-secondary o-hidden h-100">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4>20</h4>
+                 <span class="float-left">Tags</span>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              Annotations per contributor</div>
+            <div class="card-body" id="homeMessage">
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+
+            </div>
+          </div>
+          <!--<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
               <div class="btn-toolbar mb-2 mb-md-0">
-                <!--<div class="btn-group mr-2">
+                <div class="btn-group mr-2">
                   <button class="btn btn-sm btn-outline-secondary">Share</button>
                   <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>-->
+                </div>
                 <button class="btn btn-secondary float-right" disabled>
                   Annotations <span class="badge badge-light" id="annotationCounter">*</span>
                 </button>
               </div>
             </div>
-          </div>
+          </div>-->
           <div id="graph"></div>
           <!--
           <h2>Section title</h2>-->
