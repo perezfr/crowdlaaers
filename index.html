@@ -56,10 +56,10 @@
             </div>
           </li>
         </ul>
-        <form class="form-inline col-lg-6">
+        <!--<form class="form-inline col-lg-6">
           <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="URL" aria-label="Search" id="urlBar">
           <a class="btn btn-primary my-2 my-sm-0 text-light" id="urlSearch">Search</a>
-        </form>
+        </form>-->
       </div>
     </nav>
     <div class="container-fluid">
@@ -101,15 +101,20 @@
             <hr>
           </div>
         </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <br>
-          <div class="card mb-3">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">         
+          <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
               CROWDLAAERS Search</div>
             <div class="card-body" id="homeMessage">
               <span> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
               </span>
+              <div class="input-group mt-3">
+                <input type="text" class="form-control" placeholder="URL" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2">Search</span>
+                </div>
+              </div>
             </div>
           </div>
           
