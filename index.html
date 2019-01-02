@@ -17,9 +17,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <title>CROWDLAAERS</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dashboard.css" rel="stylesheet">
-    <script type="text/javascript" src="js/crowdlaaersSearch.js"></script>
+    <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
+    <script type="text/javascript" src="js/crowdlaaers.js"></script>
   </head>
 
   <body>
@@ -58,8 +60,8 @@
         </ul>
         <form class="form-inline col-lg-6">
           <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="URL" aria-label="Search" id="urlBar">
-          <a class="btn btn-primary my-2 my-sm-0 text-light" id="urlSearch">Search</a>
         </form>
+        <button class="btn btn-primary my-2 my-sm-0 text-light" id="urlSearchButton">Search</button>
       </div>
     </nav>
     <div class="container-fluid">
@@ -98,6 +100,18 @@
                 </a>
               </li>
             </ul>
+            <hr>
+            <p>&nbsp &nbsp Group Layers</p>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-secondary col-md-9" onclick="openSetTokenModal()">
+                Add token
+              </button>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center ">
+              <select class="form-control col-md-9" id="groupControlSelect" >
+              </select>
+            </div>
             <hr>
           </div>
         </nav>
@@ -165,6 +179,25 @@
             </button>
           </div>
           <div id="shareURLModalBody" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="setTokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setTokenModalLabel">Enter API token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="setTokanModalBody" class="modal-body">
+            <p><a href="https://hypothes.is/">Access your</a> API token via Hypothesis Settings > Developer</p>
+            <input class="form-control" type="password" placeholder="" id="tokenInputBar">
+          </div>
+          <div class="modal-footer">
+            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
+          </div>
         </div>
       </div>
     </div>

@@ -85,12 +85,6 @@ $( document ).ready(function() {
     }
   }
 
-  $("#conversation_summary").html(syllabus['december2018']['summary']);
-
-  params.url = syllabus['december2018']['url'];
-
-  hApiSearch(params, processSearchResults, '');
-
   function inactivate() {
     for (var key in syllabus){
       $( "#" + key ).attr("class", "nav-link");
@@ -108,7 +102,12 @@ $( document ).ready(function() {
 
   function drawTable(response) {
     if(response.length == 0){
-      $( "#graph" ).html('<h3>No Data Found...</h3>');
+      $( "#graph" ).html("<h3>No Data Found...</h3>");
+      $( "#table_div" ).html("");
+      $( "#participantCounter" ).text("0");
+      $( "#calendarCounter" ).text("0");
+      $( "#threadCounter" ).text("0");
+      $( "#tagCounter" ).text("0");
       return false;
     }
     $('[data-toggle="tooltip"]').tooltip();
@@ -448,28 +447,27 @@ $( document ).ready(function() {
       view.hideColumns([3,4,6]);
       table.draw(view, opts);
     });
+  }; //end drawtable
 
-    $( ".month-link" ).click(function(event) {
-      let m = event.target.id;
-      inactivate();
-      $( "#" + m  ).attr("class", "nav-link active");
-      params.url = syllabus[m]['url'];
-      hApiSearch(params, processSearchResults, '');
-      $("#conversation_summary").html(syllabus[m]['summary']);
-    });
+  $( ".month-link" ).click(function(event) {
+    let m = event.target.id;
+    inactivate();
+    $( "#" + m  ).attr("class", "nav-link active");
+    params.url = syllabus[m]['url'];
+    hApiSearch(params, processSearchResults, '');
+    $("#conversation_summary").html(syllabus[m]['summary']);
+  });
 
-    $( "#urlSearch" ).click(function() {
-      inactivate();
-      $("#conversation_summary").html("");
-      var url = $('#urlBar').val();
-      if (url == ""){
-        $( "#graph" ).html('<h3>Enter valid URL...</h3>');
-        return false;
-      };
-      params.url = url;
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  };
+  $("#urlSearchButton").click(function(){
+    inactivate();
+    var url = $('#urlBar').val();
+    if (url == ""){
+      $( "#graph" ).html('<h3>Enter valid URL...</h3>');
+      return false;
+    };
+    params.url = url;
+    hApiSearch(params, processSearchResults, '');
+  });
 
   function processSearchResults(annos, replies) {
       let csv = '';
@@ -525,9 +523,43 @@ $( document ).ready(function() {
     let select = document.getElementById('groupControlSelect');
     let selectedString = select.options[select.selectedIndex].value;
     params.group = selectedString;
-    //hlib.setSelectedGroup(hlib.getById('groupContainer'));
-    //hlib.setSelectedGroup();
-    hlib.hApiSearch(params, processSearchResults, '');
+    if (params.url == ""){
+      $( "#graph" ).html('<h3>Enter valid URL...</h3>');
+      return false;
+    }
+    hApiSearch(params, processSearchResults, '');
+  });
+
+  var startURL = new URL(window.location.href);
+  if (startURL.searchParams.get("url")){
+    $( "#graph" ).html('<h3>Loading...</h3>');
+    var u = startURL.searchParams.get("url");
+    $('#urlBar').val(u);  //add url param to search bar for sharing 
+    params.url = u;
+    hApiSearch(params, processSearchResults, '');
+  } 
+
+  if (startURL.href.slice(-21) == "marginalsyllabus.html"){
+    $("#conversation_summary").html(syllabus['december2018']['summary']);
+    params.url = syllabus['december2018']['url'];
+    hApiSearch(params, processSearchResults, '');
+  }
+
+  //Share button adds the url from the search bar as a parameter to the 
+  //crowdlaaers search url.
+  $( "#urlShare" ).click(function() {
+    var baseURL = "https://crowdlaaers.org?url=";
+    var searchURL = $('#urlBar').val();
+    baseURL.concat(searchURL);
+    $('#shareURLModalBody').text(baseURL + searchURL);
+    $('#shareURLModal').modal('show');
+  });
+    
+  $(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
   });
 
 });
@@ -546,8 +578,6 @@ function setTokenButton(){
   $('#setTokenModal').modal('hide');
   createGroupInputFormModified();
 }
-
-
 
 let params = {
     user: "",//inputQuerySelector('#userContainer input').value,
@@ -644,7 +674,6 @@ function httpRequest(opts) {
                 headers: parseResponseHeaders(xhr.getAllResponseHeaders())
             };
             if (this.status >= 200 && this.status < 300) {
-                console.log(JSON.parse(r.response));
                 resolve(r);              
             }
             else {
