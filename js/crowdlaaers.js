@@ -527,7 +527,8 @@ $( document ).ready(function() {
       $( "#graph" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
-    hApiSearch(params, processSearchResults, '');
+    console.log(params);
+    hlib.hApiSearch(params, processSearchResults, '');
   });
 
   var startURL = new URL(window.location.href);
