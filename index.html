@@ -21,25 +21,16 @@
     <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
     <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
     <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
+    <script type="text/javascript" src="syl/marginalsyllabus.js"></script>
     <script type="text/javascript" src="js/crowdlaaers.js"></script>
   </head>
 
   <body>
-    <!--<nav class="navbar navbar-dark fixed-top bg-secondary flex-md-nowrap p-0 shadow">
-      <span class="navbar-brand col-sm-3 col-md-2 mr-0 bg-dark" href="#">CROWDLAAERS</span>
-      <input class="form-control form-control-light w-100" type="text" placeholder="URL" aria-label="Search" id="urlBar">
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#" id="urlSearch">Search</a>
-        </li>
-      </ul>
-    </nav>-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
       <a class="navbar-brand col-lg-2 col-md-2" href="https://crowdlaaers.org">CROWDLAAERS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -92,7 +83,8 @@
           <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Search</a></div>
+               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Search</a>
+            </div>
             <div class="collapse show" id="collapseCell1">
               <div class="card-body" id="homeMessage">
                 <span> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
@@ -221,10 +213,6 @@
                 <div id="table_div"></div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
                   <div class="btn-toolbar mb-2 mb-md-0">
-                    <!--<div class="btn-group mr-2">
-                      <button class="btn btn-sm btn-outline-secondary">Share</button>
-                      <button class="btn btn-sm btn-outline-secondary">Export</button>
-                    </div>-->
                     <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
                       <span data-feather="refresh-ccw"></span>
                     </button>
