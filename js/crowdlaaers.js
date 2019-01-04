@@ -7,13 +7,9 @@ $( document ).ready(function() {
     for (var key in syllabus){
       $( "#" + key ).attr("class", "nav-link");
     };
-
-    $( "#contributorsClick" ).attr("class", "nav-link active");
-    $( "#calendarClick" ).attr("class", "nav-link");
-    $( "#threadsClick" ).attr("class", "nav-link");
-    $( "#tagsClick" ).attr("class", "nav-link");
-    $( "#graph" ).css("height","300px");
-    $( "#graph" ).html('<h3>Loading...</h3>');
+    for (i = 1; i < 7; i++) {
+      $("#collapseCell" + i).collapse('show');
+    }; 
   };
 
   function drawTable(response) {
@@ -162,10 +158,6 @@ $( document ).ready(function() {
     }
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
-    /*
-    ** use the chartwrapper here **
-    **
-    */
     var bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('graphContributors'));
     var bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('graphThreads'));
     var bar_graph_tags = new google.visualization.ColumnChart(document.getElementById('graphTags'));
@@ -224,9 +216,9 @@ $( document ).ready(function() {
     viewD.hideColumns([1]);
 
     bar_graph_contributors.draw(viewD, opts);
-    bar_graph_tags.draw(tagData, opts);
+    bar_graph_tags.draw(tagData, opts); //Use test property for filtering by tag
     bar_graph_threads.draw(messagesPerThread, opts);
-    calendar.draw(messagesPerDay, opts); //TODO Filter by day
+    calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
 
     // counter cards 

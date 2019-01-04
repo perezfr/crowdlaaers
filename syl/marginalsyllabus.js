@@ -32,7 +32,7 @@
       summary:"Starting in April 2017, and in collaboration with Educator Innovator, Marginal Syllabus text-participants read and discussed “Between Storytelling and Surveillance: The Precarious Public of American Muslim Youth,” a chapter by Sangita Shresthova from By Any Media Necessary (co-authored by Henry Jenkins, Sangita Shresthova, Liana Gamber-Thompson, Neta Kligler-Vilenchik, and Arely Zimmerman). Sangita’s chapter addresses the ways in which American Muslim youth experience islamophobia online, and also how they endure the criticism of older community members who may take issue with some youth’s desire to have expressive and creative online identities."
     },
     may2016:{
-      url:"https://via.hypothes.is/http://educatorinnovator.org/wp-content/uploads/2017/05/LaMay-Ch5.pdf",
+      url:"http://educatorinnovator.org/wp-content/uploads/2017/05/LaMay-Ch5.pdf",
       summary:"Starting in May 2017, and in collaboration with Educator Innovator, Marginal Syllabus text-participants read and discussed “Revising Narrative Truth,” a chapter from Personal Narrative, Revised by Bronwyn Clare LaMay. Bronwyn’s chapter shares a challenging and inspiring story about how to develop inclusive classroom communities that nurture student risk-taking, expression, and learning."
     },
     october2017:{
