@@ -94,10 +94,8 @@ $( document ).ready(function() {
     $( "#calendarClick" ).attr("class", "nav-link");
     $( "#threadsClick" ).attr("class", "nav-link");
     $( "#tagsClick" ).attr("class", "nav-link");
-    $( "#graphLabel" ).text("Annotations per Contributor");
     $( "#graph" ).css("height","300px");
     $( "#graph" ).html('<h3>Loading...</h3>');
-    $( "#annotationCounter" ).text("*");
   };
 
   function drawTable(response) {
@@ -250,8 +248,10 @@ $( document ).ready(function() {
     ** use the chartwrapper here **
     **
     */
-    var bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
-    var calendar = new google.visualization.Calendar(document.getElementById('graph'));
+    var bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('graphContributors'));
+    var bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('graphThreads'));
+    var bar_graph_tags = new google.visualization.ColumnChart(document.getElementById('graphTags'));
+    var calendar = new google.visualization.Calendar(document.getElementById('graphCalendar'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' },
       vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
@@ -285,14 +285,33 @@ $( document ).ready(function() {
     messagesPerDay.sort({column: 1, desc: true});
     //messagesPerDay.removeRow(0);
 
+        //Adjust Calander Graph div height based on number of years with annotations
+    var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
+    if ( activeYears == 4 ){
+      graphDivHeight = "750px";
+    } else if ( activeYears == 3 ){
+      graphDivHeight = "600px";
+    } else if ( activeYears == 2 ){
+      graphDivHeight = "455px";
+    } else if ( activeYears == 1 ){
+      graphDivHeight = "350px";
+    } else {
+      graphDivHeight = "250px";
+    }
+    $( "#graphCalendar" ).css("height",graphDivHeight);
+
     //bar_graph.draw(messagesPerUser, opts);
     messageTypeData.sort({column: 1, desc: true});
     viewD = new google.visualization.DataView(messageTypeData);
     viewD.hideColumns([1]);
-    bar_graph.draw(viewD, opts);
+
+    bar_graph_contributors.draw(viewD, opts);
+    bar_graph_tags.draw(tagData, opts);
+    bar_graph_threads.draw(messagesPerThread, opts);
+    calendar.draw(messagesPerDay, opts);
     table.draw(view, opts);
 
-    //Left nav pill notifications counter 
+    // counter cards 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
@@ -309,29 +328,33 @@ $( document ).ready(function() {
       $('#annotationModal').modal('show');
     });
 
-    //Adjust Calander Graph div height based on number of years with annotations
-    var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
-    if ( activeYears == 4 ){
-      graphDivHeight = "750px";
-    } else if ( activeYears == 3 ){
-      graphDivHeight = "600px";
-    } else if ( activeYears == 2 ){
-      graphDivHeight = "455px";
-    } else if ( activeYears == 1 ){
-      graphDivHeight = "350px";
-    } else {
-      graphDivHeight = "250px";
-    }
-
-    google.visualization.events.addListener(bar_graph, 'select', function() {
+    google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
       google.visualization.events.removeListener(event);
       view = new google.visualization.DataView(data);
       view.hideColumns([3,4,6]);
-      var row = bar_graph.getSelection()[0].row;
+      var row = bar_graph_contributors.getSelection()[0].row;
       var name = viewD.getValue(row, 0);
       var r = view.getFilteredRows([{column: 1, value: name}]);
       view.setRows(r);
       table.clearChart();
+      table.draw(view, opts);
+
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
+      });
+    });
+
+    google.visualization.events.addListener(bar_graph_threads, 'select', function() {
+      view = new google.visualization.DataView(data);
+      var row = bar_graph_threads.getSelection()[0].row;
+      var name = messagesPerThread.getValue(row, 0);
+      var r = view.getFilteredRows([{column: 3, value: name}]);
+      view.hideColumns([3,4,6]);
+      view.setRows(r);
       table.draw(view, opts);
 
       var event = google.visualization.events.addListener(table, 'select', function() {
