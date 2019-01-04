@@ -9,12 +9,13 @@ $( document ).ready(function() {
     };
     for (i = 1; i < 7; i++) {
       $("#collapseCell" + i).collapse('show');
-    }; 
+    };
+    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
   };
 
   function drawTable(response) {
     if(response.length == 0){
-      $( "#graph" ).html("<h3>No Data Found...</h3>");
+      $( "#annotationCounter" ).html("<h3>No Data Found...</h3>");
       $( "#table_div" ).html("");
       $( "#participantCounter" ).text("0");
       $( "#calendarCounter" ).text("0");
@@ -317,7 +318,7 @@ $( document ).ready(function() {
     inactivate();
     var url = $('#urlBar').val();
     if (url == ""){
-      $( "#graph" ).html('<h3>Enter valid URL...</h3>');
+      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     };
     params.url = url;
@@ -379,7 +380,7 @@ $( document ).ready(function() {
     let selectedString = select.options[select.selectedIndex].value;
     params.group = selectedString;
     if (params.url == ""){
-      $( "#graph" ).html('<h3>Enter valid URL...</h3>');
+      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
     console.log(params);
@@ -388,7 +389,7 @@ $( document ).ready(function() {
 
   var startURL = new URL(window.location.href);
   if (startURL.searchParams.get("url")){
-    $( "#graph" ).html('<h3>Loading...</h3>');
+    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
     var u = startURL.searchParams.get("url");
     $('#urlBar').val(u);  //add url param to search bar for sharing 
     params.url = u;
