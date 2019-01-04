@@ -203,7 +203,7 @@ $( document ).ready(function() {
     messagesPerDay.sort({column: 1, desc: true});
     //messagesPerDay.removeRow(0);
 
-        //Adjust Calander Graph div height based on number of years with annotations
+    //Adjust Calander Graph div height based on number of years with annotations
     var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
     if ( activeYears == 4 ){
       graphDivHeight = "750px";
@@ -226,7 +226,7 @@ $( document ).ready(function() {
     bar_graph_contributors.draw(viewD, opts);
     bar_graph_tags.draw(tagData, opts);
     bar_graph_threads.draw(messagesPerThread, opts);
-    calendar.draw(messagesPerDay, opts);
+    calendar.draw(messagesPerDay, opts); //TODO Filter by day
     table.draw(view, opts);
 
     // counter cards 
@@ -245,7 +245,7 @@ $( document ).ready(function() {
       $('#inContextButton').attr("href", data.getValue(row, 6));
       $('#annotationModal').modal('show');
     });
-
+    //for filtering by user
     google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
       google.visualization.events.removeListener(event);
       view = new google.visualization.DataView(data);
@@ -265,7 +265,7 @@ $( document ).ready(function() {
         $('#annotationModal').modal('show');
       });
     });
-
+    //filters table by thread
     google.visualization.events.addListener(bar_graph_threads, 'select', function() {
       view = new google.visualization.DataView(data);
       var row = bar_graph_threads.getSelection()[0].row;
@@ -284,103 +284,25 @@ $( document ).ready(function() {
       });
     });
 
-    $( "#calendarClick" ).click(function() {
-      //make graph div taller to fit three years
-      $( "#graph" ).css("height",graphDivHeight);
-      $( "#calendarClick" ).attr("class", "nav-link active");
-      $( "#contributorsClick" ).attr("class", "nav-link");
-      $( "#threadsClick" ).attr("class", "nav-link");
-      $( "#tagsClick" ).attr("class", "nav-link");
-      $( "#graphLabel" ).text("Annotations per Day");
-      calendar = new google.visualization.Calendar(document.getElementById('graph'));
-      calendar.draw(messagesPerDay, opts);
+    //filters table by date
+    google.visualization.events.addListener(calendar, 'select', function() {
+      view = new google.visualization.DataView(data);
+      let _date = new Date(calendar.getSelection()[0].date);
+      let _y = _date.getFullYear();
+      let _m = _date.getMonth();
+      let _d = _date.getDate() + 1;
+      var r = view.getFilteredRows([{column: 0, value: new Date(_y, _m, _d)}]); 
+      view.hideColumns([3,4,6]);
+      view.setRows(r);
+      table.draw(view, opts);
 
-    //TODO Filter by day
-    });
-    $( "#contributorsClick" ).click(function() {
-      $( "#graph" ).css("height","300px");
-      $( "#calendarClick" ).attr("class", "nav-link");
-      $( "#contributorsClick" ).attr("class", "nav-link active");
-      $( "#threadsClick" ).attr("class", "nav-link");
-      $( "#tagsClick" ).attr("class", "nav-link");
-      $( "#graphLabel" ).text("Annotations per Contributor");
-      bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
-      bar_graph.draw(viewD, opts);
-
-      google.visualization.events.addListener(bar_graph, 'select', function() {
-        google.visualization.events.removeListener(event);
-        view = new google.visualization.DataView(data);
-        var row = bar_graph.getSelection()[0].row;
-        var name = viewD.getValue(row, 0);
-        var r = view.getFilteredRows([{column: 1, value: name}]);
-        view.hideColumns([3,4,6]);
-        view.setRows(r);
-        table.draw(view, opts);
-
-        var event = google.visualization.events.addListener(table, 'select', function() {
-          var row = view.getTableRowIndex(table.getSelection()[0].row);
-          $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
-          $('#annotationModalBody').text(data.getValue(row, 4));
-          $('#inContextButton').attr("href", data.getValue(row, 6));
-          $('#annotationModal').modal('show');
-        });
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
       });
-    });
-    $( "#threadsClick" ).click(function() {
-      $( "#graph" ).css("height","300px");
-      $( "#calendarClick" ).attr("class", "nav-link");
-      $( "#contributorsClick" ).attr("class", "nav-link");
-      $( "#threadsClick" ).attr("class", "nav-link active");
-      $( "#tagsClick" ).attr("class", "nav-link");
-      $( "#graphLabel" ).text("Annotations per Thread");
-      bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
-      bar_graph.draw(messagesPerThread, opts);
-
-      google.visualization.events.addListener(bar_graph, 'select', function() {
-        view = new google.visualization.DataView(data);
-        var row = bar_graph.getSelection()[0].row;
-        var name = messagesPerThread.getValue(row, 0);
-        var r = view.getFilteredRows([{column: 3, value: name}]);
-        view.hideColumns([3,4,6]);
-        view.setRows(r);
-        table.draw(view, opts);
-
-        var event = google.visualization.events.addListener(table, 'select', function() {
-          var row = view.getTableRowIndex(table.getSelection()[0].row);
-          $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
-          $('#annotationModalBody').text(data.getValue(row, 4));
-          $('#inContextButton').attr("href", data.getValue(row, 6));
-          $('#annotationModal').modal('show');
-        });
-      });
-    });
-    $( "#tagsClick" ).click(function() {
-      $( "#graph" ).css("height","300px");
-      $( "#calendarClick" ).attr("class", "nav-link");
-      $( "#contributorsClick" ).attr("class", "nav-link");
-      $( "#threadsClick" ).attr("class", "nav-link");
-      $( "#tagsClick" ).attr("class", "nav-link active");
-      $( "#graphLabel" ).text("Tags");
-      bar_graph = new google.visualization.ColumnChart(document.getElementById('graph'));
-      bar_graph.draw(tagData, opts);
-
-      /* TODO: Filter by contains instead of equals
-      google.visualization.events.addListener(bar_graph, 'select', function() {
-        view = new google.visualization.DataView(data);
-        view.hideColumns([3,4]);
-        var row = bar_graph.getSelection()[0].row;
-        var name = tagData.getValue(row, 0);
-        var r = view.getFilteredRows([{column: 3, value: name}]);
-        //var r = view.getFilteredRows([{column: 3, test: 
-        //  function(value, row, column, table) {
-        //    return data.getValue(row, 0).includes(name)
-        //  }
-        //}]);
-
-        //view.setRows(r);
-        //table.draw(view, opts);
-      });
-      */
     });
 
     $( "#resetButton" ).click(function() {
@@ -604,86 +526,7 @@ function getFromUrlParamOrLocalStorage(key, _default) {
     }
     return value;
 }
-function httpRequest(opts) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open(opts.method, opts.url);
-        xhr.onload = function () {
-            var r = {
-                response: xhr.response,
-                status: xhr.status,
-                statusText: xhr.statusText,
-                headers: parseResponseHeaders(xhr.getAllResponseHeaders())
-            };
-            if (this.status >= 200 && this.status < 300) {
-                resolve(r);              
-            }
-            else {
-                console.log('http', opts.url, this.status);
-                reject(r);
-            }
-        };
-        xhr.onerror = function (e) {
-            console.log('httpRequest', opts.url, this.status);
-            reject({
-                error: e,
-                status: this.status,
-                statusText: xhr.statusText
-            });
-        };
-        if (opts.headers) {
-            Object.keys(opts.headers).forEach(function (key) {
-                xhr.setRequestHeader(key, opts.headers[key]);
-            });
-        }
-        xhr.send(opts.params);
-    });
-}
-function _search(params, callback, offset, annos, replies, progressId) {
-    var max = 2000;
-    if (params.max) {
-        max = params.max;
-    }
-    var limit = 200;
-    if (max <= limit) {
-        limit = max;
-    }
-    if (progressId) {
-        getById(progressId).innerHTML += '.';
-    }
-    var opts = {
-        method: 'get',
-        url: "https://hypothes.is/api/search?_separate_replies=true&limit=" + limit + "&offset=" + offset,
-        headers: {},
-        params: {}
-    };
-    var facets = ['group', 'user', 'tag', 'url', 'any'];
-    facets.forEach(function (facet) {
-        if (params[facet]) {
-            var encodedValue = encodeURIComponent(params[facet]);
-            opts.url += "&" + facet + "=" + encodedValue;
-        }
-    });
-    opts = setApiTokenHeaders(opts);
-    httpRequest(opts).then(function (data) {
-        var _data = data;
-        var response = JSON.parse(_data.response);
-        annos = annos.concat(response.rows);
-        replies = replies.concat(response.replies);
-        if (response.rows.length === 0 || annos.length >= max) {
-            callback(annos, replies);
-        }
-        else {
-            _search(params, callback, offset + limit, annos, replies, progressId);
-        }
-    });
-}
-function hApiSearch(params, callback, progressId) {
-    var offset = 0;
-    var annos = [];
-    var replies = [];
-    _search(params, callback, offset, annos, replies, progressId);
-}
+
 function setApiTokenHeaders(opts, token) {
     if (!token) {
         token = getToken();
