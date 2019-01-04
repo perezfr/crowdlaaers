@@ -172,7 +172,7 @@
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Annotations per Contributor</a>
             </div>
-            <div class="collapse" id="collapseCell2">
+            <div class="collapse show" id="collapseCell2">
               <div class="card-body">
                 <div id="graphContributors"></div>
               </div>
@@ -183,7 +183,7 @@
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Annotations per Day</a>
             </div>
-            <div class="collapse" id="collapseCell3">
+            <div class="collapse show" id="collapseCell3">
               <div class="card-body">
                 <div id="graphCalendar"></div>
               </div>
@@ -194,7 +194,7 @@
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Annotations per Thread</a>
             </div>
-            <div class="collapse" id="collapseCell4">
+            <div class="collapse show" id="collapseCell4">
               <div class="card-body">
                 <div id="graphThreads"></div>
               </div>
@@ -205,7 +205,7 @@
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
             </div>
-            <div class="collapse" id="collapseCell5">
+            <div class="collapse show" id="collapseCell5">
               <div class="card-body">
                 <div id="graphTags"></div>
               </div>
@@ -216,24 +216,25 @@
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
             </div>
-            <div class="collapse" id="collapseCell6">
+            <div class="collapse show" id="collapseCell6">
               <div class="card-body">
                 <div id="table_div"></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <!--<div class="btn-group mr-2">
+                      <button class="btn btn-sm btn-outline-secondary">Share</button>
+                      <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>-->
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                      <span data-feather="refresh-ccw"></span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
          </div>
           
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <!--<div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>-->
-              <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
-                <span data-feather="refresh-ccw"></span>
-              </button>
-            </div>
-          </div>
+          
         </main>
       </div>
     </div>
