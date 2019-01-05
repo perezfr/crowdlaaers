@@ -63,6 +63,7 @@ $( document ).ready(function() {
       //  if (!threads.includes(ss['references'][0])){
       //    threads.push(ss['references'][0]);
       if (ss['refs'].length > 0){
+        console.log(ss['refs']);
         if (!threads.includes(ss['refs'][0])){
           threads.push(ss['refs'][0]);
         }
@@ -88,7 +89,7 @@ $( document ).ready(function() {
         //Sets anchor ID to the first anchor annotation
       //  nodeMsg = s['references'][0];
       //  level = s['references'].length;
-      if (s['refs']){
+      if (s['refs'].length > 0){
         //Sets anchor ID to the first anchor annotation
         nodeMsg = s['refs'][0];
         level = s['refs'].length;
