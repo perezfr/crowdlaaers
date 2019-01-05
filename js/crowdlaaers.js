@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
   google.charts.load('current', {'packages':['table','corechart','calendar']});
   var response;
+  var graphsArray = ['table_div','graphContributors','graphThreads','graphTags','graphCalendar'];
 
   function inactivate() {
     for (var key in syllabus){
@@ -16,7 +17,9 @@ $( document ).ready(function() {
   function drawTable(response) {
     if(response.length == 0){
       $( "#annotationCounter" ).html("<h3>No Data Found...</h3>");
-      $( "#table_div" ).html("");
+      for (let g of graphsArray){
+        $( "#" + g ).html("");
+      }
       $( "#participantCounter" ).text("0");
       $( "#calendarCounter" ).text("0");
       $( "#threadCounter" ).text("0");
@@ -63,7 +66,6 @@ $( document ).ready(function() {
       //  if (!threads.includes(ss['references'][0])){
       //    threads.push(ss['references'][0]);
       if (ss['refs'].length > 0){
-        console.log(ss['refs']);
         if (!threads.includes(ss['refs'][0])){
           threads.push(ss['refs'][0]);
         }
@@ -139,7 +141,7 @@ $( document ).ready(function() {
         }
       }
     }
-    //console.log(messageTypeCount);
+
     //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
       tagCounts[tagArray[i]] = 1 + (tagCounts[tagArray[i]] || 0);
@@ -384,7 +386,6 @@ $( document ).ready(function() {
       $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
-    console.log(params);
     hlib.hApiSearch(params, processSearchResults, '');
   });
 
