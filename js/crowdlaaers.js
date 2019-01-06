@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 
   google.charts.load('current', {'packages':['table','corechart','calendar']});
+
   var response;
   var syllabus = {
     august2016:{
@@ -104,10 +105,11 @@ $( document ).ready(function() {
     }
   };
 
-  xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['january2018']['url'] + "&limit=200", true);
-  //xhttp.open("GET", "data/response.json");//, true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send();
+  google.charts.setOnLoadCallback(function () { //waits for graph lib to load before drawing 
+    xhttp.open("GET", "https://hypothes.is/api/search?url=" + syllabus['january2018']['url'] + "&limit=200", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  });
 
   function inactivate() {
     $( "#contributorsClick" ).attr("class", "nav-link active");
