@@ -167,7 +167,7 @@ $( document ).ready(function() {
     var bar_graph_tags = new google.visualization.ColumnChart(document.getElementById('graphTags'));
     var calendar = new google.visualization.Calendar(document.getElementById('graphCalendar'));
     var opts = {
-      width: '100%', height: '100%', page: 'enable', pageSize: 25, legend: { position: 'none' },
+      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
       vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
     };
     var view = new google.visualization.DataView(data);
