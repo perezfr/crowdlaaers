@@ -395,13 +395,17 @@ $( document ).ready(function() {
     var u = startURL.searchParams.get("url");
     $('#urlBar').val(u);  //add url param to search bar for sharing 
     params.url = u;
-    hlib.hApiSearch(params, processSearchResults, '');
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
   } 
 
   if (startURL.href.slice(-21) == "marginalsyllabus.html"){
     $("#conversation_summary").html(syllabus['december2018']['summary']);
     params.url = syllabus['december2018']['url'];
-    hlib.hApiSearch(params, processSearchResults, '');
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
   }
 
   //Share button adds the url from the search bar as a parameter to the 
