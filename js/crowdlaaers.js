@@ -4,6 +4,11 @@ $( document ).ready(function() {
   var response;
   var graphsArray = ['table_div','graphContributors','graphThreads','graphTags','graphCalendar'];
 
+  if (hlib.getToken() != ""){
+    createGroupInputFormModified();
+    params.group = "__world__";
+  };
+
   function inactivate() {
     for (var key in syllabus){
       $( "#" + key ).attr("class", "nav-link");
