@@ -64,6 +64,7 @@ $( document ).ready(function() {
     var tagCounts = {};
     var messageTypeCount = {};
     var level = 0;
+    var nodeMsg;
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -85,7 +86,7 @@ $( document ).ready(function() {
     for (s of rows) {
       //Count the threads
       level = 0;
-      var nodeMsg = "Document";
+      nodeMsg = "document";
       if (threads.includes(s['id'])){
         //if message is anchor annotation in the thread sets anchor ID it to
         //message ID 
@@ -193,7 +194,9 @@ $( document ).ready(function() {
       'label': 'Annotations'}]
     );
     messagesPerThread.sort({column: 1, desc: true});
-    messagesPerThread.removeRow(0);
+    if (messagesPerThread.getValue(0,0)=="document"){ //drop document row if exists
+      messagesPerThread.removeRow(0);
+    };
 
     var messagesPerDay = google.visualization.data.group(
       data,
