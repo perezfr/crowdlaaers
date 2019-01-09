@@ -110,11 +110,15 @@ $( document ).ready(function() {
         var textSummary = s['text'];
       }
 
-      //var date = new Date(s['created']);
+      var offset = new Date().getTimezoneOffset()*60;
+      console.log(offset);
       var date = new Date(s['updated']);
+      let newdate = new Date(date.getTime() + offset);
+      console.log(date.getTime() + offset);
       var year = date.getYear() + 1900;
       var month = date.getMonth();
       var dateDay = date.getDate();
+      console.log(dateDay + " and " + newdate.getDate());
       var hour = date.getHours();
       var mins = date.getMinutes();
       var second = date.getSeconds();
