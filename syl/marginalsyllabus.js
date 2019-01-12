@@ -78,5 +78,9 @@
     december2018:{
       url:"https://educatorinnovator.org/wp-content/uploads/2018/11/What_s_Radical_marginal-syllabus.pdf",
       summary:"Starting in December 2018, Marginal Syllabus text-participants read and discussed 'What's radical about youth writing?: Seeing and honoring youth writers and their literacies,' an article in Voices From the Middle by Marcelle Haddix. Marcelle's article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, describes the Writing Our Lives after-school program and argues that what is radical about youth writing is youth 'persistence to get their stories out in spite of prevailing narratives that suggest that they are not writing or that they do not have anything to express.'"
+    },
+    january2018:{
+      url:"https://educatorinnovator.org/wp-content/uploads/2018/12/EE0502GenerativePrinciples.pdf",
+      summary:"Starting in January 2019, Marginal Syllabus text-participants read and discussed 'Generative principles for professional learning for equity-oriented urban English educators,' an article in English Education by Allison Skerrett, Amber Warrington, and Thea Williamson. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, is a longitudinal study of three urban English educators and details six principles for professional learning that explicitly helped to promote these educators' equity-oriented educational practice. The article concludes by discussing implications for both inservice and preservice English education, as well as English education research."
     }
   }

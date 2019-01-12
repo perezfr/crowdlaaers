@@ -111,14 +111,14 @@ $( document ).ready(function() {
       }
 
       var offset = new Date().getTimezoneOffset()*60;
-      console.log(offset);
+      //console.log(offset);
       var date = new Date(s['updated']);
       let newdate = new Date(date.getTime() + offset);
-      console.log(date.getTime() + offset);
+      //console.log(date.getTime() + offset);
       var year = date.getYear() + 1900;
       var month = date.getMonth();
       var dateDay = date.getDate();
-      console.log(dateDay + " and " + newdate.getDate());
+      //console.log(dateDay + " and " + newdate.getDate());
       var hour = date.getHours();
       var mins = date.getMinutes();
       var second = date.getSeconds();
@@ -413,8 +413,16 @@ $( document ).ready(function() {
   } 
 
   if (startURL.href.slice(-21) == "marginalsyllabus.html"){
-    $("#conversation_summary").html(syllabus['december2018']['summary']);
-    params.url = syllabus['december2018']['url'];
+    $("#conversation_summary").html(syllabus['january2018']['summary']);
+    params.url = syllabus['january2018']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
+  if (startURL.href.slice(-18) == "equityunbound.html"){
+    $("#conversation_summary").html(syllabus['mounzer2016']['summary']);
+    params.url = syllabus['mounzer2016']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
