@@ -213,18 +213,8 @@ $( document ).ready(function() {
 
     //Adjust Calander Graph div height based on number of years with annotations
     var activeYears = data.getColumnRange(0).max.getFullYear() - data.getColumnRange(0).min.getFullYear();
-    if ( activeYears == 4 ){
-      graphDivHeight = "750px";
-    } else if ( activeYears == 3 ){
-      graphDivHeight = "600px";
-    } else if ( activeYears == 2 ){
-      graphDivHeight = "455px";
-    } else if ( activeYears == 1 ){
-      graphDivHeight = "350px";
-    } else {
-      graphDivHeight = "250px";
-    }
-    $( "#graphCalendar" ).css("height",graphDivHeight);
+    let graphDivHeight = (activeYears * 150) + 250;
+    $( "#graphCalendar" ).css("height",graphDivHeight + "px");
 
     //bar_graph.draw(messagesPerUser, opts);
     messageTypeData.sort({column: 1, desc: true});
