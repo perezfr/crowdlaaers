@@ -127,7 +127,7 @@ $( document ).ready(function() {
       var username = s['user'];
       var textTotal = s['text'];
       //var link = s['links']['incontext'];
-      //HLIB doesn't retunr 'incontext' field. so...
+      //HLIB doesn't return 'incontext' field. so...
       if (nodeMsg == 'document'){
         var link = "https://hyp.is/" + s['id'];
       } else {
