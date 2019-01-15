@@ -20,7 +20,6 @@ $( document ).ready(function() {
   };
 
   function drawTable(response) {
-    console.log(response)
     if(response.length == 0){
       $( "#annotationCounter" ).html("<h3>No Data Found...</h3>");
       for (let g of graphsArray){
@@ -255,6 +254,7 @@ $( document ).ready(function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([3,4,6]);
       var row = bar_graph_contributors.getSelection()[0].row;
+      bar_graph_contributors.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = viewD.getValue(row, 0);
       var r = view.getFilteredRows([{column: 1, value: name}]);
       view.setRows(r);
@@ -273,6 +273,7 @@ $( document ).ready(function() {
     google.visualization.events.addListener(bar_graph_threads, 'select', function() {
       view = new google.visualization.DataView(data);
       var row = bar_graph_threads.getSelection()[0].row;
+      bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = messagesPerThread.getValue(row, 0);
       var r = view.getFilteredRows([{column: 3, value: name}]);
       view.hideColumns([3,4,6]);
@@ -296,6 +297,7 @@ $( document ).ready(function() {
       let _m = _date.getMonth();
       let _d = _date.getDate() + 1;
       var r = view.getFilteredRows([{column: 0, value: new Date(_y, _m, _d)}]); 
+      calendar.setSelection();
       view.hideColumns([3,4,6]);
       view.setRows(r);
       table.draw(view, opts);
