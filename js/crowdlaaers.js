@@ -20,6 +20,7 @@ $( document ).ready(function() {
   };
 
   function drawTable(response) {
+    console.log(response)
     if(response.length == 0){
       $( "#annotationCounter" ).html("<h3>No Data Found...</h3>");
       for (let g of graphsArray){
@@ -126,7 +127,12 @@ $( document ).ready(function() {
       var username = s['user'];
       var textTotal = s['text'];
       //var link = s['links']['incontext'];
-      var link = "https://hyp.is/" + s['id']
+      //HLIB doesn't retunr 'incontext' field. so...
+      if (nodeMsg == 'document'){
+        var link = "https://hyp.is/" + s['id'];
+      } else {
+        var link = "https://hyp.is/" + nodeMsg;
+      }
       var tags = s['tags'].join().toLowerCase();
       //Add the table graph rows
       data.addRows([
