@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 
   google.charts.load('current', {'packages':['table','corechart','calendar']});
+
   var response;
   var graphsArray = ['table_div','graphContributors','graphThreads','graphTags','graphCalendar'];
 
@@ -32,9 +33,11 @@ $( document ).ready(function() {
       return false;
     }
     $('[data-toggle="tooltip"]').tooltip();
-    var data = new google.visualization.DataTable();
-    var tagData = new google.visualization.DataTable();
-    var messageTypeData = new google.visualization.DataTable();
+
+    let data = new google.visualization.DataTable();
+    let tagData = new google.visualization.DataTable();
+    let messageTypeData = new google.visualization.DataTable();
+
     //Table columns
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
     data.addColumn({type: 'string', id: 'user', label: 'Contributor'});
