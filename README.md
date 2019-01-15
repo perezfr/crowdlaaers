@@ -1,7 +1,7 @@
 # CROWDLAAERS
-Capturing and Reporting Open Web Data for Learning Analytics, Annotation, and Education Researchers (CROWDLAAERS, pronounced “crowd layers”). As a real-time dashboard relevant to collaborative processes, CROWDLAAERS reports learning analytics associated with group, or crowd, discourse layers added via OWA to web content
+Capturing and Reporting Open Web Data for Learning Analytics, Annotation, and Education Researchers (CROWDLAAERS, pronounced “crowd layers”). As a real-time dashboard relevant to collaborative processes, CROWDLAAERS reports learning analytics associated with group, or crowd, discourse layers added via OWA to web content.
 
-## The new CROWDLAAERS release includes the following:
+### The new CROWDLAAERS release includes the following:
 - Incorporates Hypothes.is HLIB Javascript library to provide expanded query capabilities to the Hypothes.is API. This allows for accessing all annotations for a URL. Also provides access to private group annotations through a user's personal Hypothes.is API token.
 - Using local browser storage to provide persistence across sessions of the user’s Hypothes.is API token.
 - Redesigned UI/UX separates the analysis elements in the main div from the navigation elements providing in the left nav div for a more streamed design.
