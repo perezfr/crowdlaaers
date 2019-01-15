@@ -16,9 +16,12 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <title>CROWDLAAERS</title>
+    <title>CROWDLAAERS - Marginal Syllabus</title>
     <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
+    <script type="text/javascript" src="../syl/marginalsyllabus.js"></script>
     <script type="text/javascript" src="../js/crowdlaaers.js"></script>
   </head>
 
@@ -47,43 +50,22 @@
             </div>
           </li>
         </ul>
-        <!--
-        <form class="form-inline col-lg-6">
-          <input class="form-control mr-sm-2 pl-2 col-lg-9 " type="search" placeholder="URL" aria-label="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-        </form>-->
       </div>
     </nav>
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="contributorsClick">
-                  <span data-feather="bar-chart-2"></span>
-                  Participants <span id="participantCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Participants"></span>
-                </a> 
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="calendarClick">
-                  <span data-feather="calendar"></span> 
-                  Calendar <span id="calendarCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Days"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="threadsClick">
-                  <span data-feather="share-2"></span>
-                  Threads <span id="threadCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Active Threads"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="tagsClick">
-                  <span data-feather="tag"></span>
-                  Tags <span id="tagCounter" class="badge badge-pill badge-secondary" data-toggle="tooltip" title="Unique Tags"></span>
-                </a>
-              </li>
-            </ul>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-secondary col-md-9 mt-3" onclick="openSetTokenModal()">
+                Group layers
+              </button>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center ">
+              <select class="form-control col-md-9" id="groupControlSelect" >
+              </select>
+            </div>
             <hr>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
               <a href="#collapse2018" class="nav-link" data-toggle="collapse" aria-expanded="true">
@@ -91,190 +73,296 @@
                 2018-19 Syllabus 
               </a>
             </h8>
-            <ul class="nav flex-column mb-2 collapse show" id="collapse2018">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="january2018">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="december2018">
-                  <span data-feather="file-text"></span>
-                  December
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2018">
-                  <span data-feather="file-text"></span>
-                  Oct/November
-                </a>
-              </li>
-            </ul>
+            <div class="collapse show" id="collapse2018">
+              <ul class="nav flex-column mb-2" >
+                <li class="nav-item">
+                  <a class="nav-link month-link active" href="#" id="january2018">
+                    <span data-feather="file-text"></span>
+                    January
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="december2018">
+                    <span data-feather="file-text"></span>
+                    December
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="october2018">
+                    <span data-feather="file-text"></span>
+                    Oct/November
+                  </a>
+                </li>
+              </ul>
+            </div>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
               <a href="#collapse2017" class="nav-link" data-toggle="collapse">
                 <span data-feather="archive"></span>
                 2017-18 Syllabus 
               </a>
             </h8>
-            <ul class="nav flex-column mb-2 collapse" id="collapse2017">
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="june2017">
-                  <span data-feather="file-text"></span>
-                  June
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="may2017">
-                  <span data-feather="file-text"></span>
-                  May
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2017">
-                  <span data-feather="file-text"></span>
-                  April
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2017">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2017">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2017">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="december2017">
-                  <span data-feather="file-text"></span>
-                  December
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2017">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2017">
-                  <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>    
-            </ul>
+            <div class="collapse" id="collapse2017">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="june2017">
+                    <span data-feather="file-text"></span>
+                    June
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="may2017">
+                    <span data-feather="file-text"></span>
+                    May
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="april2017">
+                    <span data-feather="file-text"></span>
+                    April
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="march2017">
+                    <span data-feather="file-text"></span>
+                    March
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="february2017">
+                    <span data-feather="file-text"></span>
+                    February
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="january2017">
+                    <span data-feather="file-text"></span>
+                    January
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="december2017">
+                    <span data-feather="file-text"></span>
+                    December
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="november2017">
+                    <span data-feather="file-text"></span>
+                    November
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="october2017">
+                    <span data-feather="file-text"></span>
+                    October
+                  </a>
+                </li>    
+              </ul>
+            </div>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
               <a href="#collapse2016" class="nav-link" data-toggle="collapse">
                 <span data-feather="archive"></span>
                 2016-17 Syllabus 
               </a>
             </h8>
-            <ul class="nav flex-column mb-2 collapse" id="collapse2016">
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="may2016">
-                  <span data-feather="file-text"></span>
-                  May
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="april2016">
-                  <span data-feather="file-text"></span>
-                  April
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="march2016">
-                  <span data-feather="file-text"></span>
-                  March
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="february2016">
-                  <span data-feather="file-text"></span>
-                  February
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="january2016">
-                  <span data-feather="file-text"></span>
-                  January
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="november2016">
-                  <span data-feather="file-text"></span>
-                  November
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="october2016">
-                  <span data-feather="file-text"></span>
-                  October
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="september2016">
-                  <span data-feather="file-text"></span>
-                  September
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="august2016">
-                  <span data-feather="file-text"></span>
-                  August
-                </a>
-              </li>
-            </ul>
+            <div class="collapse" id="collapse2016">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="may2016">
+                    <span data-feather="file-text"></span>
+                    May
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="april2016">
+                    <span data-feather="file-text"></span>
+                    April
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="march2016">
+                    <span data-feather="file-text"></span>
+                    March
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="february2016">
+                    <span data-feather="file-text"></span>
+                    February
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="january2016">
+                    <span data-feather="file-text"></span>
+                    January
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="november2016">
+                    <span data-feather="file-text"></span>
+                    November
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="october2016">
+                    <span data-feather="file-text"></span>
+                    October
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="september2016">
+                    <span data-feather="file-text"></span>
+                    September
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="august2016">
+                    <span data-feather="file-text"></span>
+                    August
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-              <div class="btn-toolbar mb-2 mb-md-0">
-                <!--<div class="btn-group mr-2">
-                  <button class="btn btn-sm btn-outline-secondary">Share</button>
-                  <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>-->
-                <button class="btn btn-secondary float-right" disabled>
-                  Annotations <span class="badge badge-light" id="annotationCounter">*</span>
-                </button>
+          <!-- Search Cards-->
+          <div class="card mb-3 mt-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Summary</a>
+            </div>
+            <div class="collapse show" id="collapseCell1">
+              <div class="card-body" id="conversation_summary">
               </div>
             </div>
           </div>
-          <div id="graph"></div>
-          <!--
-          <h2>Section title</h2>-->
-          <br>
-          <div id="conversation_summary">
-            <a href="https://hypothes.is/api/search?url=http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy" id="document_link">
-            <span data-feather="file-text"></span>
-          </a> 
-          </div>
-          <br>
-          <div id="table_div"></div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <!--<div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>-->
-              <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
-                <span data-feather="refresh-ccw"></span>
-              </button>
+          <!-- Icon Cards-->
+         <div class="row">
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-comments"></i>
+                 </div>
+                 <h4 class="text-center"><span id="annotationCounter">0</span></h4>
+                 <p class="text-center">Annotations</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A9CCE3;">
+                <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-list"></i>
+                 </div>
+                 <h4 class="text-center"><span id="participantCounter">0</span></h4>
+                 <p class="text-center">Participants</p>
+                </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F9E79F;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="threadCounter">0</span></h4>
+                 <p class="text-center">Threads</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F8C471;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-shopping-cart"></i>
+                 </div>
+                 <h4 class="text-center"><span id="calendarCounter">0</span></h4>
+                 <p class="text-center">Days</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F1948A;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="tagCounter">0</span></h4>
+                 <p class="text-center">Tags</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A2D9CE;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
+              <span data-feather="maximize-2"></span>
             </div>
-          </div>
+            <div class="collapse show" id="collapseCell6">
+              <div class="card-body">
+                <div id="table_div"></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                      <span data-feather="refresh-ccw"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A9CCE3;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="graphContributors"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F9E79F;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell4">
+              <div class="card-body">
+                <div id="graphThreads"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3"">
+            <div class="card-header" style="background-color:#F8C471;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell3">
+              <div class="card-body">
+                <div id="graphCalendar"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F1948A;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell5">
+              <div class="card-body">
+                <div id="graphTags"></div>
+              </div>
+            </div>
+         </div>
         </main>
       </div>
     </div>
@@ -290,8 +378,25 @@
           <div id="annotationModalBody" class="modal-body">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="setTokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setTokenModalLabel">Enter API token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="setTokanModalBody" class="modal-body">
+            <input class="form-control" type="password" placeholder="" id="tokenInputBar">
+          </div>
+          <div class="modal-footer">
+            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
           </div>
         </div>
       </div>
