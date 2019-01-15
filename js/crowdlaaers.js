@@ -314,6 +314,27 @@ $( document ).ready(function() {
       });
     });
 
+    google.visualization.events.addListener(bar_graph_tags, 'select', function() {
+      view = new google.visualization.DataView(data);
+      var row = bar_graph_tags.getSelection()[0].row;
+      bar_graph_tags.setSelection(); //needed to prevent graph freezing on 2nd click
+      let _tag = tagData.getValue(row, 0);
+      var r = view.getFilteredRows([{column: 3, test: function(value, row, column, table) {
+        return(table.getValue(row, 5).includes(_tag));
+      }}]);
+      view.hideColumns([3,4,6]);
+      view.setRows(r);
+      table.draw(view, opts);
+
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
+      });
+    });
+
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
       view.hideColumns([3,4,6]);
