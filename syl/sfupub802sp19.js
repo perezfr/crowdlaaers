@@ -20,8 +20,8 @@ var syllabus = {
     summary:'<a target="_blank" href="https://via.hypothes.is/https://medium.com/humane-tech/tech-and-the-fake-market-tactic-8bd386e3d382">https://medium.com/humane-tech/tech-and-the-fake-market-tactic-8bd386e3d382<a>'
   },
   McGuire2016:{
-    url:'https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f#.ik4hexuct',
-    summary:'<a target="_blank" href="https://via.hypothes.is/https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f#.ik4hexuct">https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f#.ik4hexuct<a>'
+    url:'https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f',
+    summary:'<a target="_blank" href="https://via.hypothes.is/https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f">https://medium.com/@hughmcguire/what-books-can-learn-from-the-web-what-the-web-can-learn-from-books-64670171908f<a>'
   },
   Derakhshan2015:{
     url:'https://medium.com/matter/the-web-we-have-to-save-2eb1fe15a426',
