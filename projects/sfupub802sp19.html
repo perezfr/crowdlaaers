@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121574943-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-121574943-1');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>CROWDLAAERS - PUB 802</title>
+    <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
+    <script type="text/javascript" src="../syl/sfupub802sp19.js"></script>
+    <script type="text/javascript" src="../js/crowdlaaers.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
+      <a class="navbar-brand  col-lg-2 col-md-2" href="https://crowdlaaers.org/">CROWDLAAERS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org/about.html">About</a>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Projects
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/marginalsyllabus.html">Marginal Syllabus</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/equityunbound.html">#UnboundEq</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-secondary col-md-9 mt-3" onclick="openSetTokenModal()">
+                Group layers
+              </button>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center ">
+              <select class="form-control col-md-9" id="groupControlSelect" >
+              </select>
+            </div>
+            <hr>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#collapseJanuary" class="nav-link" data-toggle="collapse" aria-expanded="true">
+                <span data-feather="archive"></span>
+                January 
+              </a>
+            </h8>
+            <div class="collapse show" id="collapseJanuary">
+              <ul class="nav flex-column mb-2" >
+                <li class="nav-item">
+                  <a class="nav-link active month-link" href="#" id="Mod2018">
+                    <span data-feather="file-text"></span>
+                    Mod (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Carmody2018a">
+                    <span data-feather="file-text"></span>
+                    Carmody (2018a)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Gopnik2011">
+                    <span data-feather="file-text"></span>
+                    Gopnik (2011)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Dash2016">
+                    <span data-feather="file-text"></span>
+                    Dash (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Dash2017">
+                    <span data-feather="file-text"></span>
+                    Dash (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="McGuire2016">
+                    <span data-feather="file-text"></span>
+                    McGuire (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Derakhshan2015">
+                    <span data-feather="file-text"></span>
+                    Derakhshan (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Kottke2013">
+                    <span data-feather="file-text"></span>
+                    Kottke (2013)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Post-textFuture2018">
+                    <span data-feather="file-text"></span>
+                    Post-text Future (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Shatzkin2018a">
+                    <span data-feather="file-text"></span>
+                    Shatzkin (2018a)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Chimero2018">
+                    <span data-feather="file-text"></span>
+                    Chimero (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Carmody2018b">
+                    <span data-feather="file-text"></span>
+                    Carmody (2018b)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Singh2018">
+                    <span data-feather="file-text"></span>
+                    Singh (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Madrigal2017">
+                    <span data-feather="file-text"></span>
+                    Madrigal (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Kottke2017">
+                    <span data-feather="file-text"></span>
+                    Kottke (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Kolbert2017">
+                    <span data-feather="file-text"></span>
+                    Kolbert (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Hempel2016">
+                    <span data-feather="file-text"></span>
+                    Hempel (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Williams2018a">
+                    <span data-feather="file-text"></span>
+                    Williams (2018a)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Williams2018b">
+                    <span data-feather="file-text"></span>
+                    Williams (2018b)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Shatzkin2018b">
+                    <span data-feather="file-text"></span>
+                    Shatzkin (2018b)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Semuels2018">
+                    <span data-feather="file-text"></span>
+                    Semuels (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Shatzkin2018c">
+                    <span data-feather="file-text"></span>
+                    Shatzkin (2018c)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#collapseFebruary" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                February 
+              </a>
+            </h8>
+            <div class="collapse" id="collapseFebruary">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="TheNewMedicis2018">
+                    <span data-feather="file-text"></span>
+                    The New Medicis (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Carmody2017">
+                    <span data-feather="file-text"></span>
+                    Carmody (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Knepper2017">
+                    <span data-feather="file-text"></span>
+                    Knepper (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Graham2017">
+                    <span data-feather="file-text"></span>
+                    Graham (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Dash2015a">
+                    <span data-feather="file-text"></span>
+                    Dash (2015a)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Dash2015b">
+                    <span data-feather="file-text"></span>
+                    Dash (2015b)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="FairUse">
+                    <span data-feather="file-text"></span>
+                    Fair Use
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Cox2018">
+                    <span data-feather="file-text"></span>
+                    Cox (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="FairUseComic">
+                    <span data-feather="file-text"></span>
+                    Fair Use Comic
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Doctorow2014">
+                    <span data-feather="file-text"></span>
+                    Doctorow (2014)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Bright2017">
+                    <span data-feather="file-text"></span>
+                    Bright (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Doctorow2017">
+                    <span data-feather="file-text"></span>
+                    Doctorow (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Hern2016">
+                    <span data-feather="file-text"></span>
+                    Hern (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Delwiche2014">
+                    <span data-feather="file-text"></span>
+                    Delwiche (2014)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Tracks2004">
+                    <span data-feather="file-text"></span>
+                    Tracks (2004)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Mullin2015">
+                    <span data-feather="file-text"></span>
+                    Mullin (2015)
+                  </a>
+                </li>   
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#collapseMarch" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                March 
+              </a>
+            </h8>
+            <div class="collapse" id="collapseMarch">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Curran2018">
+                    <span data-feather="file-text"></span>
+                    Curran (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Tufekci2018">
+                    <span data-feather="file-text"></span>
+                    Tufekci (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Pix&Schneier2017">
+                    <span data-feather="file-text"></span>
+                    Pix & Schneier (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Doctorow2018">
+                    <span data-feather="file-text"></span>
+                    Doctorow (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Vaidhyanathan2018">
+                    <span data-feather="file-text"></span>
+                    Vaidhyanathan (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Morozov2018">
+                    <span data-feather="file-text"></span>
+                    Morozov (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="boyd2018">
+                    <span data-feather="file-text"></span>
+                    boyd (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Dawson2012">
+                    <span data-feather="file-text"></span>
+                    Dawson (2012)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Shatzkin2018d">
+                    <span data-feather="file-text"></span>
+                    Shatzkin (2018d)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Shatzkin2018e">
+                    <span data-feather="file-text"></span>
+                    Shatzkin (2018e)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Michel2016">
+                    <span data-feather="file-text"></span>
+                    Michel (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Parker2017">
+                    <span data-feather="file-text"></span>
+                    Parker (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Phillips2016">
+                    <span data-feather="file-text"></span>
+                    Phillips (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Neary2016">
+                    <span data-feather="file-text"></span>
+                    Neary (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Fischett2017">
+                    <span data-feather="file-text"></span>
+                    Fischett (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="EmergingTechnology2016">
+                    <span data-feather="file-text"></span>
+                    Emerging Technology (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Porter2017">
+                    <span data-feather="file-text"></span>
+                    Porter (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Rhomberg2015">
+                    <span data-feather="file-text"></span>
+                    Rhomberg (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Willens2018">
+                    <span data-feather="file-text"></span>
+                    Willens (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Tenentes2018">
+                    <span data-feather="file-text"></span>
+                    Tenentes (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Cohen2015">
+                    <span data-feather="file-text"></span>
+                    Cohen (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Cohen2016">
+                    <span data-feather="file-text"></span>
+                    Cohen (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="BooknetCanada2016">
+                    <span data-feather="file-text"></span>
+                    Booknet Canada (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Hoffelder2017">
+                    <span data-feather="file-text"></span>
+                    Hoffelder (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Konnikova2014">
+                    <span data-feather="file-text"></span>
+                    Konnikova (2014)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Penguin2018">
+                    <span data-feather="file-text"></span>
+                    Penguin (2018)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="McWilliams2018">
+                    <span data-feather="file-text"></span>
+                    McWilliams (2018)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#collapseApril" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                April 
+              </a>
+            </h8>
+            <div class="collapse" id="collapseApril">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Namakura2013">
+                    <span data-feather="file-text"></span>
+                    Namakura (2013)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Underwood2016">
+                    <span data-feather="file-text"></span>
+                    Underwood (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="AC2015">
+                    <span data-feather="file-text"></span>
+                    AC (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Plate2015">
+                    <span data-feather="file-text"></span>
+                    Plate (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Watters2017">
+                    <span data-feather="file-text"></span>
+                    Watters (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Flanagan2016">
+                    <span data-feather="file-text"></span>
+                    Flanagan (2016)
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <!-- Search Cards-->
+          <div class="card mb-3 mt-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Summary</a>
+            </div>
+            <div class="collapse show" id="collapseCell1">
+              <div class="card-body" id="conversation_summary">
+              </div>
+            </div>
+          </div>
+          <!-- Icon Cards-->
+         <div class="row">
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-comments"></i>
+                 </div>
+                 <h4 class="text-center"><span id="annotationCounter">0</span></h4>
+                 <p class="text-center">Annotations</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A9CCE3;">
+                <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-list"></i>
+                 </div>
+                 <h4 class="text-center"><span id="participantCounter">0</span></h4>
+                 <p class="text-center">Participants</p>
+                </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F9E79F;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="threadCounter">0</span></h4>
+                 <p class="text-center">Threads</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F8C471;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-shopping-cart"></i>
+                 </div>
+                 <h4 class="text-center"><span id="calendarCounter">0</span></h4>
+                 <p class="text-center">Days</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F1948A;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="tagCounter">0</span></h4>
+                 <p class="text-center">Tags</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A2D9CE;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell6">
+              <div class="card-body">
+                <div id="table_div"></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                      <span data-feather="refresh-ccw"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A9CCE3;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="graphContributors"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F9E79F;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell4">
+              <div class="card-body">
+                <div id="graphThreads"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3"">
+            <div class="card-header" style="background-color:#F8C471;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell3">
+              <div class="card-body">
+                <div id="graphCalendar"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F1948A;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell5">
+              <div class="card-body">
+                <div id="graphTags"></div>
+              </div>
+            </div>
+         </div>
+        </main>
+      </div>
+    </div>
+    <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="annotationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="annotationModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="annotationModalBody" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="setTokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setTokenModalLabel">Enter API token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="setTokanModalBody" class="modal-body">
+            <input class="form-control" type="password" placeholder="" id="tokenInputBar">
+          </div>
+          <div class="modal-footer">
+            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+  </body>
+</html>
