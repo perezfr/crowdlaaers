@@ -434,7 +434,7 @@ $( document ).ready(function() {
     });
   } 
 
-  if (startURL.href.slice(-21) == "marginalsyllabus.html"){
+  if (startURL.href.includes("marginalsyllabus.html")){
     $("#conversation_summary").html(syllabus['january2018']['summary']);
     params.url = syllabus['january2018']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
@@ -442,7 +442,15 @@ $( document ).ready(function() {
     });
   }
 
-  if (startURL.href.slice(-18) == "equityunbound.html"){
+  if (startURL.href.includes("sfupub802sp19.html")){
+    $("#conversation_summary").html(syllabus['Mod2018']['summary']);
+    params.url = syllabus['Mod2018']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
+  if (startURL.href.includes("equityunbound.html")){
     $("#conversation_summary").html(syllabus['mounzer2016']['summary']);
     params.url = syllabus['mounzer2016']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
