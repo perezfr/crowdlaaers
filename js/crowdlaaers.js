@@ -458,6 +458,22 @@ $( document ).ready(function() {
     });
   }
 
+  if (startURL.href.includes("inte5320sp19.html")){
+    $("#conversation_summary").html(syllabus['syllabus']['summary']);
+    params.url = syllabus['syllabus']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
+  if (startURL.href.includes("inte7130sp19.html")){
+    $("#conversation_summary").html(syllabus['Syllabus']['summary']);
+    params.url = syllabus['Syllabus']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
   $( "#urlShare" ).click(function() {
