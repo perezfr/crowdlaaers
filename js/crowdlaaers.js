@@ -474,6 +474,14 @@ $( document ).ready(function() {
     });
   }
 
+  if (startURL.href.includes("engelbart.html")){
+    $("#conversation_summary").html(syllabus['1']['summary']);
+    params.url = syllabus['1']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
   $( "#urlShare" ).click(function() {
