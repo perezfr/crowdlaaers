@@ -435,8 +435,8 @@ $( document ).ready(function() {
   } 
 
   if (startURL.href.includes("marginalsyllabus.html")){
-    $("#conversation_summary").html(syllabus['january2018']['summary']);
-    params.url = syllabus['january2018']['url'];
+    $("#conversation_summary").html(syllabus['february2018']['summary']);
+    params.url = syllabus['february2018']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
@@ -469,6 +469,14 @@ $( document ).ready(function() {
   if (startURL.href.includes("inte7130sp19.html")){
     $("#conversation_summary").html(syllabus['Syllabus']['summary']);
     params.url = syllabus['Syllabus']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
+  if (startURL.href.includes("engelbart.html")){
+    $("#conversation_summary").html(syllabus['3']['summary']);
+    params.url = syllabus['3']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
