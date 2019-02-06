@@ -475,8 +475,8 @@ $( document ).ready(function() {
   }
 
   if (startURL.href.includes("engelbart.html")){
-    $("#conversation_summary").html(syllabus['3']['summary']);
-    params.url = syllabus['3']['url'];
+    $("#conversation_summary").html(syllabus['1']['summary']);
+    params.url = syllabus['1']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
