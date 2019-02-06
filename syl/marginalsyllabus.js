@@ -82,5 +82,9 @@
     january2018:{
       url:"https://educatorinnovator.org/wp-content/uploads/2018/12/EE0502GenerativePrinciples.pdf",
       summary:"Starting in January 2019, Marginal Syllabus text-participants read and discussed 'Generative principles for professional learning for equity-oriented urban English educators,' an article in English Education by Allison Skerrett, Amber Warrington, and Thea Williamson. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, is a longitudinal study of three urban English educators and details six principles for professional learning that explicitly helped to promote these educators' equity-oriented educational practice. The article concludes by discussing implications for both inservice and preservice English education, as well as English education research."
+    },
+    february2018:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/01/when-school-is-not-enough-marsyl.pdf",
+      summary:"Starting in February 2019, Marginal Syllabus text-participants read and discussed 'When school is not enough: Understanding the lives and literacies of Black youth,' an article in Research in the Teaching of English by Valerie Kinloch, Tanja Burkhard, and Carlotta Penn. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, features the perspectives of Khaleeq and Rendell, two young men engaged in community-based social justice initiatives that counter the deficit narratives encountered in school - narratives that tell them they are not enough. Khaleeq and Rendell's counternarratives provide both a point of reflection for educators, school leaders, and community partners, as well as key considerations for the work educators do to better support the literacy development of young Black men."
     }
   }
