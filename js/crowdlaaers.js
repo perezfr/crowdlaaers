@@ -261,6 +261,15 @@ $( document ).ready(function() {
       view.hideColumns([3,4,6]);
       view.setRows(r);
       table.draw(view, opts);
+
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#threadButton').attr("thread", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
+      });
     });
     //for filtering by user
     google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
