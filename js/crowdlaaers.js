@@ -246,10 +246,21 @@ $( document ).ready(function() {
     //to be removed when table is filtered. Then create new event handler object 
     var event = google.visualization.events.addListener(table, 'select', function() {
       var row = table.getSelection()[0].row;
+      let _link = data.getValue(row, 6).substring(15,37);
       $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
       $('#annotationModalBody').text(data.getValue(row, 4));
       $('#inContextButton').attr("href", data.getValue(row, 6));
+      $('#threadButton').attr("thread", data.getValue(row, 6));
       $('#annotationModal').modal('show');
+    });
+
+    $( "#threadButton" ).click(function() {
+      var _thread = $(this).attr("thread");
+      view = new google.visualization.DataView(data);
+      var r = view.getFilteredRows([{column: 6, value: _thread}]);
+      view.hideColumns([3,4,6]);
+      view.setRows(r);
+      table.draw(view, opts);
     });
     //for filtering by user
     google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
