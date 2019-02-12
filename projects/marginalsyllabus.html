@@ -304,7 +304,7 @@
            </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#A2D9CE;">
+            <div class="card-header" style="background-color:#A2D9CE;" data-toggle="tooltip" title="Click the graphs below to filter the annotations table, and click any annotation to read more.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
               <span data-feather="maximize-2"></span>
@@ -323,7 +323,7 @@
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#A9CCE3;">
+            <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
               <span data-feather="maximize-2"></span>
@@ -335,7 +335,7 @@
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#F9E79F;">
+            <div class="card-header" style="background-color:#F9E79F;" data-toggle="tooltip" title="Click graph column to filter Annotations table by conversation thread.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
               <span data-feather="maximize-2"></span>
@@ -347,7 +347,7 @@
             </div>
          </div>
          <div class="card mb-3"">
-            <div class="card-header" style="background-color:#F8C471;">
+            <div class="card-header" style="background-color:#F8C471;" data-toggle="tooltip" title="Click graph to filter Annotations table by day.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
               <span data-feather="maximize-2"></span>
@@ -359,7 +359,7 @@
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#F1948A;">
+            <div class="card-header" style="background-color:#F1948A;" data-toggle="tooltip" title="Click graph column to filter Annotations table by tag.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
               <span data-feather="maximize-2"></span>
@@ -415,6 +415,11 @@
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+      });
     </script>
   </body>
 </html>
