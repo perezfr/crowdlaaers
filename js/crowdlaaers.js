@@ -171,7 +171,7 @@ $( document ).ready(function() {
       }
 
       if (s['id'] in _threads){
-        //++_threads[s['id']]['totalMessages'];
+        //add to names list only if name is not present
         if(!_threads[s['id']]['names'].includes(username)) {
           _threads[s['id']]['names'].push(username);
         }
@@ -204,13 +204,14 @@ $( document ).ready(function() {
       ]);
     }
 
-    //Build threads graph
+    //Build thread table for graph with loop instead of group() to keep usernames
     for (let t in _threads){
       threadsData.addRows([
         [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t ]
       ]);
     }
     threadsData.sort({column: 1, desc: true});
+    //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
     threadsView.hideColumns([2]);
 
@@ -234,7 +235,7 @@ $( document ).ready(function() {
       'label': 'Contributions'}]
     );
     messagesPerUser.sort({column: 1, desc: true});
-
+    /* Built thread table with in loop above
     var messagesPerThread = google.visualization.data.group(
       data,
       [3], //aggregate annotations by thread
@@ -244,7 +245,7 @@ $( document ).ready(function() {
     messagesPerThread.sort({column: 1, desc: true});
     if (messagesPerThread.getValue(0,0)=="document"){ //drop document row if exists
       messagesPerThread.removeRow(0);
-    };
+    };*/
 
     var messagesPerDay = google.visualization.data.group(
       data,
@@ -266,8 +267,7 @@ $( document ).ready(function() {
     viewD.hideColumns([1]);
 
     bar_graph_contributors.draw(viewD, opts);
-    bar_graph_tags.draw(tagData, opts); //Use test property for filtering by tag
-    //bar_graph_threads.draw(messagesPerThread, opts);
+    bar_graph_tags.draw(tagData, opts); 
     bar_graph_threads.draw(threadsView, opts);
     calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
@@ -336,8 +336,7 @@ $( document ).ready(function() {
       view = new google.visualization.DataView(data);
       var row = bar_graph_threads.getSelection()[0].row;
       bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
-      //var name = messagesPerThread.getValue(row, 0);
-      var name = threadsData.getValue(row, 2);
+      var name = threadsData.getValue(row, 2); //use the #2 column where the nodeMsg is
       var r = view.getFilteredRows([{column: 3, value: name}]);
       view.hideColumns([3,4,6]);
       view.setRows(r);
