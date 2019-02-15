@@ -275,7 +275,7 @@ $( document ).ready(function() {
     // counter cards 
     $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
-    $( "#threadCounter" ).text(messagesPerThread.getNumberOfRows());
+    $( "#threadCounter" ).text(threadsView.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
     $( "#annotationCounter" ).text(total);
 
