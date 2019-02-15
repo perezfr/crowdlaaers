@@ -37,6 +37,7 @@ $( document ).ready(function() {
     let data = new google.visualization.DataTable();
     let tagData = new google.visualization.DataTable();
     let messageTypeData = new google.visualization.DataTable();
+    let threadsData = new google.visualization.DataTable();
 
     //Table columns
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
@@ -55,7 +56,10 @@ $( document ).ready(function() {
     messageTypeData.addColumn({type: 'number', id: 'total', label: 'Total'});
     messageTypeData.addColumn({type: 'number', id: 'annotations', label: 'Annotations'});
     messageTypeData.addColumn({type: 'number', id: 'replies', label: 'Replies'});
-
+    //threads columns
+    threadsData.addColumn({type: 'string', id: 'users', label: 'Users'});
+    threadsData.addColumn({type: 'number', id: 'total', label: 'Total'});
+    threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
 
     //var rows = response['rows'];
     //var total = response['total'];
@@ -69,6 +73,8 @@ $( document ).ready(function() {
     var level = 0;
     var nodeMsg;
 
+    var _threads = {};
+
     for (ss of rows){
       //create array of annotations with replies as root for threads
       //if (ss['references']){
@@ -78,6 +84,10 @@ $( document ).ready(function() {
         if (!threads.includes(ss['refs'][0])){
           threads.push(ss['refs'][0]);
         }
+
+        if (!_threads[ss['refs'][0]]){
+          _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[]};
+        }
       }  
       //create array of tags to build tag column graph
       if (ss['tags'].length > 0){
@@ -86,7 +96,8 @@ $( document ).ready(function() {
         });
       }
     }
-    for (s of rows) {
+
+    for (s of rows){
       //Count the threads
       level = 0;
       nodeMsg = "document";
@@ -158,6 +169,20 @@ $( document ).ready(function() {
           ++messageTypeCount[username]['replies'];
         }
       }
+
+      if (s['id'] in _threads){
+        //++_threads[s['id']]['totalMessages'];
+        if(!_threads[s['id']]['names'].includes(username)) {
+          _threads[s['id']]['names'].push(username);
+        }
+      }
+      if (nodeMsg in _threads){
+        ++_threads[nodeMsg]['totalMessages'];
+        if(!_threads[nodeMsg]['names'].includes(username)) {
+          _threads[nodeMsg]['names'].push(username);
+        }
+      }
+      
     }
 
     //Count instances of unique tags
@@ -178,6 +203,17 @@ $( document ).ready(function() {
         [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies']]
       ]);
     }
+
+    //Build threads graph
+    for (let t in _threads){
+      threadsData.addRows([
+        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t ]
+      ]);
+    }
+    threadsData.sort({column: 1, desc: true});
+    threadsView = new google.visualization.DataView(threadsData);
+    threadsView.hideColumns([2]);
+
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
     var bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('graphContributors'));
@@ -231,7 +267,8 @@ $( document ).ready(function() {
 
     bar_graph_contributors.draw(viewD, opts);
     bar_graph_tags.draw(tagData, opts); //Use test property for filtering by tag
-    bar_graph_threads.draw(messagesPerThread, opts);
+    //bar_graph_threads.draw(messagesPerThread, opts);
+    bar_graph_threads.draw(threadsView, opts);
     calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
 
@@ -299,7 +336,8 @@ $( document ).ready(function() {
       view = new google.visualization.DataView(data);
       var row = bar_graph_threads.getSelection()[0].row;
       bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
-      var name = messagesPerThread.getValue(row, 0);
+      //var name = messagesPerThread.getValue(row, 0);
+      var name = threadsData.getValue(row, 2);
       var r = view.getFilteredRows([{column: 3, value: name}]);
       view.hideColumns([3,4,6]);
       view.setRows(r);
