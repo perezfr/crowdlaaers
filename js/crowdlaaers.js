@@ -244,7 +244,7 @@ $( document ).ready(function() {
     data.sort({column: 0, desc: true});
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
-
+    /* Built tables with loops above
     var messagesPerUser = google.visualization.data.group(
       data,
       [1], //aggregate annotations by users
@@ -252,7 +252,7 @@ $( document ).ready(function() {
       'label': 'Contributions'}]
     );
     messagesPerUser.sort({column: 1, desc: true});
-    /* Built thread table with in loop above
+    
     var messagesPerThread = google.visualization.data.group(
       data,
       [3], //aggregate annotations by thread
@@ -290,7 +290,7 @@ $( document ).ready(function() {
     table.draw(view, opts);
 
     // counter cards 
-    $( "#participantCounter" ).text(messagesPerUser.getNumberOfRows());
+    $( "#participantCounter" ).text(messageTypeData.getNumberOfRows());
     $( "#calendarCounter" ).text(messagesPerDay.getNumberOfRows());
     $( "#threadCounter" ).text(threadsView.getNumberOfRows());
     $( "#tagCounter" ).text(Object.keys(tagCounts).length);
@@ -420,10 +420,47 @@ $( document ).ready(function() {
       table.draw(view, opts);
     });
 
-    $("#sortParticipantGraphButton").change(function(){
-      //let select = document.getElementById("sortParticipantGraphButton");
-      //let selectedString = select.options[select.selectedIndex].value;
-      console.log('clicked');
+    $("#sortParticipantRecentButton").click(function(){
+      messageTypeData.sort({column: 4, desc: true});
+      bar_graph_contributors.draw(viewD, opts);
+      $( "#sortParticipantRecentButton" ).attr("class", "dropdown-item active");
+      $( "#sortParticipantHighestButton" ).attr("class", "dropdown-item");
+      $( "#sortParticipantLowestButton" ).attr("class", "dropdown-item");
+    });
+    $("#sortParticipantHighestButton").click(function(){
+      messageTypeData.sort({column: 1, desc: true});
+      bar_graph_contributors.draw(viewD, opts);
+      $( "#sortParticipantRecentButton" ).attr("class", "dropdown-item");
+      $( "#sortParticipantHighestButton" ).attr("class", "dropdown-item active");
+      $( "#sortParticipantLowestButton" ).attr("class", "dropdown-item");
+    });
+    $("#sortParticipantLowestButton").click(function(){
+      messageTypeData.sort({column: 1, desc: false});
+      bar_graph_contributors.draw(viewD, opts);
+      $( "#sortParticipantRecentButton" ).attr("class", "dropdown-item");
+      $( "#sortParticipantHighestButton" ).attr("class", "dropdown-item");
+      $( "#sortParticipantLowestButton" ).attr("class", "dropdown-item active");
+    });
+    $("#sortThreadRecentButton").click(function(){
+      threadsData.sort({column: 3, desc: true});
+      bar_graph_threads.draw(threadsView, opts);
+      $( "#sortThreadRecentButton" ).attr("class", "dropdown-item active");
+      $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
+      $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
+    });
+    $("#sortThreadHighestButton").click(function(){
+      threadsData.sort({column: 1, desc: true});
+      bar_graph_threads.draw(threadsView, opts);
+      $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
+      $( "#sortThreadHighestButton" ).attr("class", "dropdown-item active");
+      $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
+    });
+    $("#sortThreadLowestButton").click(function(){
+      threadsData.sort({column: 1, desc: false});
+      bar_graph_threads.draw(threadsView, opts);
+      $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
+      $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
+      $( "#sortThreadLowestButton" ).attr("class", "dropdown-item active");
     });
 
   }; //end drawtable
