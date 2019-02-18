@@ -241,6 +241,7 @@ $( document ).ready(function() {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
       vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
     };
+    data.sort({column: 0, desc: true});
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
 
@@ -418,6 +419,13 @@ $( document ).ready(function() {
       view.hideColumns([3,4,6]);
       table.draw(view, opts);
     });
+
+    $("#sortParticipantGraphButton").change(function(){
+      //let select = document.getElementById("sortParticipantGraphButton");
+      //let selectedString = select.options[select.selectedIndex].value;
+      console.log('clicked');
+    });
+
   }; //end drawtable
 
   $( ".month-link" ).click(function(event) {
