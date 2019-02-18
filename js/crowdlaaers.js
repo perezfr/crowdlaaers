@@ -56,10 +56,12 @@ $( document ).ready(function() {
     messageTypeData.addColumn({type: 'number', id: 'total', label: 'Total'});
     messageTypeData.addColumn({type: 'number', id: 'annotations', label: 'Annotations'});
     messageTypeData.addColumn({type: 'number', id: 'replies', label: 'Replies'});
+    messageTypeData.addColumn({type: 'date', id: 'Date', label: 'Date'});
     //threads columns
     threadsData.addColumn({type: 'string', id: 'users', label: 'Users'});
     threadsData.addColumn({type: 'number', id: 'total', label: 'Total'});
     threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
+    threadsData.addColumn({type: 'date', id: 'Date', label: 'Date'});
 
     //var rows = response['rows'];
     //var total = response['total'];
@@ -86,7 +88,7 @@ $( document ).ready(function() {
         }
 
         if (!_threads[ss['refs'][0]]){
-          _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[]};
+          _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[], 'dateLatest':null};
         }
       }  
       //create array of tags to build tag column graph
@@ -154,12 +156,15 @@ $( document ).ready(function() {
       
       //count annotations, replies and total messages per user
       if (!messageTypeCount[username]){
-        messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
+        messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0, 'dateLatest':null};
         ++messageTypeCount[username]['totalMessages'];
         if (level == 0) {
           ++messageTypeCount[username]['annotations'];
         } else {
           ++messageTypeCount[username]['replies'];
+        }
+        if(messageTypeCount[username]['dateLatest'] < date){
+          messageTypeCount[username]['dateLatest'] = date;
         }
       } else {
         ++messageTypeCount[username]['totalMessages'];
@@ -168,18 +173,29 @@ $( document ).ready(function() {
         } else {
           ++messageTypeCount[username]['replies'];
         }
+        if(messageTypeCount[username]['dateLatest'] < date){
+          messageTypeCount[username]['dateLatest'] = date;
+        }
       }
 
+      //build thread object for tables
       if (s['id'] in _threads){
         //add to names list only if name is not present
         if(!_threads[s['id']]['names'].includes(username)) {
-          _threads[s['id']]['names'].push(username);
+          _threads[s['id']]['names'].push(username);  
+        }
+        //check if date is present add date, or add most recent date to sort by recent 
+        if(_threads[s['id']]['dateLatest'] < date){
+          _threads[s['id']]['dateLatest'] = date;
         }
       }
       if (nodeMsg in _threads){
         ++_threads[nodeMsg]['totalMessages'];
         if(!_threads[nodeMsg]['names'].includes(username)) {
           _threads[nodeMsg]['names'].push(username);
+        }
+        if(_threads[nodeMsg]['dateLatest'] < date){
+          _threads[nodeMsg]['dateLatest'] = date;
         }
       }
       
@@ -200,20 +216,20 @@ $( document ).ready(function() {
     //Build the message type graph
     for (var m in messageTypeCount) {
       messageTypeData.addRows([
-        [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies']]
+        [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies'], messageTypeCount[m]['dateLatest']]
       ]);
     }
 
     //Build thread table for graph with loop instead of group() to keep usernames
     for (let t in _threads){
       threadsData.addRows([
-        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t ]
+        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest'])]
       ]);
     }
-    threadsData.sort({column: 1, desc: true});
+    threadsData.sort({column: 3, desc: true});
     //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
-    threadsView.hideColumns([2]);
+    threadsView.hideColumns([2, 3]);
 
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
@@ -262,9 +278,9 @@ $( document ).ready(function() {
     $( "#graphCalendar" ).css("height",graphDivHeight + "px");
 
     //bar_graph.draw(messagesPerUser, opts);
-    messageTypeData.sort({column: 1, desc: true});
+    messageTypeData.sort({column: 4, desc: true});
     viewD = new google.visualization.DataView(messageTypeData);
-    viewD.hideColumns([1]);
+    viewD.hideColumns([1,4]);
 
     bar_graph_contributors.draw(viewD, opts);
     bar_graph_tags.draw(tagData, opts); 
