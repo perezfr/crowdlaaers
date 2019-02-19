@@ -224,7 +224,7 @@ $( document ).ready(function() {
     for (let t in _threads){
       let _len = _threads[t]['totalMessages'];
       let _year = _threads[t]['dateLatest'].getYear() + 1900;
-      let _month = _threads[t]['dateLatest'].getMonth();
+      let _month = _threads[t]['dateLatest'].getMonth() + 1;
       let _dateDay = _threads[t]['dateLatest'].getDate();
       let _dd = _month + "/" + _dateDay + "/" + _year;
       let _tt = "<b>Participants:</b> " + _threads[t]['names'].toString().replace(/,/g, ", ") + "<br>"
