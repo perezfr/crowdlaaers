@@ -323,7 +323,7 @@
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#A9CCE3;">
+            <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
               <span data-feather="maximize-2"></span>
@@ -332,20 +332,20 @@
                   Sort
                 </button>
                 <div class="dropdown-menu dropdown-menu-right sort-button" id="sortParticipantGraphButton" aria-labelledby="dropdownMenuButton">
-                  <button id="sortParticipantRecentButton" class="dropdown-item active" href="">Most recent</button>
+                  <button id="sortParticipantRecentButton" class="dropdown-item active" href="">Most recent(left to right)</button>
                   <button id="sortParticipantHighestButton" class="dropdown-item" href="">Highest <span data-feather="arrow-down"></span></button>
                   <button id="sortParticipantLowestButton" class="dropdown-item" href="">Lowest <span data-feather="arrow-up"></span></button>
                 </div>
               </div>
             </div>
             <div class="collapse show" id="collapseCell2">
-              <div class="card-body" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
+              <div class="card-body">
                 <div id="graphContributors"></div>
               </div>
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#F9E79F;">
+            <div class="card-header" style="background-color:#F9E79F;" data-toggle="tooltip" title="Click graph column to filter Annotations table by conversation thread.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
               <span data-feather="maximize-2"></span>
@@ -354,14 +354,14 @@
                   Sort
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <button id="sortThreadRecentButton" class="dropdown-item active" href="">Most recent</button>
+                  <button id="sortThreadRecentButton" class="dropdown-item active" href="">Most recent(left to right)</button>
                   <button id="sortThreadHighestButton" class="dropdown-item" href="">Highest <span data-feather="arrow-down"></span></button>
                   <button id="sortThreadLowestButton" class="dropdown-item" href="">Lowest <span data-feather="arrow-up"></span></button>
                 </div>
               </div>
             </div>
             <div class="collapse show" id="collapseCell4">
-              <div class="card-body" data-toggle="tooltip" title="Click graph column to filter Annotations table by conversation thread." >
+              <div class="card-body">
                 <div id="graphThreads"></div>
               </div>
             </div>
