@@ -62,7 +62,7 @@ $( document ).ready(function() {
     threadsData.addColumn({type: 'number', id: 'total', label: 'Total'});
     threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
     threadsData.addColumn({type: 'date', id: 'Date', label: 'Date'});
-
+    threadsData.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
     //var rows = response['rows'];
     //var total = response['total'];
     var rows = response;
@@ -222,8 +222,16 @@ $( document ).ready(function() {
 
     //Build thread table for graph with loop instead of group() to keep usernames
     for (let t in _threads){
+      let _len = _threads[t]['totalMessages'];
+      let _year = _threads[t]['dateLatest'].getYear() + 1900;
+      let _month = _threads[t]['dateLatest'].getMonth();
+      let _dateDay = _threads[t]['dateLatest'].getDate();
+      let _dd = _month + "/" + _dateDay + "/" + _year;
+      let _tt = "<b>Participants:</b> " + _threads[t]['names'].toString().replace(/,/g, ", ") + "<br>"
+        + "<b>Thread size:</b> " + _len + "<br>" 
+        + "<b>Most recent annotation:</b> " + _dd;
       threadsData.addRows([
-        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest'])]
+        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']), _tt]
       ]);
     }
     threadsData.sort({column: 3, desc: true});
@@ -239,7 +247,7 @@ $( document ).ready(function() {
     var calendar = new google.visualization.Calendar(document.getElementById('graphCalendar'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
+      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     data.sort({column: 0, desc: true});
     var view = new google.visualization.DataView(data);
