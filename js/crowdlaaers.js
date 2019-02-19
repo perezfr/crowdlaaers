@@ -216,7 +216,8 @@ $( document ).ready(function() {
     //Build the message type graph
     for (var m in messageTypeCount) {
       messageTypeData.addRows([
-        [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies'], messageTypeCount[m]['dateLatest']]
+        [ m, messageTypeCount[m]['totalMessages'], messageTypeCount[m]['annotations'], messageTypeCount[m]['replies'], 
+        messageTypeCount[m]['dateLatest']]
       ]);
     }
 
@@ -227,9 +228,8 @@ $( document ).ready(function() {
       let _month = _threads[t]['dateLatest'].getMonth() + 1;
       let _dateDay = _threads[t]['dateLatest'].getDate();
       let _dd = _month + "/" + _dateDay + "/" + _year;
-      let _tt = "<b>Participants:</b> " + _threads[t]['names'].toString().replace(/,/g, ", ") + "<br>"
-        + "<b>Thread size:</b> " + _len + "<br>" 
-        + "<b>Most recent annotation:</b> " + _dd;
+      let _tt = "<table class='table'><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _threads[t]['names'].toString().replace(/,/g, ", ") + "</td></tr>" 
+        + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
       threadsData.addRows([
         [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']), _tt]
       ]);
@@ -237,7 +237,7 @@ $( document ).ready(function() {
     threadsData.sort({column: 3, desc: true});
     //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
-    threadsView.hideColumns([2, 3]);
+    threadsView.setColumns([0,1,4]);
 
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
@@ -247,7 +247,11 @@ $( document ).ready(function() {
     var calendar = new google.visualization.Calendar(document.getElementById('graphCalendar'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
+      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e']
+    };
+    var optsThreads = {
+      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
+      vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     data.sort({column: 0, desc: true});
     var view = new google.visualization.DataView(data);
@@ -293,7 +297,7 @@ $( document ).ready(function() {
 
     bar_graph_contributors.draw(viewD, opts);
     bar_graph_tags.draw(tagData, opts); 
-    bar_graph_threads.draw(threadsView, opts);
+    bar_graph_threads.draw(threadsView, optsThreads);
     calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
 
@@ -451,21 +455,21 @@ $( document ).ready(function() {
     });
     $("#sortThreadRecentButton").click(function(){
       threadsData.sort({column: 3, desc: true});
-      bar_graph_threads.draw(threadsView, opts);
+      bar_graph_threads.draw(threadsView, optsThreads);
       $( "#sortThreadRecentButton" ).attr("class", "dropdown-item active");
       $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
       $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
     });
     $("#sortThreadHighestButton").click(function(){
       threadsData.sort({column: 1, desc: true});
-      bar_graph_threads.draw(threadsView, opts);
+      bar_graph_threads.draw(threadsView, optsThreads);
       $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
       $( "#sortThreadHighestButton" ).attr("class", "dropdown-item active");
       $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
     });
     $("#sortThreadLowestButton").click(function(){
       threadsData.sort({column: 1, desc: false});
-      bar_graph_threads.draw(threadsView, opts);
+      bar_graph_threads.draw(threadsView, optsThreads);
       $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
       $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
       $( "#sortThreadLowestButton" ).attr("class", "dropdown-item active");
