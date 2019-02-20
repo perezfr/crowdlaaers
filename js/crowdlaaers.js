@@ -63,6 +63,7 @@ $( document ).ready(function() {
     threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
     threadsData.addColumn({type: 'date', id: 'Date', label: 'Date'});
     threadsData.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+    threadsData.addColumn({type: 'number', id: 'annotsInLastDay', label: 'In Last Day'});
     //var rows = response['rows'];
     //var total = response['total'];
     var rows = response;
@@ -88,7 +89,8 @@ $( document ).ready(function() {
         }
 
         if (!_threads[ss['refs'][0]]){
-          _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[], 'dateLatest':null};
+          _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[], 'dateLatest':null,
+          'annotationsInLastDay':0};
         }
       }  
       //create array of tags to build tag column graph
@@ -141,6 +143,8 @@ $( document ).ready(function() {
       //var username = s['user'].slice(5,-12);
       var username = s['user'];
       var textTotal = s['text'];
+      let ONE_DAY = new Date();
+      ONE_DAY.setDate(ONE_DAY.getMonth() - 1);
       //var link = s['links']['incontext'];
       //HLIB doesn't return 'incontext' field. so...
       if (nodeMsg == 'document'){
@@ -188,6 +192,12 @@ $( document ).ready(function() {
         if(_threads[s['id']]['dateLatest'] < date){
           _threads[s['id']]['dateLatest'] = date;
         }
+        //count number in last day
+        console.log(date);
+        console.log(date > ONE_DAY);
+        if(date > ONE_DAY){
+          ++_threads[s['id']]['annotationsInLastDay'];
+        } 
       }
       if (nodeMsg in _threads){
         ++_threads[nodeMsg]['totalMessages'];
@@ -197,6 +207,9 @@ $( document ).ready(function() {
         if(_threads[nodeMsg]['dateLatest'] < date){
           _threads[nodeMsg]['dateLatest'] = date;
         }
+        if(date > ONE_DAY){
+          ++_threads[nodeMsg]['annotationsInLastDay'];
+        } 
       }
       
     }
@@ -231,13 +244,14 @@ $( document ).ready(function() {
       let _tt = "<table class='table'><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _threads[t]['names'].toString().replace(/,/g, ", ") + "</td></tr>" 
         + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
       threadsData.addRows([
-        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']), _tt]
+        [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']),
+         _tt, _threads[t]['annotationsInLastDay']]
       ]);
     }
     threadsData.sort({column: 3, desc: true});
     //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
-    threadsView.setColumns([0,1,4]);
+    threadsView.setColumns([0,5,4]);
 
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
