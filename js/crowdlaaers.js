@@ -497,8 +497,8 @@ $( document ).ready(function() {
   } 
 
   if (startURL.href.includes("marginalsyllabus.html")){
-    $("#conversation_summary").html(syllabus['february2018']['summary']);
-    params.url = syllabus['february2018']['url'];
+    $("#conversation_summary").html(syllabus['active']['summary']);
+    params.url = syllabus['active']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
