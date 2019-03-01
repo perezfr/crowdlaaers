@@ -1,4 +1,8 @@
   var syllabus = {
+    active:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/02/LA_CriticalIndigenousLiteracies.pdf",
+      summary:"Starting in March 2019, Marginal Syllabus text-participants read and discussed 'Critical Indigenous literacies: Selecting and using children's books about Indigenous peoples,' an article in Language Arts by Debbie Reese. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of critical Indigenous literacy to forefront 'the historically marginalized treatment of Native stories - and by extension, Native people.' Reese advocates that educators and their students read books that are tribally specific, that use present tense verbs to talk about Native nations, that are written by Native writers, and that are used throughout the year."
+    },
     august2016:{
       url:"http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy",
       summary:"Starting in August 2016, Marginal Syllabus text-participants read and discussed “Digital Redlining, Access, and Privacy,” a blog post for Common Sense Education written by Chris Gilliard and Hugh Culik. Chris and Hugh’s post discusses how “digital redlining” creates inequitable educational opportunities for learners."
@@ -86,5 +90,9 @@
     february2018:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/01/when-school-is-not-enough-marsyl.pdf",
       summary:"Starting in February 2019, Marginal Syllabus text-participants read and discussed 'When school is not enough: Understanding the lives and literacies of Black youth,' an article in Research in the Teaching of English by Valerie Kinloch, Tanja Burkhard, and Carlotta Penn. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, features the perspectives of Khaleeq and Rendell, two young men engaged in community-based social justice initiatives that counter the deficit narratives encountered in school - narratives that tell them they are not enough. Khaleeq and Rendell's counternarratives provide both a point of reflection for educators, school leaders, and community partners, as well as key considerations for the work educators do to better support the literacy development of young Black men."
+    },
+    march2018:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/02/LA_CriticalIndigenousLiteracies.pdf",
+      summary:"Starting in March 2019, Marginal Syllabus text-participants read and discussed 'Critical Indigenous literacies: Selecting and using children's books about Indigenous peoples,' an article in Language Arts by Debbie Reese. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of critical Indigenous literacy to forefront 'the historically marginalized treatment of Native stories - and by extension, Native people.' Reese advocates that educators and their students read books that are tribally specific, that use present tense verbs to talk about Native nations, that are written by Native writers, and that are used throughout the year."
     }
   }
