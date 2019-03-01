@@ -92,7 +92,7 @@
                 <div class="input-group mt-3">
                   <input type="text" class="form-control" placeholder="URL" aria-label="Recipient's username" aria-describedby="basic-addon2" id="urlBar">
                   <div class="input-group-append">
-                    <button id="urlSearchButton" class="btn btn-secondary" type="button">Search</button> 
+                    <button id="urlSearchButton" class="btn btn-secondary" type="submit">Search</button> 
                   </div>
                 </div>
               </div>
@@ -287,6 +287,10 @@
     <script>
       $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();   
+        function() {
+          var field = {{Form Element}}.querySelector('#urlBar');
+          return field ? field.value : undefined;
+        }
       });
     </script>
   </body>
