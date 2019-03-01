@@ -544,7 +544,7 @@ $( document ).ready(function() {
     });
   }
 
-  if (startURL.href.includes("r2l.html")){
+  if (startURL.href.includes("r2l.html") || startURL.href.includes("ci2311w.html")){
     $("#conversation_summary").html(syllabus['active']['summary']);
     params.url = syllabus['active']['url'];
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
