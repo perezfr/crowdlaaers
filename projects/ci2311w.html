@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121574943-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-121574943-1');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>CROWDLAAERS - CI 2311W</title>
+    <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
+    <script type="text/javascript" src="../syl/ci2311w.js"></script>
+    <script type="text/javascript" src="../js/crowdlaaers.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
+      <a class="navbar-brand  col-lg-2 col-md-2" href="https://crowdlaaers.org/">CROWDLAAERS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org/about.html">About</a>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Projects
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/marginalsyllabus.html">Marginal Syllabus</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/engelbart.html">Engelbart</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/equityunbound.html">#UnboundEq</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-secondary col-md-9 mt-3" onclick="openSetTokenModal()">
+                Group layers
+              </button>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center ">
+              <select class="form-control col-md-9" id="groupControlSelect" >
+              </select>
+            </div>
+            <hr>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module5" class="nav-link" data-toggle="collapse" aria-expanded="true">
+                <span data-feather="archive"></span>
+                Module 5 
+              </a>
+            </h8>
+            <div class="collapse show" id="module5">
+              <ul class="nav flex-column mb-2" >
+                <li class="nav-item">
+                  <a class="nav-link month-link active" href="#" id="Shaw2014">
+                    <span data-feather="file-text"></span>
+                    Shaw (2014)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module6" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 6 
+              </a>
+            </h8>
+            <div class="collapse" id="module6">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="MediaandCulture83">
+                    <span data-feather="file-text"></span>
+                    Media and Culture (8.3)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module7" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 7 
+              </a>
+            </h8>
+            <div class="collapse" id="module7">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CanvasTerms">
+                    <span data-feather="file-text"></span>
+                    Canvas (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="FlipgridTerms">
+                    <span data-feather="file-text"></span>
+                    Flipgrid (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="HypothesisTerms">
+                    <span data-feather="file-text"></span>
+                    Hypothesis (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="iClicker">
+                    <span data-feather="file-text"></span>
+                    iClicker
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="KalturaTerms">
+                    <span data-feather="file-text"></span>
+                    Kaltura (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="ProctorioTerms">
+                    <span data-feather="file-text"></span>
+                    Proctorio (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="RespondusTerms">
+                    <span data-feather="file-text"></span>
+                    Respondus (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="TurnitinTerms">
+                    <span data-feather="file-text"></span>
+                    Turnitin (Terms)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="VoiceThreadTerm">
+                    <span data-feather="file-text"></span>
+                    VoiceThread (Terms)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module8" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 8 
+              </a>
+            </h8>
+            <div class="collapse" id="module8">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Moran2015">
+                    <span data-feather="file-text"></span>
+                    Moran (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Hayhurst2017">
+                    <span data-feather="file-text"></span>
+                    Hayhurst (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="BarbieriAghibandMeyer2017">
+                    <span data-feather="file-text"></span>
+                    Barbieri-Aghib and Meyer (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Olson2012">
+                    <span data-feather="file-text"></span>
+                    Olson (2012)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Warrell2015">
+                    <span data-feather="file-text"></span>
+                    Warrell (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="PrinslooandSlade2016">
+                    <span data-feather="file-text"></span>
+                    Prinsloo and Slade (2016)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module10" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 10 
+              </a>
+            </h8>
+            <div class="collapse" id="module10">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh1Section1">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 1 Section 1
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh1Section2">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 1 Section 2
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh1Section3">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 1 Section 3
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh2Section4">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 2 Section 4
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh2Section5">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 2 Section 5
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh2Section6">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 2 Section 6
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section7">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 7
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section8">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 8
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section9">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 9
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section10">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 10
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section11">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 11
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section12">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 12
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section13">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 13
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section14">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 14
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh3Section15">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 3 Section 15
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section16">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 16
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section17">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 17
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section18">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 18
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section19">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 19
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section20">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 20
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section21">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 21
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section22">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 22
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section23">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 23
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section24">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 24
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section25">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 25
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section26">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 26
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section27">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 27
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section28">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 28
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section29">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 29
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh4Section30">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 4 Section 30
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section31">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 31
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section32">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 32
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section33">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 33
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section34">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 34
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section35">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 35
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section36">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 36
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section37">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 37
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section38">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 38
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section39">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 39
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section40">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 40
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section41">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 41
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section42">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 42
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section43">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 43
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section44">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 44
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="CaufieldCh5Section45">
+                    <span data-feather="file-text"></span>
+                    Caufield Ch 5 Section 45
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module12" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 12 
+              </a>
+            </h8>
+            <div class="collapse" id="module12">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Bitar2016">
+                    <span data-feather="file-text"></span>
+                    Bitar (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Gillmor2004">
+                    <span data-feather="file-text"></span>
+                    Gillmor (2004)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module13" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 13
+              </a>
+            </h8>
+            <div class="collapse" id="module13">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Pew2015">
+                    <span data-feather="file-text"></span>
+                    Pew (2015)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Fon2017">
+                    <span data-feather="file-text"></span>
+                    Fon (2017)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="GlobalRiskInsights2017">
+                    <span data-feather="file-text"></span>
+                    Global Risk Insights (2017)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#module14" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Module 14
+              </a>
+            </h8>
+            <div class="collapse" id="module14">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Miah2016">
+                    <span data-feather="file-text"></span>
+                    Miah (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Regalado2016">
+                    <span data-feather="file-text"></span>
+                    Regalado (2016)
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Morelle2014">
+                    <span data-feather="file-text"></span>
+                    Morelle (2014)
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
+              <a href="#project" class="nav-link" data-toggle="collapse">
+                <span data-feather="archive"></span>
+                Project
+              </a>
+            </h8>
+            <div class="collapse" id="project">
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="VansPortfolio">
+                    <span data-feather="file-text"></span>
+                    Van's Portfolio
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="EthicalimplicationsofAIhome">
+                    <span data-feather="file-text"></span>
+                    Ethical implications of AI home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="EthicalimplicationsofAIintro">
+                    <span data-feather="file-text"></span>
+                    Ethical implications of AI intro
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="EthicsandCybersecurity">
+                    <span data-feather="file-text"></span>
+                    Ethics and Cybersecurity
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Ethicsofselfdrivingcarshome">
+                    <span data-feather="file-text"></span>
+                    Ethics of self driving cars home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Ethicsofselfdrivingcarsintro">
+                    <span data-feather="file-text"></span>
+                    Ethics of self driving cars intro
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="JacquelinesPortfoliohome">
+                    <span data-feather="file-text"></span>
+                    Jacqueline's Portfolio home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="JacquelinesPortfolioaboutme">
+                    <span data-feather="file-text"></span>
+                    Jacqueline's Portfolio about me
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="JacquelinesPortfoliobigdataandnursing">
+                    <span data-feather="file-text"></span>
+                    Jacqueline's Portfolio big data and nursing
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Thesecretofhypnosishome">
+                    <span data-feather="file-text"></span>
+                    The secret of hypnosis home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Thesecretofhypnosishistoryofhypnosis">
+                    <span data-feather="file-text"></span>
+                    The secret of hypnosis history of hypnosis
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Thesecretofhypnosisplan">
+                    <span data-feather="file-text"></span>
+                    The secret of hypnosis plan
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="TheworkofRyanGollhome">
+                    <span data-feather="file-text"></span>
+                    The work of Ryan Goll home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="TheworkofRyanGollclasswork">
+                    <span data-feather="file-text"></span>
+                    The work of Ryan Goll class work
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Techandworldhungerhome">
+                    <span data-feather="file-text"></span>
+                    Tech and world hunger home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Techandworldhungerintro">
+                    <span data-feather="file-text"></span>
+                    Tech and world hunger intro
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Susworldhome">
+                    <span data-feather="file-text"></span>
+                    Su's world home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="SusworldtechinSKorea">
+                    <span data-feather="file-text"></span>
+                    Su's world tech in S Korea
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="SusworldeducationinSKorea">
+                    <span data-feather="file-text"></span>
+                    Su's world education in S Korea
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Taavfoliohome">
+                    <span data-feather="file-text"></span>
+                    Taavfolio home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Taavfolioethics">
+                    <span data-feather="file-text"></span>
+                    Taavfolio ethics
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="KaylasGooglesitehome">
+                    <span data-feather="file-text"></span>
+                    Kayla's Google site home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="KaylasGooglesiteResourceNotes1">
+                    <span data-feather="file-text"></span>
+                    Kayla's Google site Resource Notes 1
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Juhsthereblog">
+                    <span data-feather="file-text"></span>
+                    Juhst here blog
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="RoboticSurgeryEthics">
+                    <span data-feather="file-text"></span>
+                    RoboticSurgeryEthics
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Jennysportfoliohome">
+                    <span data-feather="file-text"></span>
+                    Jenny's portfolio home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="JennysportfolioDashpodcast">
+                    <span data-feather="file-text"></span>
+                    Jenny's portfolio Dash podcast
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Techandethicsportfoliohome">
+                    <span data-feather="file-text"></span>
+                    Tech and ethics portfolio home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Techandethicsportfoliosocialmedia">
+                    <span data-feather="file-text"></span>
+                    Tech and ethics portfolio social media
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Cloningtechnologieshome">
+                    <span data-feather="file-text"></span>
+                    Cloning technologies home
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="Cloningtechnologiesplanforproject">
+                    <span data-feather="file-text"></span>
+                    Cloning technologies plan for project
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="KaileeSharpportfolio">
+                    <span data-feather="file-text"></span>
+                    Kailee Sharp portfolio
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link month-link" href="#" id="jzhome">
+                    <span data-feather="file-text"></span>
+                    jz home
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <!-- Search Cards-->
+          <div class="card mb-3 mt-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Summary</a>
+            </div>
+            <div class="collapse show" id="collapseCell1">
+              <div class="card-body" id="conversation_summary">
+              </div>
+            </div>
+          </div>
+          <!-- Icon Cards-->
+         <div class="row">
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-comments"></i>
+                 </div>
+                 <h4 class="text-center"><span id="annotationCounter">0</span></h4>
+                 <p class="text-center">Annotations</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A9CCE3;">
+                <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-list"></i>
+                 </div>
+                 <h4 class="text-center"><span id="participantCounter">0</span></h4>
+                 <p class="text-center">Participants</p>
+                </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F9E79F;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="threadCounter">0</span></h4>
+                 <p class="text-center">Threads</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F8C471;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-shopping-cart"></i>
+                 </div>
+                 <h4 class="text-center"><span id="calendarCounter">0</span></h4>
+                 <p class="text-center">Days</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F1948A;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="tagCounter">0</span></h4>
+                 <p class="text-center">Tags</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A2D9CE;" data-toggle="tooltip" title="Click the graphs below to filter the annotations table, and click any annotation to read more.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell6">
+              <div class="card-body">
+                <div id="table_div"></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                      <span data-feather="refresh-ccw"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="graphContributors"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F9E79F;" data-toggle="tooltip" title="Click graph column to filter Annotations table by conversation thread.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell4">
+              <div class="card-body">
+                <div id="graphThreads"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3"">
+            <div class="card-header" style="background-color:#F8C471;" data-toggle="tooltip" title="Click graph to filter Annotations table by day.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell3">
+              <div class="card-body">
+                <div id="graphCalendar"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F1948A;" data-toggle="tooltip" title="Click graph column to filter Annotations table by tag.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell5">
+              <div class="card-body">
+                <div id="graphTags"></div>
+              </div>
+            </div>
+         </div>
+        </main>
+      </div>
+    </div>
+    <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="annotationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="annotationModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="annotationModalBody" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
+            <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="setTokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setTokenModalLabel">Enter API token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="setTokanModalBody" class="modal-body">
+            <p><a href="https://hypothes.is/" target="_blank">Access your</a> API token via Hypothesis Settings > Developer</p>
+            <input class="form-control" type="password" placeholder="" id="tokenInputBar">
+          </div>
+          <div class="modal-footer">
+            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+      });
+    </script>
+  </body>
+</html>
