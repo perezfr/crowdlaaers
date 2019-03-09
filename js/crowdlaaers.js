@@ -64,6 +64,7 @@ $( document ).ready(function() {
     threadsData.addColumn({type: 'date', id: 'Date', label: 'Date'});
     threadsData.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
     threadsData.addColumn({type: 'number', id: 'annotsInLastDay', label: 'In Last Day'});
+    threadsData.addColumn({type: 'string', role: 'style' });
     //var rows = response['rows'];
     //var total = response['total'];
     var rows = response;
@@ -90,7 +91,7 @@ $( document ).ready(function() {
 
         if (!_threads[ss['refs'][0]]){
           _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[], 'dateLatest':null,
-          'annotationsInLastDay':0};
+          'annotationsInLastDay':0, 'cellColor':null};
         }
       }  
       //create array of tags to build tag column graph
@@ -144,7 +145,8 @@ $( document ).ready(function() {
       var username = s['user'];
       var textTotal = s['text'];
       let ONE_DAY = new Date();
-      ONE_DAY.setDate(ONE_DAY.getMonth() - 1);
+      ONE_DAY.setDate(ONE_DAY.getDate() - 7);
+      console.log(ONE_DAY);
       //var link = s['links']['incontext'];
       //HLIB doesn't return 'incontext' field. so...
       if (nodeMsg == 'document'){
@@ -185,6 +187,7 @@ $( document ).ready(function() {
       //build thread object for tables
       if (s['id'] in _threads){
         //add to names list only if name is not present
+        _threads[s['id']]['cellColor'] = '#243c68';
         if(!_threads[s['id']]['names'].includes(username)) {
           _threads[s['id']]['names'].push(username);  
         }
@@ -193,22 +196,28 @@ $( document ).ready(function() {
           _threads[s['id']]['dateLatest'] = date;
         }
         //count number in last day
-        console.log(date);
-        console.log(date > ONE_DAY);
+        //console.log(date);
+        //console.log(date > ONE_DAY);
         if(date > ONE_DAY){
           ++_threads[s['id']]['annotationsInLastDay'];
+          _threads[s['id']]['cellColor'] = '#e6693e';
         } 
       }
       if (nodeMsg in _threads){
         ++_threads[nodeMsg]['totalMessages'];
+        _threads[nodeMsg]['cellColor'] = '#243c68';
         if(!_threads[nodeMsg]['names'].includes(username)) {
           _threads[nodeMsg]['names'].push(username);
         }
         if(_threads[nodeMsg]['dateLatest'] < date){
           _threads[nodeMsg]['dateLatest'] = date;
         }
+        //count number in last day
+        //console.log(date);
+        //console.log(date > ONE_DAY);
         if(date > ONE_DAY){
           ++_threads[nodeMsg]['annotationsInLastDay'];
+          _threads[nodeMsg]['cellColor'] = '#e6693e';
         } 
       }
       
@@ -241,17 +250,20 @@ $( document ).ready(function() {
       let _month = _threads[t]['dateLatest'].getMonth() + 1;
       let _dateDay = _threads[t]['dateLatest'].getDate();
       let _dd = _month + "/" + _dateDay + "/" + _year;
+      //the annotation cell
       let _tt = "<table class='table'><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _threads[t]['names'].toString().replace(/,/g, ", ") + "</td></tr>" 
         + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
       threadsData.addRows([
         [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']),
-         _tt, _threads[t]['annotationsInLastDay']]
+         _tt, _threads[t]['annotationsInLastDay'], _threads[t]['cellColor']]
       ]);
     }
+    //sort by latest 
     threadsData.sort({column: 3, desc: true});
     //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
-    threadsView.setColumns([0,5,4]);
+    //which column to show
+    threadsView.setColumns([0,1,4,6]);
 
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
