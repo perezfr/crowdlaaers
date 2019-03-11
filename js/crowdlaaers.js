@@ -63,7 +63,6 @@ $( document ).ready(function() {
     threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
     threadsData.addColumn({type: 'date', id: 'Date', label: 'Date'});
     threadsData.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-    threadsData.addColumn({type: 'number', id: 'annotsInLastDay', label: 'In Last Day'});
     threadsData.addColumn({type: 'string', role: 'style' });
     //var rows = response['rows'];
     //var total = response['total'];
@@ -91,7 +90,7 @@ $( document ).ready(function() {
 
         if (!_threads[ss['refs'][0]]){
           _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[], 'dateLatest':null,
-          'annotationsInLastDay':0, 'cellColor':null};
+          'cellColor':null};
         }
       }  
       //create array of tags to build tag column graph
@@ -145,8 +144,9 @@ $( document ).ready(function() {
       var username = s['user'];
       var textTotal = s['text'];
       let ONE_DAY = new Date();
-      ONE_DAY.setDate(ONE_DAY.getDate() - 7);
-      console.log(ONE_DAY);
+      ONE_DAY.setDate(ONE_DAY.getDate() - 1);
+      let ONE_WEEK = new Date();
+      ONE_WEEK.setDate(ONE_WEEK.getDate() - 7);
       //var link = s['links']['incontext'];
       //HLIB doesn't return 'incontext' field. so...
       if (nodeMsg == 'document'){
@@ -187,7 +187,7 @@ $( document ).ready(function() {
       //build thread object for tables
       if (s['id'] in _threads){
         //add to names list only if name is not present
-        _threads[s['id']]['cellColor'] = '#243c68';
+        _threads[s['id']]['cellColor'] = '#8B11A3';
         if(!_threads[s['id']]['names'].includes(username)) {
           _threads[s['id']]['names'].push(username);  
         }
@@ -198,14 +198,16 @@ $( document ).ready(function() {
         //count number in last day
         //console.log(date);
         //console.log(date > ONE_DAY);
-        if(date > ONE_DAY){
-          ++_threads[s['id']]['annotationsInLastDay'];
-          _threads[s['id']]['cellColor'] = '#e6693e';
+        if(date > ONE_WEEK){
+          _threads[s['id']]['cellColor'] = '#21AAAD';
         } 
+        if(date > ONE_DAY){
+          _threads[s['id']]['cellColor'] = '#CA2C13';
+        }
       }
       if (nodeMsg in _threads){
         ++_threads[nodeMsg]['totalMessages'];
-        _threads[nodeMsg]['cellColor'] = '#243c68';
+        _threads[nodeMsg]['cellColor'] = '#8B11A3';
         if(!_threads[nodeMsg]['names'].includes(username)) {
           _threads[nodeMsg]['names'].push(username);
         }
@@ -215,9 +217,11 @@ $( document ).ready(function() {
         //count number in last day
         //console.log(date);
         //console.log(date > ONE_DAY);
+        if(date > ONE_WEEK){
+          _threads[nodeMsg]['cellColor'] = '#21AAAD';
+        } 
         if(date > ONE_DAY){
-          ++_threads[nodeMsg]['annotationsInLastDay'];
-          _threads[nodeMsg]['cellColor'] = '#e6693e';
+          _threads[nodeMsg]['cellColor'] = '#CA2C13';
         } 
       }
       
@@ -255,7 +259,7 @@ $( document ).ready(function() {
         + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
       threadsData.addRows([
         [ _threads[t]['names'].toString(), _threads[t]['totalMessages'], t , new Date(_threads[t]['dateLatest']),
-         _tt, _threads[t]['annotationsInLastDay'], _threads[t]['cellColor']]
+         _tt, _threads[t]['cellColor']]
       ]);
     }
     //sort by latest 
@@ -263,7 +267,7 @@ $( document ).ready(function() {
     //create view for threads graph
     threadsView = new google.visualization.DataView(threadsData);
     //which column to show
-    threadsView.setColumns([0,1,4,6]);
+    threadsView.setColumns([0,1,4,5]);
 
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
@@ -275,9 +279,13 @@ $( document ).ready(function() {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
       vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e']
     };
-    var optsThreads = {
+    var optsThreadsGraph = {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
       vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
+    };
+    var optsTagsGraph = {
+      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
+      vAxis: { format: '#' }, colors: ['#666366']
     };
     data.sort({column: 0, desc: true});
     var view = new google.visualization.DataView(data);
@@ -322,8 +330,8 @@ $( document ).ready(function() {
     viewD.hideColumns([1,4]);
 
     bar_graph_contributors.draw(viewD, opts);
-    bar_graph_tags.draw(tagData, opts); 
-    bar_graph_threads.draw(threadsView, optsThreads);
+    bar_graph_tags.draw(tagData, optsTagsGraph); 
+    bar_graph_threads.draw(threadsView, optsThreadsGraph);
     calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
 
@@ -472,33 +480,19 @@ $( document ).ready(function() {
       $( "#sortParticipantHighestButton" ).attr("class", "dropdown-item active");
       $( "#sortParticipantLowestButton" ).attr("class", "dropdown-item");
     });
-    $("#sortParticipantLowestButton").click(function(){
-      messageTypeData.sort({column: 1, desc: false});
-      bar_graph_contributors.draw(viewD, opts);
-      $( "#sortParticipantRecentButton" ).attr("class", "dropdown-item");
-      $( "#sortParticipantHighestButton" ).attr("class", "dropdown-item");
-      $( "#sortParticipantLowestButton" ).attr("class", "dropdown-item active");
-    });
     $("#sortThreadRecentButton").click(function(){
       threadsData.sort({column: 3, desc: true});
-      bar_graph_threads.draw(threadsView, optsThreads);
+      bar_graph_threads.draw(threadsView, optsThreadsGraph);
       $( "#sortThreadRecentButton" ).attr("class", "dropdown-item active");
       $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
       $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
     });
     $("#sortThreadHighestButton").click(function(){
       threadsData.sort({column: 1, desc: true});
-      bar_graph_threads.draw(threadsView, optsThreads);
+      bar_graph_threads.draw(threadsView, optsThreadsGraph);
       $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
       $( "#sortThreadHighestButton" ).attr("class", "dropdown-item active");
       $( "#sortThreadLowestButton" ).attr("class", "dropdown-item");
-    });
-    $("#sortThreadLowestButton").click(function(){
-      threadsData.sort({column: 1, desc: false});
-      bar_graph_threads.draw(threadsView, optsThreads);
-      $( "#sortThreadRecentButton" ).attr("class", "dropdown-item");
-      $( "#sortThreadHighestButton" ).attr("class", "dropdown-item");
-      $( "#sortThreadLowestButton" ).attr("class", "dropdown-item active");
     });
 
   }; //end drawtable
