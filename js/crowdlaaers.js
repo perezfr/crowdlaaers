@@ -38,6 +38,7 @@ $( document ).ready(function() {
     let tagData = new google.visualization.DataTable();
     let messageTypeData = new google.visualization.DataTable();
     let threadsData = new google.visualization.DataTable();
+    let urlData = new google.visualization.DataTable();
 
     //Table columns
     data.addColumn({type: 'date', id: 'Date', label: 'Date'});
@@ -60,20 +61,24 @@ $( document ).ready(function() {
     threadsData.addColumn({type: 'string', id: 'users', label: 'Users'});
     threadsData.addColumn({type: 'number', id: 'total', label: 'Total'});
     threadsData.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
+    //url columns
+    urlData.addColumn({type: 'string', id: 'url', label: 'URL'});
+    urlData.addColumn({type: 'number', id: 'count', label: 'Count'});
+    urlData.addColumn({type: 'date', id: 'Date', label: 'Date'});
+    urlData.addColumn({type: 'string', role: 'tooltip', 'p': {'html':true}});
 
     //var rows = response['rows'];
     //var total = response['total'];
     var rows = response;
     var total = response.length;
-
     var threads = [];
     var tagArray = [];
     var tagCounts = {};
     var messageTypeCount = {};
     var level = 0;
     var nodeMsg;
-
     var _threads = {};
+    var _urlData = {};
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -151,6 +156,24 @@ $( document ).ready(function() {
       data.addRows([
         [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
       ]);
+
+      //build URL data table
+      if (!_urlData[s['url']]){
+        _urlData[s['url']] = {'totalMessages':0, 'dateLatest':null, 'names':[]};
+        ++_urlData[s['url']]['totalMessages'];
+        if (!_urlData[s['url']]['names'].includes(username)) {
+          _urlData[s['url']]['names'].push(username);
+        }
+        _urlData[s['url']]['dateLatest'] = date;
+      } else {
+        ++_urlData[s['url']]['totalMessages'];
+        if (!_urlData[s['url']]['names'].includes(username)) {
+          _urlData[s['url']]['names'].push(username);
+        }
+        if(_urlData[s['url']]['dateLatest'] < date){
+          _urlData[s['url']]['dateLatest'] = date;
+        }
+      }
       
       //count annotations, replies and total messages per user
       if (!messageTypeCount[username]){
@@ -181,9 +204,8 @@ $( document ).ready(function() {
         if(!_threads[nodeMsg]['names'].includes(username)) {
           _threads[nodeMsg]['names'].push(username);
         }
-      }
-      
-    }
+      }    
+    } // end rows loop
 
     //Count instances of unique tags
     for (var i = 0; i < tagArray.length; i++) {
@@ -215,15 +237,37 @@ $( document ).ready(function() {
     threadsView = new google.visualization.DataView(threadsData);
     threadsView.hideColumns([2]);
 
+    //Build url table for graph with loop instead of group() to keep usernames
+    for (let u in _urlData){
+      let _year = _urlData[u]['dateLatest'].getYear() + 1900;
+      let _month = _urlData[u]['dateLatest'].getMonth() + 1;
+      let _dateDay = _urlData[u]['dateLatest'].getDate();
+      let _dd = _month + "/" + _dateDay + "/" + _year;
+      let _u = "<table class='table'><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _urlData[u]['names'].toString() + "</td></tr>" 
+              + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
+      urlData.addRows([
+        [ u, _urlData[u]['totalMessages'], _urlData[u]['dateLatest'], _u ]
+      ]);
+    }
+    console.log(_urlData);
+    urlData.sort({column: 2, desc: true});
+    urlsView = new google.visualization.DataView(urlData);
+    urlsView.hideColumns([2]);
+
 
     var table = new google.visualization.Table(document.getElementById('table_div'));
     var bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('graphContributors'));
     var bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('graphThreads'));
     var bar_graph_tags = new google.visualization.ColumnChart(document.getElementById('graphTags'));
+    var bar_graph_urls = new google.visualization.ColumnChart(document.getElementById('graphURLs'));
     var calendar = new google.visualization.Calendar(document.getElementById('graphCalendar'));
     var opts = {
       width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-      vAxis: { format: '#' }, isStacked: true, colors: ['#243c68', '#e6693e'], 
+      vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], 
+    };
+    var optsURLsGraph = {
+      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
+      vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     var view = new google.visualization.DataView(data);
     view.hideColumns([3,4,6]);
@@ -269,6 +313,7 @@ $( document ).ready(function() {
     bar_graph_contributors.draw(viewD, opts);
     bar_graph_tags.draw(tagData, opts); 
     bar_graph_threads.draw(threadsView, opts);
+    bar_graph_urls.draw(urlsView, optsURLsGraph);
     calendar.draw(messagesPerDay, opts); 
     table.draw(view, opts);
 
@@ -539,6 +584,17 @@ $( document ).ready(function() {
   if (startURL.href.includes("engelbart.html")){
     $("#conversation_summary").html(syllabus['1']['summary']);
     params.url = syllabus['1']['url'];
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  }
+
+  if (startURL.href.includes("researchgroup.html")){
+    //$("#conversation_summary").html(syllabus['1']['summary']);
+    $("#conversation_summary").html("research group: G9d4q3j6");
+    localStorage.setItem('h_token', '6879-LHfsjOspbs2JVjhRwXq2n_zHQhG2jrzziGcg1-V6ssw');
+    createGroupInputFormModified();
+    params.group = 'G9d4q3j6';
     google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
       hlib.hApiSearch(params, processSearchResults, '');
     });
