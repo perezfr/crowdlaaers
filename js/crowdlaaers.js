@@ -243,7 +243,7 @@ $( document ).ready(function() {
       let _month = _urlData[u]['dateLatest'].getMonth() + 1;
       let _dateDay = _urlData[u]['dateLatest'].getDate();
       let _dd = _month + "/" + _dateDay + "/" + _year;
-      let _u = "<table class='table'><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _urlData[u]['names'].toString().replace(/,/g, ", ") + "</td></tr>" 
+      let _u = "<table class='table'><tr><th colspan='2' align='center'>" + u + "</th></tr><tr><td align='right' width='30px'><b>Participants:</b></td><td>" + _urlData[u]['names'].toString().replace(/,/g, ", ") + "</td></tr>" 
               + "<tr><td align='right'><b>Most recent annotation:</b></td><td>" + _dd + "</td></tr></table>";
       urlData.addRows([
         [ u, _urlData[u]['totalMessages'], _urlData[u]['dateLatest'], _u ]
