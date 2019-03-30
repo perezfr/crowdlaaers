@@ -1,7 +1,7 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/02/LA_CriticalIndigenousLiteracies.pdf",
-      summary:"Starting in March 2019, Marginal Syllabus text-participants read and discussed 'Critical Indigenous literacies: Selecting and using children's books about Indigenous peoples,' an article in Language Arts by Debbie Reese. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of critical Indigenous literacy to forefront 'the historically marginalized treatment of Native stories - and by extension, Native people.' Reese advocates that educators and their students read books that are tribally specific, that use present tense verbs to talk about Native nations, that are written by Native writers, and that are used throughout the year."
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/03/VM_Cultivating.pdf",
+      summary:"Starting in April 2019, Marginal Syllabus text-participants read and discussed 'Cultivating urban literacies on Chicago's South Side through a pedagogy of spatial justice,' an article in Voices From the Middle by Andrea Vaughan, Rebecca Woodard, Nathan Phillips, and Kara Taylor. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of spatial justice by discussing how Kara Taylor (at the time a middle school teacher) encouraged students' urban literacies through a neighborhood-based study of food access and equity that used spatial justice pedagogy rooted in place, people, and justice."
     },
     august2016:{
       url:"http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy",
@@ -94,5 +94,9 @@
     march2018:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/02/LA_CriticalIndigenousLiteracies.pdf",
       summary:"Starting in March 2019, Marginal Syllabus text-participants read and discussed 'Critical Indigenous literacies: Selecting and using children's books about Indigenous peoples,' an article in Language Arts by Debbie Reese. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of critical Indigenous literacy to forefront 'the historically marginalized treatment of Native stories - and by extension, Native people.' Reese advocates that educators and their students read books that are tribally specific, that use present tense verbs to talk about Native nations, that are written by Native writers, and that are used throughout the year."
+    },
+    april2018:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/03/VM_Cultivating.pdf",
+      summary:"Starting in April 2019, Marginal Syllabus text-participants read and discussed 'Cultivating urban literacies on Chicago's South Side through a pedagogy of spatial justice,' an article in Voices From the Middle by Andrea Vaughan, Rebecca Woodard, Nathan Phillips, and Kara Taylor. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of spatial justice by discussing how Kara Taylor (at the time a middle school teacher) encouraged students' urban literacies through a neighborhood-based study of food access and equity that used spatial justice pedagogy rooted in place, people, and justice."
     }
   }
