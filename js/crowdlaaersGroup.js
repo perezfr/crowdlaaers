@@ -530,83 +530,26 @@ $( document ).ready(function() {
   });
 
   var startURL = new URL(window.location.href);
-  if (startURL.searchParams.get("url")){
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-    var u = startURL.searchParams.get("url");
-    $('#urlBar').val(u);  //add url param to search bar for sharing 
-    params.url = u;
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  } 
-
-  if (startURL.href.includes("marginalsyllabus.html")){
-    $("#conversation_summary").html(syllabus['active']['summary']);
-    params.url = syllabus['active']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("sfupub802sp19.html")){
-    $("#conversation_summary").html(syllabus['Mod2018']['summary']);
-    params.url = syllabus['Mod2018']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("equityunbound.html")){
-    $("#conversation_summary").html(syllabus['mounzer2016']['summary']);
-    params.url = syllabus['mounzer2016']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("inte5320sp19.html")){
-    $("#conversation_summary").html(syllabus['syllabus']['summary']);
-    params.url = syllabus['syllabus']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("inte7130sp19.html")){
-    $("#conversation_summary").html(syllabus['Syllabus']['summary']);
-    params.url = syllabus['Syllabus']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("engelbart.html")){
-    $("#conversation_summary").html(syllabus['1']['summary']);
-    params.url = syllabus['1']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
   if (startURL.href.includes("researchgroup.html")){
     //$("#conversation_summary").html(syllabus['1']['summary']);
     $("#conversation_summary").html("research group: G9d4q3j6");
     if (localStorage.getItem('h_token') === null){
       $('#setTokenModal').modal('show');
+    } else {
+      params.group = 'G9d4q3j6';
+      google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+        hlib.hApiSearch(params, processSearchResults, '');
+      });
+      var promise1 = new Promise(function(resolve, reject) { //waits for drop down to load before 
+        setTimeout(function() {                              //setting dropdown
+          resolve();
+        }, 300);
+      });
+      promise1.then(function(value) {
+        $('#groupControlSelect').val('G9d4q3j6');
+      });
+      promise1;
     }
-    createGroupInputFormModified();
-    params.group = 'G9d4q3j6';
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("r2l.html") || startURL.href.includes("ci2311w.html")){
-    $("#conversation_summary").html(syllabus['active']['summary']);
-    params.url = syllabus['active']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
   }
 
   //Share button adds the url from the search bar as a parameter to the 
