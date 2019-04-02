@@ -6,7 +6,7 @@ $( document ).ready(function() {
   var graphsArray = ['table_div','graphContributors','graphThreads','graphTags','graphCalendar'];
 
   if (hlib.getToken() != ""){
-    createGroupInputFormModified();
+    //createGroupInputFormModified();
     params.group = "__world__";
   };
 
@@ -530,13 +530,13 @@ $( document ).ready(function() {
   });
 
   var startURL = new URL(window.location.href);
-  if (startURL.href.includes("researchgroup.html")){
+  if (startURL.href.includes("r2l.html")){
     //$("#conversation_summary").html(syllabus['1']['summary']);
-    $("#conversation_summary").html("research group: G9d4q3j6");
+    $("#conversation_summary").html("R2L: aYnJE67m");
     if (localStorage.getItem('h_token') === null){
       $('#setTokenModal').modal('show');
     } else {
-      params.group = 'G9d4q3j6';
+      params.group = 'aYnJE67m';
       google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
         hlib.hApiSearch(params, processSearchResults, '');
       });
@@ -546,7 +546,7 @@ $( document ).ready(function() {
         }, 300);
       });
       promise1.then(function(value) {
-        $('#groupControlSelect').val('G9d4q3j6');
+       // $('#groupControlSelect').val('aYnJE67m');
       });
       promise1;
     }
@@ -583,7 +583,7 @@ function setTokenButton(){
   let _token = inputQuerySelector('#tokenInputBar').value;
   localStorage.setItem('h_token', _token);
   $('#setTokenModal').modal('hide');
-  createGroupInputFormModified();
+  //createGroupInputFormModified();
 }
 
 let params = {
