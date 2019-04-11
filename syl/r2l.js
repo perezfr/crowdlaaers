@@ -3,6 +3,10 @@ var syllabus = {
     url:'https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf',
     summary:'<a target="_blank" href="https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf">https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf<a>'
   },
+  groupLevel:{
+    url:'https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf',
+    summary:'<a target="_blank" href="https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf">https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf<a>'
+  },
   ResearchNote1:{
     url:'https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf',
     summary:'<a target="_blank" href="https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf">https://via.hypothes.is/https://r2l.sehd.net/wp-content/uploads/2018/01/Research-Note-1-on-Dignity-12_2013.pdf<a>'

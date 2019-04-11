@@ -49,6 +49,7 @@ $( document ).ready(function() {
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
     data.addColumn({type: 'string', id: 'link', label: 'Link'});
     data.addColumn({type: 'number', id: 'level', label: 'Level'});
+    data.addColumn({type: 'string', id: 'url', label: 'URL'});
     //Tag chart columns
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
@@ -79,6 +80,7 @@ $( document ).ready(function() {
     var nodeMsg;
     var _threads = {};
     var _urlData = {};
+    var urlString;
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -154,7 +156,7 @@ $( document ).ready(function() {
       var tags = s['tags'].join().toLowerCase();
       //Add the table graph rows
       data.addRows([
-        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
+        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
       ]);
 
       //build URL data table
@@ -269,7 +271,7 @@ $( document ).ready(function() {
       vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     var view = new google.visualization.DataView(data);
-    view.hideColumns([3,4,6]);
+    view.hideColumns([3,4,6,8]);
 
     var messagesPerUser = google.visualization.data.group(
       data,
@@ -443,19 +445,28 @@ $( document ).ready(function() {
 
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
-      view.hideColumns([3,4,6]);
+      view.hideColumns([3,4,6,8]);
+      table.draw(view, opts);
+    });
+
+    $( ".url-filter" ).click(function(event) {
+      let m = event.target.id;
+      inactivate();
+      $( "#" + m  ).attr("class", "nav-link active");
+      params.url = syllabus[m]['url'];
+      //need to filter table here
+      //hlib.hApiSearch(params, processSearchResults, '');
+      
+      $("#conversation_summary").html(syllabus[m]['summary']);
+      let _urlString = syllabus[m]['url'].substring(24)
+      
+      view = new google.visualization.DataView(data);
+      var r = view.getFilteredRows([{column: 8, value: _urlString}]);
+      view.hideColumns([3,4,6,8]);
+      view.setRows(r);
       table.draw(view, opts);
     });
   }; //end drawtable
-
-  $( ".month-link" ).click(function(event) {
-    let m = event.target.id;
-    inactivate();
-    $( "#" + m  ).attr("class", "nav-link active");
-    params.url = syllabus[m]['url'];
-    hlib.hApiSearch(params, processSearchResults, '');
-    $("#conversation_summary").html(syllabus[m]['summary']);
-  });
 
   $("#urlSearchButton").click(function(){
     inactivate();
@@ -532,21 +543,26 @@ $( document ).ready(function() {
   var startURL = new URL(window.location.href);
   if (startURL.href.includes("r2l.html")){
     //$("#conversation_summary").html(syllabus['1']['summary']);
+    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+    localStorage.setItem('h_token', '');
     $("#conversation_summary").html("R2L: aYnJE67m");
     if (localStorage.getItem('h_token') === null){
       $('#setTokenModal').modal('show');
     } else {
       params.group = 'aYnJE67m';
-      google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      //waits for graph lib to load before drawing
+      google.charts.setOnLoadCallback(function() { 
         hlib.hApiSearch(params, processSearchResults, '');
       });
-      var promise1 = new Promise(function(resolve, reject) { //waits for drop down to load before 
-        setTimeout(function() {                              //setting dropdown
+      //waits for drop down to load before
+      //setting dropdown
+      var promise1 = new Promise(function(resolve, reject) {  
+        setTimeout(function() {                              
           resolve();
         }, 300);
       });
       promise1.then(function(value) {
-       // $('#groupControlSelect').val('aYnJE67m');
+        $('#groupControlSelect').val('aYnJE67m');
       });
       promise1;
     }
@@ -554,13 +570,6 @@ $( document ).ready(function() {
 
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
-  $( "#urlShare" ).click(function() {
-    var baseURL = "https://crowdlaaers.org?url=";
-    var searchURL = $('#urlBar').val();
-    baseURL.concat(searchURL);
-    $('#shareURLModalBody').text(baseURL + searchURL);
-    $('#shareURLModal').modal('show');
-  });
     
   $(document).keypress(
     function(event){
