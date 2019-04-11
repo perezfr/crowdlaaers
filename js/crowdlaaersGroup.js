@@ -465,6 +465,15 @@ $( document ).ready(function() {
       view.hideColumns([3,4,6,8]);
       view.setRows(r);
       table.draw(view, opts);
+
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#threadButton').attr("thread", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
+      });
     });
   }; //end drawtable
 
@@ -544,7 +553,7 @@ $( document ).ready(function() {
   if (startURL.href.includes("r2l.html")){
     //$("#conversation_summary").html(syllabus['1']['summary']);
     $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-    localStorage.setItem('h_token', '');
+    //localStorage.setItem('h_token', '');
     $("#conversation_summary").html("R2L: aYnJE67m");
     if (localStorage.getItem('h_token') === null){
       $('#setTokenModal').modal('show');
@@ -566,6 +575,31 @@ $( document ).ready(function() {
       });
       promise1;
     }
+
+    $("#setTokenButton").click(function(){
+    //function setTokenButton(){
+      let _token = inputQuerySelector('#tokenInputBar').value;
+      localStorage.setItem('h_token', _token);
+      $('#setTokenModal').modal('hide');
+      //createGroupInputFormModified();
+      //Added this to give 
+      params.group = 'aYnJE67m';
+      //waits for graph lib to load before drawing
+      //google.charts.setOnLoadCallback(function() { 
+      hlib.hApiSearch(params, processSearchResults, '');
+      //});
+      //waits for drop down to load before
+      //setting dropdown
+      var promise1 = new Promise(function(resolve, reject) {  
+        setTimeout(function() {                              
+          resolve();
+        }, 300);
+      });
+      promise1.then(function(value) {
+        $('#groupControlSelect').val('aYnJE67m');
+      });
+      promise1;
+    });
   }
 
   //Share button adds the url from the search bar as a parameter to the 
@@ -586,13 +620,6 @@ function openSetTokenModal(){
 
 function inputQuerySelector(query) {
     return document.querySelector(query);
-}
-
-function setTokenButton(){
-  let _token = inputQuerySelector('#tokenInputBar').value;
-  localStorage.setItem('h_token', _token);
-  $('#setTokenModal').modal('hide');
-  //createGroupInputFormModified();
 }
 
 let params = {
