@@ -271,7 +271,7 @@ $( document ).ready(function() {
       vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     var view = new google.visualization.DataView(data);
-    view.hideColumns([3,4,6,8]);
+    view.setColumns([0,1,2,5,7]);
 
     var messagesPerUser = google.visualization.data.group(
       data,
@@ -342,7 +342,7 @@ $( document ).ready(function() {
       var _thread = $(this).attr("thread");
       view = new google.visualization.DataView(data);
       var r = view.getFilteredRows([{column: 6, value: _thread}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -359,7 +359,7 @@ $( document ).ready(function() {
     google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
       google.visualization.events.removeListener(event);
       view = new google.visualization.DataView(data);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       var row = bar_graph_contributors.getSelection()[0].row;
       bar_graph_contributors.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = viewD.getValue(row, 0);
@@ -384,7 +384,7 @@ $( document ).ready(function() {
       bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = threadsData.getValue(row, 2); //use the #2 column where the nodeMsg is
       var r = view.getFilteredRows([{column: 3, value: name}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -407,7 +407,7 @@ $( document ).ready(function() {
       let _d = _date.getDate() + 1;
       var r = view.getFilteredRows([{column: 0, value: new Date(_y, _m, _d)}]); 
       calendar.setSelection();
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -429,7 +429,7 @@ $( document ).ready(function() {
       var r = view.getFilteredRows([{column: 3, test: function(value, row, column, table) {
         return(table.getValue(row, 5).includes(_tag));
       }}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -445,7 +445,7 @@ $( document ).ready(function() {
 
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
-      view.hideColumns([3,4,6,8]);
+      view.setColumns([0,1,2,5,7]);
       table.draw(view, opts);
     });
 
