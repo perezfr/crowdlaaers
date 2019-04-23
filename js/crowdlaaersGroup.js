@@ -161,12 +161,30 @@ $( document ).ready(function() {
 
       //build URL data table
       if (!_urlData[s['url']]){
-        _urlData[s['url']] = {'totalMessages':0, 'dateLatest':null, 'names':[]};
+        _urlData[s['url']] = {'totalMessages':0, 'dateLatest':null, 'names':[],
+          'usernames':{'username':null, 'messageTypeCount':
+          {'totalMessages':0, 'replies':0, 'annotations':0}}};
         ++_urlData[s['url']]['totalMessages'];
         if (!_urlData[s['url']]['names'].includes(username)) {
           _urlData[s['url']]['names'].push(username);
         }
         _urlData[s['url']]['dateLatest'] = date;
+        if (!_urlData[s['url']]['usernames']['username']){
+          messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
+          ++messageTypeCount[username]['totalMessages'];
+          if (level == 0) {
+            ++messageTypeCount[username]['annotations'];
+          } else {
+            ++messageTypeCount[username]['replies'];
+          }
+        } else {
+          ++messageTypeCount[username]['totalMessages'];
+          if (level == 0) {
+            ++messageTypeCount[username]['annotations'];
+          } else {
+            ++messageTypeCount[username]['replies'];
+          }
+        }
       } else {
         ++_urlData[s['url']]['totalMessages'];
         if (!_urlData[s['url']]['names'].includes(username)) {
