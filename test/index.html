@@ -33929,18 +33929,14 @@ for (ss of rows){
     //   [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
     // ]);
 
-    //build URL data table
-    if (!_urlData[s['url']]){
+    //At the URL level
+    if (!_urlData[s['url']]){  //url is not in object
 
       _urlData[s['url']] = {
         'urlTotalMessages':0, 
         'dateLatest':null, 
         'names':[],
-        participants['username']:{
-          'totalMessages':0, 
-          'replies':0, 
-          'annotations':0
-        }
+        participants:[]
       };
 
       messageTypeCount = {
@@ -33953,21 +33949,20 @@ for (ss of rows){
       };
 
       ++messageTypeCount['messageTypes']['totalMessages'];
+      ++_urlData[s['url']]['urlTotalMessages'];
+
       if (level == 0) {
         ++messageTypeCount['messageTypes']['annotations'];
       } else {
         ++messageTypeCount['messageTypes']['replies'];
       }
 
-      ++_urlData[s['url']]['urlTotalMessages'];
+      _urlData[s['url']]['names'].push(username);
+      _urlData[s['url']]['dateLatest'] = date;
       _urlData[s['url']]['participants'].push(messageTypeCount);
 
-      if (!_urlData[s['url']]['names'].includes(username)) {
-        _urlData[s['url']]['names'].push(username);
-      }
-      _urlData[s['url']]['dateLatest'] = date;
-
-    } else {
+    } else { //if url is present in object
+      let userInArray = false;
 
       ++_urlData[s['url']]['urlTotalMessages'];
       if (!_urlData[s['url']]['names'].includes(username)) {
@@ -33976,41 +33971,37 @@ for (ss of rows){
       if(_urlData[s['url']]['dateLatest'] < date){
         _urlData[s['url']]['dateLatest'] = date;
       }
-      // if (!_urlData[s['url']]['usernames']['username']){
-      //   messageTypeCount[username] = {'userTotalMessages':0, 'replies':0, 'annotations':0};
-      //   ++messageTypeCount[username]['userTotalMessages'];
-      //   if (level == 0) {
-      //     ++messageTypeCount[username]['annotations'];
-      //   } else {
-      //     ++messageTypeCount[username]['replies'];
-      //   }
-      // } else {
-      //   ++messageTypeCount[username]['userTotalMessages'];
-      //   if (level == 0) {
-      //     ++messageTypeCount[username]['annotations'];
-      //   } else {
-      //     ++messageTypeCount[username]['replies'];
-      //   }
-      // }
+
+      for (p of _urlData[s['url']]['participants']){ //search participant array
+        if ( p['username'] == username ){  //if participant already present
+          ++p['messageTypes']['totalMessages'];
+          if ( level == 0 ) {
+            ++p['messageTypes']['annotations'];
+          } else {
+            ++p['messageTypes']['replies'];
+          }
+          userInArray = true;
+          break;
+        }
+      }
+      if ( !userInArray ){
+        messageTypeCount = {
+          'username': username,
+          'messageTypes':{
+            'totalMessages':0, 
+            'replies':0, 
+            'annotations':0
+          }
+        };
+        ++messageTypeCount['messageTypes']['totalMessages'];
+        if (level == 0) {
+          ++messageTypeCount['messageTypes']['annotations'];
+        } else {
+          ++messageTypeCount['messageTypes']['replies'];
+        }
+        _urlData[s['url']]['participants'].push(messageTypeCount);
+      } 
     }
-    
-    //count annotations, replies and total messages per user
-    // if (!messageTypeCount[username]){
-    //   messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
-    //   ++messageTypeCount[username]['totalMessages'];
-    //   if (level == 0) {
-    //     ++messageTypeCount[username]['annotations'];
-    //   } else {
-    //     ++messageTypeCount[username]['replies'];
-    //   }
-    // } else {
-    //   ++messageTypeCount[username]['totalMessages'];
-    //   if (level == 0) {
-    //     ++messageTypeCount[username]['annotations'];
-    //   } else {
-    //     ++messageTypeCount[username]['replies'];
-    //   }
-    // }
 
     if (s['id'] in _threads){
       //add to names list only if name is not present
