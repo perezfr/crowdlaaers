@@ -33867,11 +33867,11 @@ for (ss of rows){
     }
   }  
   //create array of tags to build tag column graph
-  if (ss['tags'].length > 0){
-    ss['tags'].forEach(function (t) {
-      tagArray.push(t.toLowerCase());
-    });
-  }
+  // if (ss['tags'].length > 0){
+  //   ss['tags'].forEach(function (t) {
+  //     tagArray.push(t.toLowerCase());
+  //   });
+  // }
 }
 
   for (s of rows){
@@ -33936,11 +33936,13 @@ for (ss of rows){
         'urlTotalMessages':0, 
         'dateLatest':null, 
         'names':[],
-        participants:[]
+        'participants':[],
+        'urlTags':[]
       };
 
       messageTypeCount = {
         'username': username,
+        'userDateLatest': date,
         'messageTypes':{
           'totalMessages':0, 
           'replies':0, 
@@ -33975,6 +33977,9 @@ for (ss of rows){
       for (p of _urlData[s['url']]['participants']){ //search participant array
         if ( p['username'] == username ){  //if participant already present
           ++p['messageTypes']['totalMessages'];
+          if ( p['userDateLatest'] < date ){
+            p['userDateLatest'] = date;
+          }
           if ( level == 0 ) {
             ++p['messageTypes']['annotations'];
           } else {
@@ -33987,6 +33992,7 @@ for (ss of rows){
       if ( !userInArray ){
         messageTypeCount = {
           'username': username,
+          'userDateLatest': date,
           'messageTypes':{
             'totalMessages':0, 
             'replies':0, 
@@ -34001,6 +34007,34 @@ for (ss of rows){
         }
         _urlData[s['url']]['participants'].push(messageTypeCount);
       } 
+    }
+
+    if (s['tags'].length > 0){
+      //iterate through each tag on annotation
+      s['tags'].forEach(function (tt) {
+        let tagInArray = false;
+        t = tt.toLowerCase();
+
+        for ( _t of _urlData[s['url']]['urlTags']){
+          if ( _t['tag'] == t ){  //if tag is already present
+            ++_t['count'];
+            if ( _t['tagDateLatest'] < date ){
+              _t['tagDateLatest'] = date;
+            } //if date latest
+            tagInArray = true;
+            break;
+          } 
+        }
+        if ( !tagInArray ){
+          tagCount = {
+            'tag': t,
+            'count':0,
+            'tagDateLatest':date
+          }
+          ++tagCount['count'];
+          _urlData[s['url']]['urlTags'].push(tagCount);
+        }
+      });
     }
 
     if (s['id'] in _threads){
