@@ -33863,7 +33863,7 @@ for (ss of rows){
     }
 
     if ( !_threads[ss['refs'][0]] ){
-      _threads[ss['refs'][0]] = {'totalMessages':0, 'threadDateLatest':date, 'names':[]};
+      _threads[ss['refs'][0]];// = {'totalMessages':0, 'threadDateLatest':date, 'names':[]};
     }
   }  
   //create array of tags to build tag column graph
@@ -33952,13 +33952,6 @@ for (s of rows){
       }
     };
 
-    threadsCount = {
-      'rootMessageID': nodeMsg,
-      'names': [],
-      'threadsDateLatest': null,
-      'threadMsgCount': 1
-    }
-
     ++messageTypeCount['messageTypes']['totalMessages'];
     ++_urlData[s['url']]['urlTotalMessages'];
 
@@ -33971,6 +33964,24 @@ for (s of rows){
     _urlData[s['url']]['names'].push(username);
     _urlData[s['url']]['dateLatest'] = date;
     _urlData[s['url']]['participants'].push(messageTypeCount);
+    if(s['id'] in _threads){
+      threadsCount = {
+        'rootMessageID': s['id'],
+        'names': [username],
+        'threadsDateLatest': date,
+        'threadMsgCount': 2
+      };
+      _urlData[s['url']]['urlThreads'].push(threadsCount);
+    }
+    if (s['refs'].length > 0){
+      threadsCount = {
+        'rootMessageID': s['refs'][0],
+        'names': [username],
+        'threadsDateLatest': date,
+        'threadMsgCount': 2
+      };
+      _urlData[s['url']]['urlThreads'].push(threadsCount);
+    }
 
   } else { //if url is present in object
     let userInArray = false;
@@ -34016,7 +34027,7 @@ for (s of rows){
       }
       _urlData[s['url']]['participants'].push(messageTypeCount);
     } 
-  }
+  } //end else if url is present in object
 
   if (s['tags'].length > 0){
     //iterate through each tag on annotation
@@ -34046,22 +34057,56 @@ for (s of rows){
     });
   }
 
-  if (s['refs'].length > 0){
-    if (!threads.includes(ss['refs'][0])){
-      threads.push(ss['refs'][0]);
-    }
-
-    if (!_threads[ss['refs'][0]]){
-      _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[]};
-    }
-  }
-
+  let msgInThread = false;
   if (s['id'] in _threads){
-    //add to names list only if name is not present
-    if(!_threads[s['id']]['names'].includes(username)) {
-      _threads[s['id']]['names'].push(username);
+    threadsCount = {
+      'rootMessageID': s['id'],
+      'names': [username],
+      'threadsDateLatest': date,
+      'threadMsgCount': 1
+    };
+    _urlData[s['url']]['urlThreads'].push(threadsCount);
+  };
+  if (s['refs'].length > 0){
+    for ( _th of _urlData[s['url']]['urlThreads'] ){
+      if (s['refs'][0] == _th['rootMessageID']){
+        if ( !_th['names'].includes(username) ){
+          _th['names'].push(username);
+        }
+        ++_th['threadMsgCount'];
+        if ( _th['threadsDateLatest'] < date ){
+          _th['threadsDateLatest'] = date;
+        }
+        msgInThread = true;
+      }
+    }
+    if ( !msgInThread ){
+      threadsCount = {
+        'rootMessageID': s['refs'][0],
+        'names': [username], //this is missing a name
+        'threadsDateLatest': date,
+        'threadMsgCount': 2
+      };
+      _urlData[s['url']]['urlThreads'].push(threadsCount);
     }
   }
+
+  // if (s['refs'].length > 0){
+  //   if (!threads.includes(ss['refs'][0])){
+  //     threads.push(ss['refs'][0]);
+  //   }
+
+  //   if (!_threads[ss['refs'][0]]){
+  //     _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[]};
+  //   }
+  // }
+
+  // if (s['id'] in _threads){
+  //   //add to names list only if name is not present
+  //   if(!_threads[s['id']]['names'].includes(username)) {
+  //     _threads[s['id']]['names'].push(username);
+  //   }
+  // }
   if (nodeMsg in _threads){
     ++_threads[nodeMsg]['totalMessages'];
     if(!_threads[nodeMsg]['names'].includes(username)) {
