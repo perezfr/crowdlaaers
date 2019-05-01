@@ -34090,23 +34090,6 @@ for (s of rows){
       _urlData[s['url']]['urlThreads'].push(threadsCount);
     }
   }
-
-  // if (s['refs'].length > 0){
-  //   if (!threads.includes(ss['refs'][0])){
-  //     threads.push(ss['refs'][0]);
-  //   }
-
-  //   if (!_threads[ss['refs'][0]]){
-  //     _threads[ss['refs'][0]] = {'totalMessages':0, 'names':[]};
-  //   }
-  // }
-
-  // if (s['id'] in _threads){
-  //   //add to names list only if name is not present
-  //   if(!_threads[s['id']]['names'].includes(username)) {
-  //     _threads[s['id']]['names'].push(username);
-  //   }
-  // }
   if (nodeMsg in _threads){
     ++_threads[nodeMsg]['totalMessages'];
     if(!_threads[nodeMsg]['names'].includes(username)) {
