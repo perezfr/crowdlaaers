@@ -33909,6 +33909,8 @@ for (s of rows){
   var year = date.getYear() + 1900;
   var month = date.getMonth();
   var dateDay = date.getDate();
+  let dateFormatted = month + "/" + dateDay + "/" + year;
+  let dateAdded = false;
   //console.log(dateDay + " and " + newdate.getDate());
   var hour = date.getHours();
   var mins = date.getMinutes();
@@ -33964,12 +33966,12 @@ for (s of rows){
     _urlData[s['url']]['names'].push(username);
     _urlData[s['url']]['dateLatest'] = date;
     _urlData[s['url']]['participants'].push(messageTypeCount);
-    if(s['id'] in _threads){
+    if(threads.includes(s['id'])){
       threadsCount = {
         'rootMessageID': s['id'],
         'names': [username],
         'threadsDateLatest': date,
-        'threadMsgCount': 2
+        'threadMsgCount': 1
       };
       _urlData[s['url']]['urlThreads'].push(threadsCount);
     }
@@ -33978,10 +33980,12 @@ for (s of rows){
         'rootMessageID': s['refs'][0],
         'names': [username],
         'threadsDateLatest': date,
-        'threadMsgCount': 2
+        'threadMsgCount': 1
       };
       _urlData[s['url']]['urlThreads'].push(threadsCount);
     }
+    _urlData[s['url']]['urlDates'][dateFormatted] = 1;
+    dateAdded = true;
 
   } else { //if url is present in object
     let userInArray = false;
@@ -34056,9 +34060,16 @@ for (s of rows){
       }
     });
   }
+  if( !dateAdded ){
+    if (!(dateFormatted in _urlData[s['url']]['urlDates'])){
+      _urlData[s['url']]['urlDates'][dateFormatted] = 1;
+    } else {
+      ++_urlData[s['url']]['urlDates'][dateFormatted];
+    }
+  }
 
   let msgInThread = false;
-  if (s['id'] in _threads){
+  if (threads.includes(s['id'])){
     threadsCount = {
       'rootMessageID': s['id'],
       'names': [username],
@@ -34078,6 +34089,7 @@ for (s of rows){
           _th['threadsDateLatest'] = date;
         }
         msgInThread = true;
+        break;
       }
     }
     if ( !msgInThread ){
@@ -34085,7 +34097,7 @@ for (s of rows){
         'rootMessageID': s['refs'][0],
         'names': [username], //this is missing a name
         'threadsDateLatest': date,
-        'threadMsgCount': 2
+        'threadMsgCount': 1
       };
       _urlData[s['url']]['urlThreads'].push(threadsCount);
     }
@@ -34095,7 +34107,7 @@ for (s of rows){
     if(!_threads[nodeMsg]['names'].includes(username)) {
       _threads[nodeMsg]['names'].push(username);
     }
-  }    
+  }   
 } // end rows loop
 console.log(_urlData)
 </script>
