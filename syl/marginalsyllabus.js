@@ -1,7 +1,7 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/03/VM_Cultivating.pdf",
-      summary:"Starting in April 2019, Marginal Syllabus text-participants read and discussed 'Cultivating urban literacies on Chicago's South Side through a pedagogy of spatial justice,' an article in Voices From the Middle by Andrea Vaughan, Rebecca Woodard, Nathan Phillips, and Kara Taylor. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of spatial justice by discussing how Kara Taylor (at the time a middle school teacher) encouraged students' urban literacies through a neighborhood-based study of food access and equity that used spatial justice pedagogy rooted in place, people, and justice."
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/05/EJ_WeAreNotDirt.pdf",
+      summary:"Starting in May 2019, Marginal Syllabus text-participants read and discussed 'We are not dirt: Freirean counternarratives and rhetorical literacies for student voice in schooling,' an article in English Journal by Everardo Pedraza and R. Joseph Rodriguez. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, looks at activism in a high school English classroom where students challenge a school policy as a “problematic text” and spotlights how their writing became a vehicle to speak truth to power and enact policy change."
     },
     august2016:{
       url:"http://www.commonsense.org/education/privacy/blog/digital-redlining-access-privacy",
@@ -98,5 +98,9 @@
     april2018:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/03/VM_Cultivating.pdf",
       summary:"Starting in April 2019, Marginal Syllabus text-participants read and discussed 'Cultivating urban literacies on Chicago's South Side through a pedagogy of spatial justice,' an article in Voices From the Middle by Andrea Vaughan, Rebecca Woodard, Nathan Phillips, and Kara Taylor. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, introduces readers to the idea of spatial justice by discussing how Kara Taylor (at the time a middle school teacher) encouraged students' urban literacies through a neighborhood-based study of food access and equity that used spatial justice pedagogy rooted in place, people, and justice."
+    },
+    may2018:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/05/EJ_WeAreNotDirt.pdf",
+      summary:"Starting in May 2019, Marginal Syllabus text-participants read and discussed 'We are not dirt: Freirean counternarratives and rhetorical literacies for student voice in schooling,' an article in English Journal by Everardo Pedraza and R. Joseph Rodriguez. The article, part of the Literacy, Equity + Remarkable Notes = LEARN syllabus, looks at activism in a high school English classroom where students challenge a school policy as a “problematic text” and spotlights how their writing became a vehicle to speak truth to power and enact policy change."
     }
   }
