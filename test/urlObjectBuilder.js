@@ -10,10 +10,6 @@ let _urlData = {};
 let urlString;
 function urlObjectBuilder(rows){
   for (ss of rows){
-    //create array of annotations with replies as root for threads
-    //if (ss['references']){
-    //  if (!threads.includes(ss['references'][0])){
-    //    threads.push(ss['references'][0]);
     if (ss['refs'].length > 0){
       let date = new Date(ss['updated']);
 
@@ -25,12 +21,6 @@ function urlObjectBuilder(rows){
         _threads[ss['refs'][0]];// = {'totalMessages':0, 'threadDateLatest':date, 'names':[]};
       }
     }  
-    //create array of tags to build tag column graph
-    // if (ss['tags'].length > 0){
-    //   ss['tags'].forEach(function (t) {
-    //     tagArray.push(t.toLowerCase());
-    //   });
-    // }
   }
 
   for (s of rows){
