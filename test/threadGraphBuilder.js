@@ -29,7 +29,17 @@ function threadGraphBuilder(threadData,response) {
     let row = bar_graph_threads.getSelection()[0].row;
     bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
     let thread = threadDataTable.getValue(row, 3);
-    filter['thread'] = thread;
+    filter = {
+      user: "",
+      group: "",
+      url: "",
+      wildcard_uri: "",
+      tag: "",
+      any: "",
+      max: "",
+      thread: thread,
+      date: ""
+    };
     dataObjects = groupObjectBuilder(response,filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);

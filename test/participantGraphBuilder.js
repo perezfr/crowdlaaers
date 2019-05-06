@@ -32,14 +32,24 @@ function participantGraphBuilder(participantData,response) {
     var row = bar_graph_contributors.getSelection()[0].row;
     bar_graph_contributors.setSelection(); //needed to prevent graph freezing on 2nd click
     var name = participantMessageTypeDataView.getValue(row, 0);
-    filter['user'] = name;
+    filter = {
+      user: name,
+      group: "",
+      url: "",
+      wildcard_uri: "",
+      tag: "",
+      any: "",
+      max: "",
+      thread: "",
+      date: ""
+    };
     dataObjects = groupObjectBuilder(response,filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
-    participantGraphBuilder(dataObjects[2]);
-    threadGraphBuilder(dataObjects[3]);
-    urlGraphBuilder(dataObjects[0]);
-    daysGraphBuilder(dataObjects[4]);
-    tagsGraphBuilder(dataObjects[1]);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
   });
 }

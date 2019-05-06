@@ -30,6 +30,12 @@ function annotationTableBuilder(rows,threadsID,filter) {
     for (s of rows){
         let tags = s['tags'].join().toLowerCase();
         let inThread = false;
+        let date = new Date(s['updated']);
+        let year = date.getYear() + 1900;
+        let month = date.getMonth() + 1;
+        let _month = date.getMonth();
+        let dateDay = date.getDate();
+        let _date =new Date( _month + "/" + dateDay + "/" + year );
         if ( filter['group'] != "" ){
             if( s['group'] != filter['group'] ) { continue; }
         }
@@ -54,21 +60,18 @@ function annotationTableBuilder(rows,threadsID,filter) {
             if ( !tags ) { continue; }
             if ( !tags.includes(filter['tag']) ) { continue; }
         }
+        if ( filter['date'] != "" ){
+            console.log('filter', filter['date'])
+            console.log(_date)
+            if ( _date !== filter['date'] ) { continue; }
+        }
         let nodeMsg;
         let urlString;
         let offset = new Date().getTimezoneOffset()*60;
-        //console.log(offset);
-        let date = new Date(s['updated']);
         let newdate = new Date(date.getTime() + offset);
-        //console.log(date.getTime() + offset);
-        let year = date.getYear() + 1900;
-        let month = date.getMonth();
-        let dateDay = date.getDate();
-        //console.log(dateDay + " and " + newdate.getDate());
         let hour = date.getHours();
         let mins = date.getMinutes();
         let second = date.getSeconds();
-        //var username = s['user'].slice(5,-12);
         let username = s['user'];
         let textTotal = s['text'];
         let link, textSummary;

@@ -3,13 +3,26 @@ $( document ).ready(function() {
   let dataObjects;
 
   if (hlib.getToken() != ""){
-    //createGroupInputFormModified();
-    params.group = "__world__";
-  };
+    createGroupInputFormModified();
+    let setGroupSelect = new Promise(function(resolve, reject) {  
+      setTimeout(function() {                              
+        resolve();
+      }, 500);
+    });
+    setGroupSelect.then(function(value) {
+      $('#groupControlSelect').val('aYnJE67m');
+      params.group = 'aYnJE67m';
+      hlib.hApiSearch(params, processSearchResults, '');
+      $("#groupControlSelect").prop("disabled", true);
+    });
+    setGroupSelect;//runs async function to set dropdown to specific group then disable dropdown
+  } else {
+    openSetTokenModal();
+  }
 
   google.charts.setOnLoadCallback(function() {
-    params.group = 'aYnJE67m';  
-    hlib.hApiSearch(params, processSearchResults, '');
+    //params.group = '__world__';  
+    //hlib.hApiSearch(params, processSearchResults, '');
     //initCharts(dataObjects);
   });
 
@@ -44,7 +57,7 @@ $( document ).ready(function() {
     let m = event.target.id;
     inactivate();
     $( "#" + m  ).attr("class", "nav-link active");
-    filter['url'] = syllabus[m]['url'];
+    filter = {user: "",group: "",url: syllabus[m]['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -62,7 +75,7 @@ $( document ).ready(function() {
     let m = event.target.id;
     inactivate();
     $( "#" + m  ).attr("class", "nav-link active");
-    filter['url'] = "";
+    filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -91,24 +104,19 @@ $( document ).ready(function() {
     let _token = inputQuerySelector('#tokenInputBar').value;
     localStorage.setItem('h_token', _token);
     $('#setTokenModal').modal('hide');
-    //createGroupInputFormModified();
-    //Added this to give 
-    params.group = 'aYnJE67m';
-    //waits for graph lib to load before drawing
-    //google.charts.setOnLoadCallback(function() { 
-    hlib.hApiSearch(params, processSearchResults, '');
-    //});
-    //waits for drop down to load before
-    //setting dropdown
-    var promise1 = new Promise(function(resolve, reject) {  
+    createGroupInputFormModified();
+    let setGroupSelect = new Promise(function(resolve, reject) {  
       setTimeout(function() {                              
         resolve();
-      }, 300);
+      }, 500);
     });
-    promise1.then(function(value) {
+    setGroupSelect.then(function(value) {
       $('#groupControlSelect').val('aYnJE67m');
+      params.group = 'aYnJE67m';
+      hlib.hApiSearch(params, processSearchResults, '');
+      $("#groupControlSelect").prop("disabled", true);
     });
-    promise1;
+    setGroupSelect;//runs async function to set dropdown to specific group then disable dropdown
   });
 
   function processSearchResults(annos, replies) {
@@ -161,6 +169,19 @@ $( document ).ready(function() {
       response = json;
       initCharts(json);
   };
+
+  $( "#allResetButton" ).click(function() {
+    console.log('inside')
+    filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+  });
 });
 
 function openSetTokenModal(){
@@ -182,14 +203,15 @@ let params = {
 };
 
 let filter = {
-  user: "",//inputQuerySelector('#userContainer input').value,
-  group: "",//"G9d4q3j6"
-  url: "",//inputQuerySelector('#urlContainer input').value,
-  wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
-  tag: "",//inputQuerySelector('#tagContainer input').value,
-  any: "",//inputQuerySelector('#anyContainer input').value,
-  max: "",//inputQuerySelector('#maxContainer input').value,
-  thread: ""
+  user: "",
+  group: "",
+  url: "",
+  wildcard_uri: "",
+  tag: "",
+  any: "",
+  max: "",
+  thread: "",
+  date: ""
 };
 
 function reverseChronUrls(urlUpdates) {
@@ -206,7 +228,7 @@ function reverseChronUrls(urlUpdates) {
 function createGroupInputFormModified(e, selectId) {
     var _selectId = selectId ? selectId : 'groupsList';
     function createGroupSelector(groups, selectId) {
-        var currentGroup = getGroup();
+        var currentGroup = hlib.getGroup();
         var options = '';
         groups.forEach(function (g) {
             var selected = '';
@@ -217,7 +239,7 @@ function createGroupInputFormModified(e, selectId) {
         });
         return options;
     }
-    var token = getToken();
+    var token = hlib.getToken();
     var opts = {
         method: 'get',
         url: 'https://hypothes.is/api/profile',

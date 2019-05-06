@@ -27,7 +27,17 @@ function tagsGraphBuilder(tagsData,response) {
     let row = bar_graph_tags.getSelection()[0].row;
     bar_graph_tags.setSelection(); //needed to prevent graph freezing on 2nd click
     let tag = tagsDataView.getValue(row, 0);
-    filter['tag'] = tag;
+    filter = {
+      user: "",
+      group: "",
+      url: "",
+      wildcard_uri: "",
+      tag: tag,
+      any: "",
+      max: "",
+      thread: "",
+      date: ""
+    };
     dataObjects = groupObjectBuilder(response,filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);

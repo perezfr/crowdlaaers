@@ -31,6 +31,12 @@ function groupObjectBuilder(rows,filter){
   for (s of rows){
     let inThread = false;
     let tags = s['tags'].join().toLowerCase();
+    let date = new Date(s['updated']);
+    let year = date.getYear() + 1900;
+    let month = date.getMonth() + 1;
+    let _month = date.getMonth() + 1;
+    let dateDay = date.getDate();
+    let _date =new Date( _month + "/" + dateDay + "/" + year );
     if ( !tags ) { 'inside' };
     if ( filter['group'] != "" ){
       if ( s['group'] != filter['group'] ) { continue; }
@@ -56,13 +62,11 @@ function groupObjectBuilder(rows,filter){
         if ( !tags ) { continue; }
         if ( !tags.includes(filter['tag']) ) { continue; }
     }
+    if ( filter['date'] != "" ){
+        if ( _date !== filter['date'] ) { continue; }
+    }
     let offset = new Date().getTimezoneOffset()*60;
-    let date = new Date(s['updated']);
     let newdate = new Date(date.getTime() + offset);
-    let year = date.getYear() + 1900;
-    let month = date.getMonth() + 1;
-    let dateDay = date.getDate();
-    let _date =new Date( month + "/" + dateDay + "/" + year );
     let hour = date.getHours();
     let mins = date.getMinutes();
     let second = date.getSeconds();

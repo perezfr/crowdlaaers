@@ -34,7 +34,17 @@ function urlGraphBuilder(threadData,response) {
     let row = bar_graph_urls.getSelection()[0].row;
     bar_graph_urls.setSelection(); //needed to prevent graph freezing on 2nd click
     let url = urlDataView.getValue(row, 0);
-    filter['url'] = url;
+    filter = {
+      user: "",
+      group: "",
+      url: url,
+      wildcard_uri: "",
+      tag: "",
+      any: "",
+      max: "",
+      thread: "",
+      date: ""
+    };
     dataObjects = groupObjectBuilder(response,filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
