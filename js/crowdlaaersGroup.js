@@ -1,5 +1,4 @@
 $( document ).ready(function() {
-
   google.charts.load('current', {'packages':['table','corechart','calendar']});
 
   var response;

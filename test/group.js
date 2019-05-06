@@ -1,32 +1,25 @@
 $( document ).ready(function() {
   google.charts.load('current', {'packages':['table','corechart','calendar']});
-
-  google.charts.setOnLoadCallback(function() { 
-    let dataObjects = groupObjectBuilder(rows);
-    //hlib.hApiSearch(params, processSearchResults, '');
-    drawCharts(dataObjects);
-  });
-
-  var response;
-  var graphsArray = ['annotation_table_div','url_graph_div','participant_graph_div','threads_graph_div',
-    'days_graph_div','tags_graph_div'];
+  let dataObjects;
 
   if (hlib.getToken() != ""){
     //createGroupInputFormModified();
     params.group = "__world__";
   };
 
-  function inactivate() {
-    for (var key in syllabus){
-      $( "#" + key ).attr("class", "nav-link");
-    };
-    for (i = 1; i < 7; i++) {
-      $("#collapseCell" + i).collapse('show');
-    };
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-  };
+  google.charts.setOnLoadCallback(function() {
+    params.group = 'aYnJE67m';  
+    hlib.hApiSearch(params, processSearchResults, '');
+    //initCharts(dataObjects);
+  });
+
+  let response;
+  let graphsArray = ['annotation_table_div','url_graph_div','participant_graph_div','threads_graph_div',
+    'days_graph_div','tags_graph_div'];
   
-  function drawCharts(_dataObjects){
+  function initCharts(_response){
+    _dataObjects = groupObjectBuilder(_response, filter);
+
     if(_dataObjects.length == 0){
       $( "#annotationCounter" ).html("<h3>No Data Found...</h3>");
       for (let g of graphsArray){
@@ -39,64 +32,207 @@ $( document ).ready(function() {
       return false;
     }
     $('[data-toggle="tooltip"]').tooltip();
-    
-    let annotationDataTable = new google.visualization.DataTable();
-    let tagsDataTable = new google.visualization.DataTable();
-    let participantMessageTypeDataTable = new google.visualization.DataTable();
-    let urlDataTable = new google.visualization.DataTable();
-    let threadDataTable = new google.visualization.DataTable();
-    let daysDataTable = new google.visualization.DataTable();
-
-    let annotationTable = new google.visualization.Table(document.getElementById('annotation_table_div'));
-    let bar_graph_urls = new google.visualization.ColumnChart(document.getElementById('url_graph_div'));
-    let bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('participant_graph_div'));
-    let bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('threads_graph_div'));
-    let bar_graph_days = new google.visualization.Calendar(document.getElementById('days_graph_div'));
-    let bar_graph_tags = new google.visualization.ColumnChart(document.getElementById('tags_graph_div'));
-
-    let opts = {
-      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-      vAxis: { format: '#' }, isStacked:true, colors: ['#243c68', '#e6693e'], 
-    };
-    let optsURLGraph = {
-      width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-      vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
-    };
-
-    drawAnnotationTable(rows,_dataObjects[5],annotationDataTable);
-    participantGraphBuilder(_dataObjects[2],participantMessageTypeDataTable);
-    threadGraphBuilder(_dataObjects[3],threadDataTable);
-    urlGraphBuilder(_dataObjects[0],urlDataTable);
-    daysGraphBuilder(_dataObjects[4],daysDataTable);
-    tagsGraphBuilder(_dataObjects[1],tagsDataTable);
-
-    annotationDataTable.sort({column:0, desc:true});
-    let annotationDataView = new google.visualization.DataView(annotationDataTable);
-    annotationDataView.setColumns([0,1,2,5,7]);
-    annotationTable.draw(annotationDataView, opts);
-
-    //sort by columns: 1 = amount, 4 is recent
-    participantMessageTypeDataTable.sort({column:4, desc:true});
-    let participantMessageTypeDataView = new google.visualization.DataView(participantMessageTypeDataTable);
-    participantMessageTypeDataView.setColumns([0,2,3]);
-    bar_graph_contributors.draw(participantMessageTypeDataView, opts);
-
-    threadDataTable.sort({column:3, desc:true});
-    let threadDataView = new google.visualization.DataView(threadDataTable);
-    threadDataView.setColumns([0,1]);
-    bar_graph_threads.draw(threadDataView, opts);
-
-    urlDataTable.sort({column:3, desc:true});
-    let urlDataView = new google.visualization.DataView(urlDataTable);
-    urlDataView.setColumns([0,1]);
-    bar_graph_urls.draw(urlDataView, optsURLGraph);
-
-    let daysDataView = new google.visualization.DataView(daysDataTable);
-    daysDataView.setColumns([0,1]);
-    bar_graph_days.draw(daysDataView, opts);
-
-    let tagsDataView = new google.visualization.DataView(tagsDataTable);
-    tagsDataView.setColumns([0,1]);
-    bar_graph_tags.draw(tagsDataView, opts);
+    annotationTableBuilder(_response,_dataObjects[5],filter);
+    participantGraphBuilder(_dataObjects[2],response);
+    threadGraphBuilder(_dataObjects[3],response);
+    urlGraphBuilder(_dataObjects[0],response);
+    daysGraphBuilder(_dataObjects[4],response);
+    tagsGraphBuilder(_dataObjects[1],response);
   }
+
+  $( ".nav-link" ).click(function(event) {
+    let m = event.target.id;
+    inactivate();
+    $( "#" + m  ).attr("class", "nav-link active");
+    filter['url'] = syllabus[m]['url'];
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+    
+    //hlib.hApiSearch(params, processSearchResults, '');
+    $("#conversation_summary").html(syllabus[m]['summary']);
+  });  
+
+  $( "#groupLevel" ).click(function(event) {
+    let m = event.target.id;
+    inactivate();
+    $( "#" + m  ).attr("class", "nav-link active");
+    filter['url'] = "";
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+    
+    //hlib.hApiSearch(params, processSearchResults, '');
+    $("#conversation_summary").html("R2L group level");
+  });  
+
+  function inactivate() {
+    for (var key in syllabus){
+      $( "#" + key ).attr("class", "nav-link");
+    };
+    for (i = 1; i < 7; i++) {
+      $("#collapseCell" + i).collapse('show');
+    };
+    //$( "#annotationCounter" ).html('<h3>Loading...</h3>');
+  };
+
+  $("#setTokenButton").click(function(){
+  //function setTokenButton(){
+    let _token = inputQuerySelector('#tokenInputBar').value;
+    localStorage.setItem('h_token', _token);
+    $('#setTokenModal').modal('hide');
+    //createGroupInputFormModified();
+    //Added this to give 
+    params.group = 'aYnJE67m';
+    //waits for graph lib to load before drawing
+    //google.charts.setOnLoadCallback(function() { 
+    hlib.hApiSearch(params, processSearchResults, '');
+    //});
+    //waits for drop down to load before
+    //setting dropdown
+    var promise1 = new Promise(function(resolve, reject) {  
+      setTimeout(function() {                              
+        resolve();
+      }, 300);
+    });
+    promise1.then(function(value) {
+      $('#groupControlSelect').val('aYnJE67m');
+    });
+    promise1;
+  });
+
+  function processSearchResults(annos, replies) {
+      let format = 'json';
+      let csv = '';
+      let json = [];
+      let gathered = hlib.gatherAnnotationsByUrl(annos);
+      let reversedUrls = reverseChronUrls(gathered.urlUpdates);
+      let counter = 0;
+      reversedUrls.forEach(function (url) {
+          counter++;
+          let perUrlId = counter;
+          let perUrlCount = 0;
+          let idsForUrl = gathered.ids[url];
+          idsForUrl.forEach(function (id) {
+              perUrlCount++;
+              let _replies = hlib.findRepliesForId(id, replies);
+              _replies = _replies.map(r => {
+                  return hlib.parseAnnotation(r);
+              });
+              let all = [gathered.annos[id]].concat(_replies.reverse());
+              all.forEach(function (anno) {
+                  let level = 0;
+                  if (anno.refs) {
+                      level = anno.refs.length;
+                  }
+                  if (format === 'html') {
+                      worker.postMessage({
+                          perUrlId: perUrlId,
+                          anno: anno,
+                          annoId: anno.id,
+                          level: level
+                      });
+                  }
+                  else if (format === 'csv') {
+                      let _row = document.createElement('div');
+                      _row.innerHTML = hlib.csvRow(level, anno);
+                      csv += _row.innerText + '\n';
+                  }
+                  else if (format === 'json') {
+                      anno.text = anno.text.replace(/</g, '&lt;');
+                      json.push(anno);
+                  }
+              });
+          });
+          if (format === 'html') {
+              showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
+          }
+      });
+      response = json;
+      initCharts(json);
+  };
 });
+
+function openSetTokenModal(){
+  $('#setTokenModal').modal('show');
+};
+
+function inputQuerySelector(query) {
+  return document.querySelector(query);
+}
+
+let params = {
+  user: "",//inputQuerySelector('#userContainer input').value,
+  group: "",//"G9d4q3j6"
+  url: "",//inputQuerySelector('#urlContainer input').value,
+  wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
+  tag: "",//inputQuerySelector('#tagContainer input').value,
+  any: "",//inputQuerySelector('#anyContainer input').value,
+  max: ""//inputQuerySelector('#maxContainer input').value,
+};
+
+let filter = {
+  user: "",//inputQuerySelector('#userContainer input').value,
+  group: "",//"G9d4q3j6"
+  url: "",//inputQuerySelector('#urlContainer input').value,
+  wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
+  tag: "",//inputQuerySelector('#tagContainer input').value,
+  any: "",//inputQuerySelector('#anyContainer input').value,
+  max: "",//inputQuerySelector('#maxContainer input').value,
+  thread: ""
+};
+
+function reverseChronUrls(urlUpdates) {
+    var reverseChronUrls = [];
+    for (var urlUpdate in urlUpdates) {
+        reverseChronUrls.push([urlUpdate, urlUpdates[urlUpdate]]);
+    }
+    reverseChronUrls.sort(function (a, b) {
+        return new Date(b[1]).getTime() - new Date(a[1]).getTime();
+    });
+    return reverseChronUrls.map(item => item[0]);
+};
+
+function createGroupInputFormModified(e, selectId) {
+    var _selectId = selectId ? selectId : 'groupsList';
+    function createGroupSelector(groups, selectId) {
+        var currentGroup = getGroup();
+        var options = '';
+        groups.forEach(function (g) {
+            var selected = '';
+            if (currentGroup == g.id) {
+                selected = 'selected';
+            }
+            options += "<option " + selected + " value=\"" + g.id + "\">" + g.name + "</option>\n";
+        });
+        return options;
+    }
+    var token = getToken();
+    var opts = {
+        method: 'get',
+        url: 'https://hypothes.is/api/profile',
+        headers: {},
+        params: {}
+    };
+    opts = hlib.setApiTokenHeaders(opts, token);
+    hlib.httpRequest(opts)
+        .then(function (data) {
+        var _data = data;
+        var response = JSON.parse(_data.response);
+        let form = createGroupSelector(response.groups);
+        let g = document.getElementById("groupControlSelect");
+        g.innerHTML = form;
+    })["catch"](function (e) {
+        console.log(e);
+    });
+};

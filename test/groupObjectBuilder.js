@@ -1,16 +1,24 @@
-//var rows = response;
-//var total = response.length;
-let groupData = {};
-let threadsID = [];
-let threadsData = {};
-let tagsData = {};
-let gtagCounts = {};
-let glevel = 0;
-let participantData = {};
-let urlCounts = {};
-let dateCounts = {};
+function groupObjectBuilder(rows,filter){
+  let _url;
+  let groupData = {};
+  let threadsID = [];
+  let threadsData = {};
+  let tagsData = {};
+  let gtagCounts = {};
+  let glevel = 0;
+  let participantData = {};
+  let urlCounts = {};
+  let dateCounts = {};
+  
 
-function groupObjectBuilder(rows){
+  if ( filter['url'] != "" ){
+    if ( filter['url'].includes('https://via.hypothes.is/') ) { 
+      _url = filter['url'].substring(24);
+    } else {
+      _url = filter['url'];
+    }
+  } 
+
   for (ss of rows){
     //create array of annotations with replies as root for threads
     if (ss['refs'].length > 0){
@@ -21,6 +29,33 @@ function groupObjectBuilder(rows){
   }
 
   for (s of rows){
+    let inThread = false;
+    let tags = s['tags'].join().toLowerCase();
+    if ( !tags ) { 'inside' };
+    if ( filter['group'] != "" ){
+      if ( s['group'] != filter['group'] ) { continue; }
+    }
+    if ( filter['url'] != "" ){
+      if ( s['url'] != _url ) { continue; }
+    }
+    if ( filter['user'] != "" ){
+      if ( s['user'] != filter['user'] ) { continue; }
+    }
+    if ( filter['thread'] != "" ){
+      if ( s['id'] == filter['thread'] ) { 
+        inThread = true; 
+      }
+      if ( s['refs'].length > 0 ){
+        if ( s['refs'][0] == filter['thread'] ) {
+          inThread = true;
+        }
+      }
+      if ( inThread == false ) { continue; }
+    }
+    if ( filter['tag'] != "" ){
+        if ( !tags ) { continue; }
+        if ( !tags.includes(filter['tag']) ) { continue; }
+    }
     let offset = new Date().getTimezoneOffset()*60;
     let date = new Date(s['updated']);
     let newdate = new Date(date.getTime() + offset);
@@ -36,7 +71,6 @@ function groupObjectBuilder(rows){
     let url = s['url'];
     let glevel = s['refs'].length;
     //HLIB doesn't return 'incontext' field. so...
-    let tags = s['tags'].join().toLowerCase();
 
     if ( !participantData[username] ){  //url is not in object
       participantData[username] = {

@@ -1,4 +1,10 @@
-function urlGraphBuilder(threadData,urlDataTable) {    
+function urlGraphBuilder(threadData,response) {  
+  let urlDataTable = new google.visualization.DataTable();
+  let bar_graph_urls = new google.visualization.ColumnChart(document.getElementById('url_graph_div'));  
+  let optsURLGraph = {
+    width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
+    vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
+  };
   //threads columns
   urlDataTable.addColumn({type: 'string', id: 'url', label: 'URL'});
   urlDataTable.addColumn({type: 'number', id: 'count', label: 'Count'});
@@ -17,4 +23,25 @@ function urlGraphBuilder(threadData,urlDataTable) {
       [ u, threadData[u]['count'], threadData[u]['urlDateLatest'], _u  ]
     ]);
   }
+
+  urlDataTable.sort({column:3, desc:true});
+  let urlDataView = new google.visualization.DataView(urlDataTable);
+  urlDataView.setColumns([0,1]);
+  bar_graph_urls.draw(urlDataView, optsURLGraph);
+
+  google.visualization.events.addListener(bar_graph_urls, 'select', function() {
+    google.visualization.events.removeListener(event);
+    let row = bar_graph_urls.getSelection()[0].row;
+    bar_graph_urls.setSelection(); //needed to prevent graph freezing on 2nd click
+    let url = urlDataView.getValue(row, 0);
+    filter['url'] = url;
+    dataObjects = groupObjectBuilder(response,filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+  });
 }

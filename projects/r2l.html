@@ -22,7 +22,15 @@
     <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
     <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
     <script type="text/javascript" src="../syl/r2l.js"></script>
-    <script type="text/javascript" src="../js/crowdlaaersGroup.js"></script>
+    <!--<script type="text/javascript" src="../js/crowdlaaersGroup.js"></script>-->
+    <script type="text/javascript" src="../test/tagsGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/groupObjectBuilder.js"></script>
+    <script type="text/javascript" src="../test/annotationTableBuilder.js"></script>
+    <script type="text/javascript" src="../test/participantGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/threadGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/urlGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/daysGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/group.js"></script>
   </head>
 
   <body>
@@ -77,7 +85,7 @@
               </li>
             </ul>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#ResearchNotes" class="nav-link" data-toggle="collapse" aria-expanded="true">
+              <a href="#ResearchNotes" class="nav-link" data-toggle="collapse">
                 <span data-feather="archive"></span>
                 Research Notes 
               </a>
@@ -611,7 +619,7 @@
             </div>
             <div class="collapse show" id="collapseCell6">
               <div class="card-body">
-                <div id="table_div"></div>
+                <div id="annotation_table_div"></div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
                   <div class="btn-toolbar mb-2 mb-md-0">
                     <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
@@ -630,7 +638,7 @@
             </div>
             <div class="collapse show" id="collapseCell2">
               <div class="card-body">
-                <div id="graphURLs"></div>
+                <div id="url_graph_div"></div>
               </div>
             </div>
          </div>
@@ -642,7 +650,7 @@
             </div>
             <div class="collapse show" id="collapseCell2">
               <div class="card-body">
-                <div id="graphContributors"></div>
+                <div id="participant_graph_div"></div>
               </div>
             </div>
          </div>
@@ -654,7 +662,7 @@
             </div>
             <div class="collapse show" id="collapseCell4">
               <div class="card-body">
-                <div id="graphThreads"></div>
+                <div id="threads_graph_div"></div>
               </div>
             </div>
          </div>
@@ -666,7 +674,7 @@
             </div>
             <div class="collapse show" id="collapseCell3">
               <div class="card-body">
-                <div id="graphCalendar"></div>
+                <div id="days_graph_div"></div>
               </div>
             </div>
          </div>
@@ -678,7 +686,7 @@
             </div>
             <div class="collapse show" id="collapseCell5">
               <div class="card-body">
-                <div id="graphTags"></div>
+                <div id="tags_graph_div"></div>
               </div>
             </div>
          </div>
