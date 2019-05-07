@@ -22,14 +22,14 @@ function groupObjectBuilder(rows,filter){
   for (ss of rows){
     //create array of annotations with replies as root for threads
     if (ss['refs'].length > 0){
-      if ( !threadsID.includes(ss['refs'][0]) ){
-        threadsID.push(ss['refs'][0]);
+      if ( !(ss['refs'][0] in threadsID) ){
+        threadsID[ss['refs'][0]] = ss['user'];
       }
     }  
   }
 
   for (s of rows){
-    let inThread = false;
+    let inThread = false; //for filtering
     let tags = s['tags'].join().toLowerCase();
     let date = new Date(s['updated']);
     let year = date.getYear() + 1900;
@@ -105,6 +105,7 @@ function groupObjectBuilder(rows,filter){
       urlCounts[url]['urlDateLatest'] = date;
     }
 
+    //Tags
     if (s['tags'].length > 0){
       //iterate through each tag on annotation
       s['tags'].forEach(function (tt) {
@@ -125,6 +126,7 @@ function groupObjectBuilder(rows,filter){
       });
     }
 
+    //Threads node message
     if ( s['id'] in threadsID ){
       threadsData[s['id']] = {
         'names': [username],
@@ -132,13 +134,13 @@ function groupObjectBuilder(rows,filter){
         'threadMsgCount': 1
       };
     };
-
+    //threads responses
     if ( s['refs'].length > 0 ){
       if ( !(s['refs'][0] in threadsData) ){
         threadsData[s['refs'][0]] = {
-          'names': [username],
+          'names': [username,threadsID[s['refs'][0]]],
           'threadsDateLatest': date,
-          'threadMsgCount': 1
+          'threadMsgCount': 2
         };
       } else {
         if ( !threadsData[s['refs'][0]]['names'].includes(username) ){
@@ -151,12 +153,12 @@ function groupObjectBuilder(rows,filter){
       }
     }
 
+    //date
     if ( !(_date in dateCounts ) ){
       dateCounts[_date]= 1;
     } else {
       ++dateCounts[_date];
     }
   } // end rows loop
-
   return [urlCounts,tagsData,participantData,threadsData,dateCounts,threadsID];
 }
