@@ -171,8 +171,21 @@ $( document ).ready(function() {
   };
 
   $( "#allResetButton" ).click(function() {
-    console.log('inside')
     filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+  });
+
+  $( "#threadButton" ).click(function() {
+    var _thread = $(this).attr("thread");
+    console.log(_thread)
+    filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: _thread,date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);

@@ -129,7 +129,7 @@ function annotationTableBuilder(rows,threadsID,filter) {
         $('#annotationModalLabel').text(annotationDataTable.getValue(row, 1) + ":");
         $('#annotationModalBody').text(annotationDataTable.getValue(row, 4));
         $('#inContextButton').attr("href", annotationDataTable.getValue(row, 6));
-        $('#threadButton').attr("thread", annotationDataTable.getValue(row, 6));
+        $('#threadButton').attr("thread", annotationDataTable.getValue(row, 3));
         $('#annotationModal').modal('show');
     });
 }; //end drawtable
