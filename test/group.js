@@ -108,7 +108,7 @@ $( document ).ready(function() {
     let setGroupSelect = new Promise(function(resolve, reject) {  
       setTimeout(function() {                              
         resolve();
-      }, 500);
+      }, 1000);
     });
     setGroupSelect.then(function(value) {
       $('#groupControlSelect').val('aYnJE67m');

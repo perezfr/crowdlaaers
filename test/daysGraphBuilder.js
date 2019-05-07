@@ -45,13 +45,13 @@ function daysGraphBuilder(daysData,response) {
       thread: "",
       date: _date
     };
-    dataObjects = groupObjectBuilder(response,filter);
+    // dataObjects = groupObjectBuilder(response,filter);
 
-    annotationTableBuilder(response,dataObjects[5],filter);
-    participantGraphBuilder(dataObjects[2],response);
-    threadGraphBuilder(dataObjects[3],response);
-    urlGraphBuilder(dataObjects[0],response);
-    daysGraphBuilder(dataObjects[4],response);
-    tagsGraphBuilder(dataObjects[1],response);
+    // annotationTableBuilder(response,dataObjects[5],filter);
+    // participantGraphBuilder(dataObjects[2],response);
+    // threadGraphBuilder(dataObjects[3],response);
+    // urlGraphBuilder(dataObjects[0],response);
+    // daysGraphBuilder(dataObjects[4],response);
+    // tagsGraphBuilder(dataObjects[1],response);
   });
 }
