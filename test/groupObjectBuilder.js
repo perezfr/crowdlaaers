@@ -37,7 +37,6 @@ function groupObjectBuilder(rows,filter){
     let _month = date.getMonth() + 1;
     let dateDay = date.getDate();
     let _date =new Date( _month + "/" + dateDay + "/" + year );
-    if ( !tags ) { 'inside' };
     if ( filter['group'] != "" ){
       if ( s['group'] != filter['group'] ) { continue; }
     }

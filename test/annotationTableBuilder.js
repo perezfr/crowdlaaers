@@ -43,6 +43,7 @@ function annotationTableBuilder(rows,threadsID,filter) {
             if ( s['url'] != _url ) { continue; } 
         }
         if ( filter['user'] != "" ){
+          //TODO: keep all thread users builder when filtering by user
           if ( s['user'] != filter['user'] ) { continue; }
         }
         if ( filter['thread'] != "" ){
@@ -75,7 +76,7 @@ function annotationTableBuilder(rows,threadsID,filter) {
         let username = s['user'];
         let textTotal = s['text'];
         let link, textSummary;
-      //Count the threads
+
         level = 0;
         nodeMsg = "document";
         if (threadsID.includes(s['id'])){
