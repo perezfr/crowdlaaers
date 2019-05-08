@@ -32,7 +32,7 @@ function annotationTableBuilder(rows,threadsID,filter) {
         let inThread = false;
         let date = new Date(s['updated']);
         let year = date.getYear() + 1900;
-        let month = date.getMonth() + 1;
+        let month = date.getMonth();
         let _month = date.getMonth();
         let dateDay = date.getDate();
         let _date =new Date( _month + "/" + dateDay + "/" + year );
@@ -62,9 +62,8 @@ function annotationTableBuilder(rows,threadsID,filter) {
             if ( !tags.includes(filter['tag']) ) { continue; }
         }
         if ( filter['date'] != "" ){
-            console.log('filter', filter['date'])
-            console.log(_date)
-            if ( _date !== filter['date'] ) { continue; }
+            //if ( !sameDay( _date,filter['date'] ) ) { continue; }
+            if ( !sameDay(date,new Date(filter['date'] ))) { continue; }
         }
         let nodeMsg;
         let urlString;
@@ -107,7 +106,8 @@ function annotationTableBuilder(rows,threadsID,filter) {
         }     
         //Add the table graph rows
         annotationDataTable.addRows([
-            [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
+            //[new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
+            [new Date(date), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
         ]);
     } // end rows loop
     annotationDataTable.sort({column:0, desc:true});
@@ -134,3 +134,8 @@ function annotationTableBuilder(rows,threadsID,filter) {
         $('#annotationModal').modal('show');
     });
 }; //end drawtable
+function sameDay(d1, d2) {
+  return d1.getUTCFullYear() === d2.getUTCFullYear() &&
+    d1.getUTCMonth() === d2.getUTCMonth() &&
+    d1.getUTCDate() === d2.getUTCDate();
+}

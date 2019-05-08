@@ -27,12 +27,15 @@ function daysGraphBuilder(daysData,response) {
 
   google.visualization.events.addListener(calendar_graph_days, 'select', function() {
     google.visualization.events.removeListener(event);
-    let _date = new Date(calendar_graph_days.getSelection()[0].date);
-    let _y = _date.getFullYear();
-    let _m = _date.getMonth();
-    let _d = _date.getDate() + 1;
-    calendar_graph_days.setSelection(); //needed to prevent graph freezing on 2nd click 
-    console.log(_date);
+    //let _date = new Date(calendar_graph_days.getSelection()[0].date);
+    let _date = calendar_graph_days.getSelection()[0].date;
+    // let _y = _date.getFullYear();
+    // let _m = _date.getMonth();
+    // let _d = _date.getDate() + 1;
+    //calendar_graph_days.setSelection(); //needed to prevent graph freezing on 2nd click 
+    //console.log(_date);
+    //console.log(_date.getFullYear(), _date.getMonth(), _date.getDate());
+    //console.log(_date.getUTCFullYear(), _date.getUTCMonth(), _date.getUTCDate());
     
     filter = {
       user: "",
@@ -45,13 +48,13 @@ function daysGraphBuilder(daysData,response) {
       thread: "",
       date: _date
     };
-    // dataObjects = groupObjectBuilder(response,filter);
+    dataObjects = groupObjectBuilder(response,filter);
 
-    // annotationTableBuilder(response,dataObjects[5],filter);
-    // participantGraphBuilder(dataObjects[2],response);
-    // threadGraphBuilder(dataObjects[3],response);
-    // urlGraphBuilder(dataObjects[0],response);
-    // daysGraphBuilder(dataObjects[4],response);
-    // tagsGraphBuilder(dataObjects[1],response);
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
   });
 }

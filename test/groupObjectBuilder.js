@@ -62,7 +62,7 @@ function groupObjectBuilder(rows,filter){
         if ( !tags.includes(filter['tag']) ) { continue; }
     }
     if ( filter['date'] != "" ){
-        if ( _date !== filter['date'] ) { continue; }
+        if ( !sameDay(date,new Date(filter['date'] ))) { continue; }
     }
     let offset = new Date().getTimezoneOffset()*60;
     let newdate = new Date(date.getTime() + offset);
@@ -153,11 +153,17 @@ function groupObjectBuilder(rows,filter){
     }
 
     //date
-    if ( !(_date in dateCounts ) ){
+    if ( !( _date in dateCounts ) ){
       dateCounts[_date]= 1;
     } else {
       ++dateCounts[_date];
     }
   } // end rows loop
   return [urlCounts,tagsData,participantData,threadsData,dateCounts,threadsID];
+}
+
+function sameDay(d1, d2) {
+  return d1.getUTCFullYear() === d2.getUTCFullYear() &&
+    d1.getUTCMonth() === d2.getUTCMonth() &&
+    d1.getUTCDate() === d2.getUTCDate();
 }
