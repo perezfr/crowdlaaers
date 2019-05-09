@@ -2,7 +2,7 @@ function participantGraphBuilder(participantData,response) {
   let participantMessageTypeDataTable = new google.visualization.DataTable();
   let bar_graph_contributors = new google.visualization.ColumnChart(document.getElementById('participant_graph_div'));
   let opts = {
-    width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
+    width: '100%', height: '100%', legend: { position: 'none' },
     vAxis: { format: '#' }, isStacked:true, colors: ['#243c68', '#e6693e'], 
   };
 

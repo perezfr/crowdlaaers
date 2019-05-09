@@ -2,24 +2,30 @@ function threadGraphBuilder(threadData,response) {
   let threadDataTable = new google.visualization.DataTable();
   let bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('threads_graph_div'));
   let opts = {
-    width: '100%', height: '100%', page: 'enable', pageSize: 20, legend: { position: 'none' },
-    vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], 
+    width: '100%', height: '100%', legend: { position: 'none' },
+    vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
   };
   //threads columns
   threadDataTable.addColumn({type: 'string', id: 'users', label: 'Users'});
   threadDataTable.addColumn({type: 'number', id: 'total', label: 'Total'});
   threadDataTable.addColumn({type: 'date', id: 'Date', label: 'Date'});
   threadDataTable.addColumn({type: 'string', id: 'nodeMsg', label: 'Node'});
+  threadDataTable.addColumn({type: 'string', role: 'tooltip', 'p': {'html':true}});
 
   for (let t in threadData){
+    let _year = threadData[t]['threadsDateLatest'].getYear() + 1900;
+    let _month = threadData[t]['threadsDateLatest'].getMonth() + 1;
+    let _dateDay = threadData[t]['threadsDateLatest'].getDate();
+    let _dd = _month + "/" + _dateDay + "/" + _year;
+    let _t = threadGraphTooltipHTML(threadData[t]['names'].toString(), _dd);
     threadDataTable.addRows([
-      [ threadData[t]['names'].toString(), threadData[t]['threadMsgCount'], threadData[t]['threadsDateLatest'], t ]
+      [ threadData[t]['names'].toString(), threadData[t]['threadMsgCount'], threadData[t]['threadsDateLatest'], t, _t ]
     ]);
   }
 
   threadDataTable.sort({column:3, desc:true});
   let threadDataView = new google.visualization.DataView(threadDataTable);
-  threadDataView.setColumns([0,1]);
+  threadDataView.setColumns([0,1,4]);
   bar_graph_threads.draw(threadDataView, opts);
 
   $( "#threadCounter" ).text(threadDataView.getNumberOfRows());
@@ -50,3 +56,35 @@ function threadGraphBuilder(threadData,response) {
     tagsGraphBuilder(dataObjects[1],response);
   });
 }
+
+function threadGraphTooltipHTML(participants, recentAnnotationDate){
+  let table = `
+    <table class='table'>
+      <tr> 
+        <th colspan='2' align='center'>` + participants + `</th>
+      </tr>
+      <tr>
+        <td align='left'>
+          <b>Most recent:</b>
+        </td>
+        <td>` 
+          + recentAnnotationDate + `
+        </td>
+      </tr>
+    </table>`;
+  return table;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+

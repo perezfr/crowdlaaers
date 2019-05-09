@@ -1,5 +1,6 @@
 $( document ).ready(function() {
   google.charts.load('current', {'packages':['table','corechart','calendar']});
+  $('[data-toggle="tooltip"]').tooltip();
   let dataObjects;
 
   if (hlib.getToken() != ""){
@@ -20,11 +21,12 @@ $( document ).ready(function() {
     openSetTokenModal();
   }
 
-  google.charts.setOnLoadCallback(function() {
-    //params.group = '__world__';  
-    //hlib.hApiSearch(params, processSearchResults, '');
-    //initCharts(dataObjects);
-  });
+  // used only if graph are loading too fast
+  // google.charts.setOnLoadCallback(function() {
+  //   //params.group = '__world__';  
+  //   //hlib.hApiSearch(params, processSearchResults, '');
+  //   //initCharts(dataObjects);
+  // });
 
   let response;
   let graphsArray = ['annotation_table_div','url_graph_div','participant_graph_div','threads_graph_div',
@@ -44,11 +46,11 @@ $( document ).ready(function() {
       $( "#tagCounter" ).text("0");
       return false;
     }
-    $('[data-toggle="tooltip"]').tooltip();
+    
     annotationTableBuilder(_response,_dataObjects[5],filter);
     participantGraphBuilder(_dataObjects[2],response);
     threadGraphBuilder(_dataObjects[3],response);
-    urlGraphBuilder(_dataObjects[0],response);
+    urlGraphBuilder(_dataObjects[0],response,'top');
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);
   }
