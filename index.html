@@ -54,6 +54,7 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
+        <!--
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <div class="d-flex justify-content-center">
@@ -74,28 +75,53 @@
             </div>
             <hr>
           </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        </nav>-->
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4">
           <!-- Search Cards-->
           <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Search</a>
-            </div>
+              <a class="text-dark h6" data-toggle="collapse" href="#collapseCell1">Search</a>
+              <div class="float-right">
+                <button style="background-color:#768e9e;" class="btn-sm btn-secondary border border-secondary" id="urlShare">
+                  Share
+                </button>
+              </div>
+            </div><!--End card header-->
             <div class="collapse show" id="collapseCell1">
               <div class="card-body" id="homeMessage">
-                <span> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
+                <div class="row">
+                <span class="m-3"> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
                 </span>
-                <div class="input-group mt-3">
+                <div class="input-group mx-2">
                   <input type="text" class="form-control" placeholder="URL" aria-label="Recipient's username" aria-describedby="basic-addon2" id="urlBar">
                   <div class="input-group-append">
                     <button id="urlSearchButton" class="btn btn-secondary" type="button">Search</button> 
                   </div>
                 </div>
-              </div>
+                <div class="input-group m-2">
+                  <select class="custom-select" id="groupControlSelect">
+                    <option selected>Groups...</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" onclick="openSetTokenModal()" type="button">add key</button>
+                  </div>
+                </div>
+                <!--
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-secondary col-md-9 mt-3" onclick="openSetTokenModal()">
+                    Group layers
+                  </button>
+                </div>
+                <div class="d-flex justify-content-center ">
+                  <select class="form-control col-md-9" id="groupControlSelect">
+                  </select>
+                </div>-->
+                </div>
+              </div><!--End card body-->
             </div>
-          </div>
-          <!-- Icon Cards-->
+          </div><!--End Search Card-->
+         <!-- Icon Cards--> 
          <div class="row">
            <div class="col mb-3">
              <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
@@ -117,6 +143,17 @@
                  <h4 class="text-center"><span id="participantCounter">0</span></h4>
                  <p class="text-center">Participants</p>
                 </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#CC9FCC;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="documentCounter">0</span></h4>
+                 <p class="text-center">Documents</p>
+               </div>
              </div>
            </div>
            <div class="col mb-3">
