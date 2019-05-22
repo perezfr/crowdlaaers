@@ -81,22 +81,20 @@
           <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-              <a class="text-dark h6" data-toggle="collapse" href="#collapseCell1">Search</a>
-              <div class="float-right">
-                <button style="background-color:#768e9e;" class="btn-sm btn-secondary border border-secondary" id="urlShare">
-                  Share
-                </button>
-              </div>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Search</a>
             </div><!--End card header-->
             <div class="collapse show" id="collapseCell1">
               <div class="card-body" id="homeMessage">
                 <div class="row">
-                <span class="m-3"> Explore any <b>URL</b> featuring Hypothesis annotation. CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Or explore how CROWDLAAERS has been applied to curated sets of online texts by selecting from <a href="https://crowdlaaers.org/projects/marginalsyllabus.html"><b>Projects</b></a>.
+                <span class="mx-3">Explore social learning analytics associated with Hypothesis annotation. Enter a URL and click Search to visualize collaborative annotation activity associated with a single document, or enter your Hypothesis API token to access analytics associated with Group activity across multiple documents. Every "crowd layers" graph - Annotations, Participants, Documents, Threads, Days, and Tags - is interactive, and selecting data within one graph will automatically filter corresponding analytics in all other graphs. Select the circular arrows near the Annotations graph to reset your Search or Group activity.
                 </span>
-                <div class="input-group mx-2">
-                  <input type="text" class="form-control" placeholder="URL" aria-label="Recipient's username" aria-describedby="basic-addon2" id="urlBar">
-                  <div class="input-group-append">
-                    <button id="urlSearchButton" class="btn btn-secondary" type="button">Search</button> 
+                <div class="input-group m-2">
+                  <div class="input-group-prepend" id="button-addon4">
+                    <button id="urlSearchButton" class="btn btn-secondary" type="button">Search</button>
+                  </div>
+                  <input id="urlBar" type="text" class="form-control" placeholder="URL">
+                  <div class="input-group-append" id="button-addon4">
+                    <button id="urlShare" class="btn btn-secondary" type="button">Share</button>
                   </div>
                 </div>
                 <div class="input-group m-2">
@@ -104,7 +102,7 @@
                     <option selected>Groups...</option>
                   </select>
                   <div class="input-group-append">
-                    <button class="btn btn-secondary" onclick="openSetTokenModal()" type="button">add key</button>
+                    <button class="btn btn-secondary" onclick="openSetTokenModal()" type="button">Groups</button>
                   </div>
                 </div>
                 <!--
@@ -213,6 +211,18 @@
             <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="graphContributors"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#CC9FCC;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Documents</a>
               <span data-feather="maximize-2"></span>
             </div>
             <div class="collapse show" id="collapseCell2">
