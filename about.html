@@ -61,107 +61,51 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-          </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="h7">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4">
+          <div class="h7 m-4">
+            <div class="jumbotron border" id="newFeaturesJumbotron">
+              <h5 class="display-10">NEW...</h5>
+              <p class="lead">Examine the collaborative activity of Groups across multiple annotated documents, the dashboard features a new graph that reports social learning analytics about documents.
+              <br>
+              <br>
+              Each graph is interactive and also responsive. Selecting data within one graph will automatically filter corresponding analytics in all the other graphs.
+              </p>          
+            </div>
+            <span>
+            Welcome to the “Crowd Layers” dashboard, a public service for ​Capturing and Reporting Open Web Data for Learning Analytics, Annotation, and Education Researchers ​(CROWDLAAERS). This real-time dashboard visualizes group – or ​crowd​ – discourse ​layers​ added via Hypothesis open web annotation to online documents.
             <br>
-            University of Colorado Denver researchers have created this public dashboard for ​Capturing and Reporting Open Web Data for Learning Analytics, Annotation, and Education Researchers ​(CROWDLAAERS, pronounced “crowd layers”). As a real-time dashboard relevant to collaborative processes, CROWDLAAERS reports learning analytics associated with group – or ​<b>crowd</b>​ – discourse ​<b>layers</b>​ added via Hypothesis open web annotation to online content.<br><br>
-
-            CROWDLAAERS provides learning analytics about active participants, temporal activity (active days), collaborative discourse (threads), and also Hypothesis tags. Groups of individual annotations may be sorted by date, contributor, annotation, tags, and level (or the position of an annotation reply in a thread). Select any annotation to read the full content within CROWDLAAERS or in context of the source document. Open data captured and reported by CROWDLAAERS currently displays learning analytics associated with the 200 most recent annotations.<br><br>
-
-            Also, other researchers interested in studying OWA as learning analytics can adapt the CROWDLAAERS dashboard to their inquiry. CROWDLAAERS demonstrates how open web annotation data can be transparently leveraged as learning analytics, and how open processes can foster participatory and accountable data collection and analysis procedures. If you are interested in learning more about the technical features of CROWDLAAERS, please contact our research team.
+            <br>
+            Developed by researchers at the University of Colorado Denver, CROWDLAAERS visualizes social learning analytics associated with open and collaborative web annotation. The dashboard has been iteratively designed in partnership with educators and researchers to support the social life of reading and the social life of documents across the open and annotated web.
 
             <hr class="my-4">
-            <h6>Features</h6>
-            <b>Search:</b> CROWDLAAERS is a publicly available and open-source service. Visit CROWDLAAERS <a href="http://crowdlaaers.org"><b>Home</b></a> and search by any URL featuring Hypothesis annotation to explore learning analytics and collaborative activity. Clicking the <b>Share</b> button generates a link which can be used to access the CROWDLAAERS analytics of a specific site through a shareable URL.<br><br>
 
-            <b>Projects:</b> CROWDLAAERS has also been applied to curated sets of online texts associated with various open education projects. Explore how this dashboard turns open annotation data into insightful learning analytics:<br><br>
+            Use the CROWDLAAERS dashboard to <b><i>Search</b></i> or for <b><i>Groups</b></i>.
+            <br>
+            <br>
+            <b>Search:</b> Explore the social learning analytics associated with a single annotated document. Search by entering the URL of a webpage, PDF, or ePub that features Hypothesis annotation. CROWDLAAERS also generates a public link to share real-time analytics specific to a URL.
+            <br>
+            <br>
+            <b>Groups:</b> Explore all the social learning analytics for multiple documents annotated by members of a Hypothesis group. Add your personal API developer token to CROWDLAAERS and access private group activity for both a single document and all the documents annotated by a private group.
+            <br>
+            <br>
+            Whether using CROWDLAAERS to <b><i>Search</b></i> a single annotated document or to examine the collaborative activity of <b><i>Groups</b></i> across multiple annotated documents, the dashboard features multiple graphs that report social learning analytics about:
+            <ul class="mt-2">
+              <li>Annotations</li>
+              <li>Participants</li>
+              <li>Documents</li>
+              <li>Threads</li>
+              <li>Days</li>
+              <li>Tags</li>
+            </ul>
+            Each graph is interactive and also responsive. Selecting data within one graph will automatically filter corresponding analytics in all the other graphs. Click the circular arrows near the Annotations graph to reset your <b><i>Search</b></i> or <b><i>Groups</b></i> activity.
+            <hr class="my-4">
+            CROWDLAAERS demonstrates how open web annotation data can be transparently leveraged as social learning analytics. Researchers interested in studying open web annotation and social learning analytics are very welcome to use the CROWDLAAERS dashboard to support their inquiry and scholarship. Educators interested in supporting students’ use of open web annotation for collaborative learning are very welcome to use the CROWDLAAERS dashboard to support their teaching and learning practices. If you are interested in learning more about the technical features of CROWDLAAERS, please contact our research team at <a href="mailto: info@crowdlaaers.org">info@crowdlaaers.org</a>.
+            <br>
+            <br>
+            CROWDLAAERS has been developed, and is currently administered, by University of Colorado Denver researchers Francisco Perez and Remi Kalir. While we partner with Hypothesis on various education and research projects, we are not Hypothesis employees and do not represent the organization. We sincerely appreciate Hypothesis’ encouragement and support in developing this public dashboard. Furthermore, we cannot guarantee that CROWDLAAERS will not be buggy. This is an experimental and academic project, not a commercial product. We welcome your feedback and appreciate your patience as we improve this public service. Please email us at <a href="mailto: info@crowdlaaers.org">info@crowdlaaers.org</a> with any queries.
+            </span>
           </div>
-          <!--
-          <div class="jumbotron border" id="marginalsyllabus_jumbotron">
-            <br><br><br><br><br><br>
-            <a class="btn btn-primary btn-lg" href="https://crowdlaaers.org/projects/marginalsyllabus.html" role="button">Marginal Syllabus</a>
-          </div>
-          <div class="jumbotron border" id="equityunbound_jumbotron">
-            <br><br><br><br><br><br><br>
-            <a class="btn btn-primary btn-lg" href="https://crowdlaaers.org/projects/equityunbound.html" role="button">Equity Unbound</a>
-          </div>
-          
-          <div class="jumbotron border" id="equityunbound2_jumbotron">
-            <h1 class="display-4">OpenLearning19</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Explore</a>
-          </div>
-          <div class="jumbotron border" id="equityunbound3_jumbotron">
-            <h1 class="display-4">OpenLearning19</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Explore</a>
-          </div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h6 class="h4" id="graphLabel" style="color: #999;">Annotations per Contributor</h6>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-              <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group mr-2">
-                  <button class="btn btn-sm btn-outline-secondary">Share</button>
-                  <button class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>
-                <button class="btn btn-secondary float-right" disabled>
-                  Annotations <span class="badge badge-light" id="annotationCounter">*</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div id="graph"></div>
-          
-          <h2>Section title</h2>-->
-          <!--<br>
-          <div id="table_div"></div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
-                <span data-feather="refresh-ccw"></span>
-              </button>
-            </div>
-          </div>-->
         </main>
-      </div>
-    </div>
-    <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="annotationModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="annotationModalLabel"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="annotationModalBody" class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="shareURLModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Copy this URL:</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div id="shareURLModalBody" class="modal-body"></div>
-        </div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
