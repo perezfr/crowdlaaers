@@ -14,7 +14,7 @@ $( document ).ready(function() {
     for (var key in syllabus){
       $( "#" + key ).attr("class", "nav-link");
     };
-    for (i = 1; i < 7; i++) {
+    for (i = 1; i < 8; i++) {
       $("#collapseCell" + i).collapse('show');
     };
     $( "#annotationCounter" ).html('<h3>Loading...</h3>');

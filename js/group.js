@@ -4,10 +4,8 @@ $( document ).ready(function() {
   let startURL = new URL(window.location.href);
   let dataObjects;
   let response;
-  console.log(startURL);
 
-  //if ((hlib.getToken() != "")&&(!startURL.href.includes("index.html"))){//excludes token check from index.html
-  if (!(startURL.href.includes("index.html"))){
+  if ((hlib.getToken() != "") && !startURL.href.includes("index.html")){//excludes token check from index.html
     createGroupInputFormModified();                                     
     let setGroupSelect = new Promise(function(resolve, reject) {  
       setTimeout(function() {                              
