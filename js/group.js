@@ -125,54 +125,54 @@ $( document ).ready(function() {
   });
 
   function processSearchResults(annos, replies) {
-      let format = 'json';
-      let csv = '';
-      let json = [];
-      let gathered = hlib.gatherAnnotationsByUrl(annos);
-      let reversedUrls = reverseChronUrls(gathered.urlUpdates);
-      let counter = 0;
-      reversedUrls.forEach(function (url) {
-          counter++;
-          let perUrlId = counter;
-          let perUrlCount = 0;
-          let idsForUrl = gathered.ids[url];
-          idsForUrl.forEach(function (id) {
-              perUrlCount++;
-              let _replies = hlib.findRepliesForId(id, replies);
-              _replies = _replies.map(r => {
-                  return hlib.parseAnnotation(r);
-              });
-              let all = [gathered.annos[id]].concat(_replies.reverse());
-              all.forEach(function (anno) {
-                  let level = 0;
-                  if (anno.refs) {
-                      level = anno.refs.length;
-                  }
-                  if (format === 'html') {
-                      worker.postMessage({
-                          perUrlId: perUrlId,
-                          anno: anno,
-                          annoId: anno.id,
-                          level: level
-                      });
-                  }
-                  else if (format === 'csv') {
-                      let _row = document.createElement('div');
-                      _row.innerHTML = hlib.csvRow(level, anno);
-                      csv += _row.innerText + '\n';
-                  }
-                  else if (format === 'json') {
-                      anno.text = anno.text.replace(/</g, '&lt;');
-                      json.push(anno);
-                  }
-              });
-          });
-          if (format === 'html') {
-              showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
-          }
-      });
-      response = json;
-      initCharts(json);
+    let format = 'json';
+    let csv = '';
+    let json = [];
+    let gathered = hlib.gatherAnnotationsByUrl(annos);
+    let reversedUrls = reverseChronUrls(gathered.urlUpdates);
+    let counter = 0;
+    reversedUrls.forEach(function (url) {
+        counter++;
+        let perUrlId = counter;
+        let perUrlCount = 0;
+        let idsForUrl = gathered.ids[url];
+        idsForUrl.forEach(function (id) {
+            perUrlCount++;
+            let _replies = hlib.findRepliesForId(id, replies);
+            _replies = _replies.map(r => {
+                return hlib.parseAnnotation(r);
+            });
+            let all = [gathered.annos[id]].concat(_replies.reverse());
+            all.forEach(function (anno) {
+                let level = 0;
+                if (anno.refs) {
+                    level = anno.refs.length;
+                }
+                if (format === 'html') {
+                    worker.postMessage({
+                        perUrlId: perUrlId,
+                        anno: anno,
+                        annoId: anno.id,
+                        level: level
+                    });
+                }
+                else if (format === 'csv') {
+                    let _row = document.createElement('div');
+                    _row.innerHTML = hlib.csvRow(level, anno);
+                    csv += _row.innerText + '\n';
+                }
+                else if (format === 'json') {
+                    anno.text = anno.text.replace(/</g, '&lt;');
+                    json.push(anno);
+                }
+            });
+        });
+        if (format === 'html') {
+            showUrlResults(counter, 'widget', url, perUrlCount, gathered.titles[url]);
+        }
+    });
+    response = json;
+    initCharts(json);
   };
 
   $( "#allResetButton" ).click(function() {
@@ -188,8 +188,7 @@ $( document ).ready(function() {
   });
 
   $( "#threadButton" ).click(function() {
-    var _thread = $(this).attr("thread");
-    console.log(_thread)
+    let _thread = $(this).attr("thread");
     filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: _thread,date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
@@ -199,6 +198,17 @@ $( document ).ready(function() {
     urlGraphBuilder(dataObjects[0],response);
     daysGraphBuilder(dataObjects[4],response);
     tagsGraphBuilder(dataObjects[1],response);
+  });
+
+  $("#urlSearchButton").click(function(){
+    inactivate();
+    var url = $('#urlBar').val();
+    if (url == ""){
+      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
+      return false;
+    };
+    params.url = url;
+    hlib.hApiSearch(params, processSearchResults, '');
   });
 });
 
