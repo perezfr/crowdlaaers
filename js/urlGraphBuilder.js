@@ -32,6 +32,8 @@ function urlGraphBuilder(urlData,response,sort) {
   urlDataView.setColumns([0,1,3]);
   bar_graph_urls.draw(urlDataView, opts);
 
+  $( "#documentCounter" ).text(urlDataView.getNumberOfRows());
+
   google.visualization.events.addListener(bar_graph_urls, 'select', function() {
     google.visualization.events.removeListener(event);
     let row = bar_graph_urls.getSelection()[0].row;

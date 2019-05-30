@@ -25,6 +25,17 @@ $( document ).ready(function() {
     }
   }
 
+  //document in url param
+  if (startURL.searchParams.get("url")){
+    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+    var u = startURL.searchParams.get("url");
+    $('#urlBar').val(u);  //add url param to search bar for sharing 
+    params.url = u;
+    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+      hlib.hApiSearch(params, processSearchResults, '');
+    });
+  } 
+
   // used only if graph are loading too fast
   // google.charts.setOnLoadCallback(function() {
   //   //params.group = '__world__';  
@@ -44,6 +55,7 @@ $( document ).ready(function() {
         $( "#" + g ).html("");
       }
       $( "#participantCounter" ).text("0");
+      $( "#documentCounter" ).text("0");
       $( "#calendarCounter" ).text("0");
       $( "#threadCounter" ).text("0");
       $( "#tagCounter" ).text("0");
@@ -209,6 +221,28 @@ $( document ).ready(function() {
     };
     params.url = url;
     hlib.hApiSearch(params, processSearchResults, '');
+  });
+
+  $("#groupControlSelect").change(function(){
+    inactivate();
+    let select = document.getElementById('groupControlSelect');
+    let selectedString = select.options[select.selectedIndex].value;
+    params.group = selectedString;
+    if (params.url == ""){
+      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
+      return false;
+    }
+    hlib.hApiSearch(params, processSearchResults, '');
+  });
+
+  //Share button adds the url from the search bar as a parameter to the 
+  //crowdlaaers search url.
+  $( "#urlShare" ).click(function() {
+    var baseURL = "https://crowdlaaers.org?url=";
+    var searchURL = $('#urlBar').val();
+    baseURL.concat(searchURL);
+    $('#shareURLModalBody').text(baseURL + searchURL);
+    $('#shareURLModal').modal('show');
   });
 });
 
