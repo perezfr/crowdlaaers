@@ -5,7 +5,7 @@ $( document ).ready(function() {
   let dataObjects;
   let response;
 
-  if ((hlib.getToken() != "") && !startURL.href.includes("index.html")){//excludes token check from index.html
+  if (hlib.getToken() != ""){//excludes token check from index.html
     createGroupInputFormModified();                                     
     let setGroupSelect = new Promise(function(resolve, reject) {  
       setTimeout(function() {                              
@@ -20,7 +20,9 @@ $( document ).ready(function() {
     });
     setGroupSelect;//runs async function to set dropdown to specific group then disable dropdown
   } else {
-    openSetTokenModal();
+    if(!startURL.href.includes("index.html") && (startURL.pathname != "/")){
+      openSetTokenModal();
+    }
   }
 
   // used only if graph are loading too fast
