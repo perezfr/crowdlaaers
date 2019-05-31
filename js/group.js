@@ -13,10 +13,11 @@ $( document ).ready(function() {
       }, 500);
     });
     setGroupSelect.then(function(value) {
-      $('#groupControlSelect').val('aYnJE67m');
-      params.group = 'aYnJE67m';
-      hlib.hApiSearch(params, processSearchResults, '');
-      $("#groupControlSelect").prop("disabled", true);
+      $('#groupControlSelect').val('__world__');
+      //Use when group specific pages 
+      //params.group = 'aYnJE67m'; 
+      //hlib.hApiSearch(params, processSearchResults, '');
+      //$("#groupControlSelect").prop("disabled", true);
     });
     setGroupSelect;//runs async function to set dropdown to specific group then disable dropdown
   } else {
@@ -65,7 +66,8 @@ $( document ).ready(function() {
     annotationTableBuilder(_response,_dataObjects[5],filter);
     participantGraphBuilder(_dataObjects[2],response);
     threadGraphBuilder(_dataObjects[3],response);
-    urlGraphBuilder(_dataObjects[0],response,'top');
+    //urlGraphBuilder(_dataObjects[0],response,'top');
+    urlGraphBuilder(_dataObjects[0],response);
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);
   }
@@ -228,7 +230,9 @@ $( document ).ready(function() {
     let select = document.getElementById('groupControlSelect');
     let selectedString = select.options[select.selectedIndex].value;
     params.group = selectedString;
-    if (params.url == ""){
+    params.url = "";
+    $('#urlBar').val("");
+    if (params.group == "__world__"){
       $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
@@ -320,3 +324,10 @@ function createGroupInputFormModified(e, selectId) {
         console.log(e);
     });
 };
+
+function setTokenButton(){
+  let _token = inputQuerySelector('#tokenInputBar').value;
+  localStorage.setItem('h_token', _token);
+  $('#setTokenModal').modal('hide');
+  createGroupInputFormModified();
+}
