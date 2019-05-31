@@ -66,7 +66,7 @@ $( document ).ready(function() {
     annotationTableBuilder(_response,_dataObjects[5],filter);
     participantGraphBuilder(_dataObjects[2],response);
     threadGraphBuilder(_dataObjects[3],response);
-    //urlGraphBuilder(_dataObjects[0],response,'top');
+    //urlGraphBuilder(_dataObjects[0],response,'top'); For re sorting
     urlGraphBuilder(_dataObjects[0],response);
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);

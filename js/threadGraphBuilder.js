@@ -17,7 +17,7 @@ function threadGraphBuilder(threadData,response) {
     let _month = threadData[t]['threadsDateLatest'].getMonth() + 1;
     let _dateDay = threadData[t]['threadsDateLatest'].getDate();
     let _dd = _month + "/" + _dateDay + "/" + _year;
-    let _t = threadGraphTooltipHTML(threadData[t]['names'].toString(), _dd);
+    let _t = threadGraphTooltipHTML(threadData[t]['names'].join(', '), _dd);
     threadDataTable.addRows([
       [ threadData[t]['names'].toString(), threadData[t]['threadMsgCount'], threadData[t]['threadsDateLatest'], t, _t ]
     ]);
@@ -61,7 +61,12 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate){
   let table = `
     <table class='table'>
       <tr> 
-        <th colspan='2' align='center'>` + participants + `</th>
+        <td align='left'>
+          <b>Participants:</b>
+        </td>
+        <td>` 
+          + participants + `
+        </td>
       </tr>
       <tr>
         <td align='left'>

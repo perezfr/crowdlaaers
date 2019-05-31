@@ -96,12 +96,17 @@ function groupObjectBuilder(rows,filter){
     if ( !(url in urlCounts) ) {
       urlCounts[url] = {
         'count': 0,
-        'urlDateLatest': date
+        'urlDateLatest': date,
+        'title': s['title'],
+        'names': [username]
       }
     }
     ++urlCounts[url]['count'];
     if(urlCounts[url]['urlDateLatest'] < date){
       urlCounts[url]['urlDateLatest'] = date;
+    }
+    if ( !urlCounts[url]['names'].includes(username) ){
+      urlCounts[url]['names'].push(username);
     }
 
     //Tags
