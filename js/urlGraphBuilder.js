@@ -17,8 +17,14 @@ function urlGraphBuilder(urlData,response,sort) {
     let _year = urlData[u]['urlDateLatest'].getYear() + 1900;
     let _month = urlData[u]['urlDateLatest'].getMonth() + 1;
     let _dateDay = urlData[u]['urlDateLatest'].getDate();
-    let _dd = _month + "/" + _dateDay + "/" + _year;
-    let _u = urlGraphTooltipHTML(urlData[u]['title'], _dd, urlData[u]['names'].slice(0,3).join(', '));
+    let _dd = _month + "/" + _dateDay + "/" + _year; 
+    let titleSummary;
+    if (urlData[u]['title'].length > 50){
+        titleSummary = urlData[u]['title'].slice(0, 50) + "...";
+    } else {
+        titleSummary = urlData[u]['title'];
+    }
+    let _u = urlGraphTooltipHTML(titleSummary, _dd, urlData[u]['names'].slice(0,3).join(', '));
     urlDataTable.addRows([
       [ u, urlData[u]['count'], urlData[u]['urlDateLatest'], _u, urlData[u]['title'] ]
     ]);
@@ -31,7 +37,8 @@ function urlGraphBuilder(urlData,response,sort) {
     urlDataTable.sort({column:1, desc:true});
   }
   let urlDataView = new google.visualization.DataView(urlDataTable);
-  urlDataView.setColumns([4,1,3]);
+  //urlDataView.setColumns([4,1,3]); //keep the index because using the hoverover
+  urlDataView.setColumns([0,1,3]);
   bar_graph_urls.draw(urlDataView, opts);
 
   $( "#documentCounter" ).text(urlDataView.getNumberOfRows());
@@ -40,7 +47,8 @@ function urlGraphBuilder(urlData,response,sort) {
     google.visualization.events.removeListener(event);
     let row = bar_graph_urls.getSelection()[0].row;
     bar_graph_urls.setSelection(); //needed to prevent graph freezing on 2nd click
-    let url = val2key( urlDataView.getValue(row, 0), urlData ); //need to map title to url
+    //let url = val2key( urlDataView.getValue(row, 0), urlData ); //need to map title to url
+    let url = urlDataView.getValue(row, 0);  //keep the index because using the hoverover
     filter = {
       user: "",
       group: "",
