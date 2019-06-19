@@ -1,12 +1,11 @@
 $( document ).ready(function() {
-
   google.charts.load('current', {'packages':['table','corechart','calendar']});
 
   var response;
   var graphsArray = ['table_div','graphContributors','graphThreads','graphTags','graphCalendar'];
 
   if (hlib.getToken() != ""){
-    createGroupInputFormModified();
+    //createGroupInputFormModified();
     params.group = "__world__";
   };
 
@@ -14,7 +13,7 @@ $( document ).ready(function() {
     for (var key in syllabus){
       $( "#" + key ).attr("class", "nav-link");
     };
-    for (i = 1; i < 8; i++) {
+    for (i = 1; i < 7; i++) {
       $("#collapseCell" + i).collapse('show');
     };
     $( "#annotationCounter" ).html('<h3>Loading...</h3>');
@@ -49,6 +48,7 @@ $( document ).ready(function() {
     data.addColumn({type: 'string', id: 'tags', label: 'Tags'});
     data.addColumn({type: 'string', id: 'link', label: 'Link'});
     data.addColumn({type: 'number', id: 'level', label: 'Level'});
+    data.addColumn({type: 'string', id: 'url', label: 'URL'});
     //Tag chart columns
     tagData.addColumn({type: 'string', id: 'tag', label: 'Tag'});
     tagData.addColumn({type: 'number', id: 'count', label: 'Count'});
@@ -79,6 +79,7 @@ $( document ).ready(function() {
     var nodeMsg;
     var _threads = {};
     var _urlData = {};
+    var urlString;
 
     for (ss of rows){
       //create array of annotations with replies as root for threads
@@ -154,17 +155,35 @@ $( document ).ready(function() {
       var tags = s['tags'].join().toLowerCase();
       //Add the table graph rows
       data.addRows([
-        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level]
+        [new Date(year, month, dateDay), username, textSummary, nodeMsg, textTotal, tags , link , level, s['url']]
       ]);
 
       //build URL data table
       if (!_urlData[s['url']]){
-        _urlData[s['url']] = {'totalMessages':0, 'dateLatest':null, 'names':[]};
+        _urlData[s['url']] = {'totalMessages':0, 'dateLatest':null, 'names':[],
+          'usernames':{'username':null, 'messageTypeCount':
+          {'totalMessages':0, 'replies':0, 'annotations':0}}};
         ++_urlData[s['url']]['totalMessages'];
         if (!_urlData[s['url']]['names'].includes(username)) {
           _urlData[s['url']]['names'].push(username);
         }
         _urlData[s['url']]['dateLatest'] = date;
+        if (!_urlData[s['url']]['usernames']['username']){
+          messageTypeCount[username] = {'totalMessages':0, 'replies':0, 'annotations':0};
+          ++messageTypeCount[username]['totalMessages'];
+          if (level == 0) {
+            ++messageTypeCount[username]['annotations'];
+          } else {
+            ++messageTypeCount[username]['replies'];
+          }
+        } else {
+          ++messageTypeCount[username]['totalMessages'];
+          if (level == 0) {
+            ++messageTypeCount[username]['annotations'];
+          } else {
+            ++messageTypeCount[username]['replies'];
+          }
+        }
       } else {
         ++_urlData[s['url']]['totalMessages'];
         if (!_urlData[s['url']]['names'].includes(username)) {
@@ -269,7 +288,7 @@ $( document ).ready(function() {
       vAxis: { format: '#' }, colors: ['#243c68', '#e6693e'], tooltip: {isHtml: true}
     };
     var view = new google.visualization.DataView(data);
-    view.hideColumns([3,4,6]);
+    view.setColumns([0,1,2,5,7]);
 
     var messagesPerUser = google.visualization.data.group(
       data,
@@ -340,7 +359,7 @@ $( document ).ready(function() {
       var _thread = $(this).attr("thread");
       view = new google.visualization.DataView(data);
       var r = view.getFilteredRows([{column: 6, value: _thread}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -357,7 +376,7 @@ $( document ).ready(function() {
     google.visualization.events.addListener(bar_graph_contributors, 'select', function() {
       google.visualization.events.removeListener(event);
       view = new google.visualization.DataView(data);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       var row = bar_graph_contributors.getSelection()[0].row;
       bar_graph_contributors.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = viewD.getValue(row, 0);
@@ -382,7 +401,7 @@ $( document ).ready(function() {
       bar_graph_threads.setSelection(); //needed to prevent graph freezing on 2nd click
       var name = threadsData.getValue(row, 2); //use the #2 column where the nodeMsg is
       var r = view.getFilteredRows([{column: 3, value: name}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -405,7 +424,7 @@ $( document ).ready(function() {
       let _d = _date.getDate() + 1;
       var r = view.getFilteredRows([{column: 0, value: new Date(_y, _m, _d)}]); 
       calendar.setSelection();
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -427,7 +446,7 @@ $( document ).ready(function() {
       var r = view.getFilteredRows([{column: 3, test: function(value, row, column, table) {
         return(table.getValue(row, 5).includes(_tag));
       }}]);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       view.setRows(r);
       table.draw(view, opts);
 
@@ -443,19 +462,37 @@ $( document ).ready(function() {
 
     $( "#resetButton" ).click(function() {
       view = new google.visualization.DataView(data);
-      view.hideColumns([3,4,6]);
+      view.setColumns([0,1,2,5,7]);
       table.draw(view, opts);
     });
-  }; //end drawtable
 
-  $( ".month-link" ).click(function(event) {
-    let m = event.target.id;
-    inactivate();
-    $( "#" + m  ).attr("class", "nav-link active");
-    params.url = syllabus[m]['url'];
-    hlib.hApiSearch(params, processSearchResults, '');
-    $("#conversation_summary").html(syllabus[m]['summary']);
-  });
+    $( ".url-filter" ).click(function(event) {
+      let m = event.target.id;
+      inactivate();
+      $( "#" + m  ).attr("class", "nav-link active");
+      params.url = syllabus[m]['url'];
+      //need to filter table here
+      //hlib.hApiSearch(params, processSearchResults, '');
+      
+      $("#conversation_summary").html(syllabus[m]['summary']);
+      let _urlString = syllabus[m]['url'].substring(24)
+      
+      view = new google.visualization.DataView(data);
+      var r = view.getFilteredRows([{column: 8, value: _urlString}]);
+      view.hideColumns([3,4,6,8]);
+      view.setRows(r);
+      table.draw(view, opts);
+
+      var event = google.visualization.events.addListener(table, 'select', function() {
+        var row = view.getTableRowIndex(table.getSelection()[0].row);
+        $('#annotationModalLabel').text(data.getValue(row, 1) + ":");
+        $('#annotationModalBody').text(data.getValue(row, 4));
+        $('#inContextButton').attr("href", data.getValue(row, 6));
+        $('#threadButton').attr("thread", data.getValue(row, 6));
+        $('#annotationModal').modal('show');
+      });
+    });
+  }; //end drawtable
 
   $("#urlSearchButton").click(function(){
     inactivate();
@@ -530,94 +567,60 @@ $( document ).ready(function() {
   });
 
   var startURL = new URL(window.location.href);
-  if (startURL.searchParams.get("url")){
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-    var u = startURL.searchParams.get("url");
-    $('#urlBar').val(u);  //add url param to search bar for sharing 
-    params.url = u;
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  } 
-
-  if (startURL.href.includes("marginalsyllabus.html")){
-    $("#conversation_summary").html(syllabus['active']['summary']);
-    params.url = syllabus['active']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("sfupub802sp19.html")){
-    $("#conversation_summary").html(syllabus['Mod2018']['summary']);
-    params.url = syllabus['Mod2018']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("equityunbound.html")){
-    $("#conversation_summary").html(syllabus['mounzer2016']['summary']);
-    params.url = syllabus['mounzer2016']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("inte5320sp19.html")){
-    $("#conversation_summary").html(syllabus['syllabus']['summary']);
-    params.url = syllabus['syllabus']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("inte7130sp19.html")){
-    $("#conversation_summary").html(syllabus['Syllabus']['summary']);
-    params.url = syllabus['Syllabus']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("engelbart.html")){
-    $("#conversation_summary").html(syllabus['1']['summary']);
-    params.url = syllabus['1']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
-
-  if (startURL.href.includes("researchgroup.html")){
+  if (startURL.href.includes("r2l.html")){
     //$("#conversation_summary").html(syllabus['1']['summary']);
-    $("#conversation_summary").html("research group: G9d4q3j6");
+    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+    //localStorage.setItem('h_token', '');
+    $("#conversation_summary").html("R2L: aYnJE67m");
     if (localStorage.getItem('h_token') === null){
       $('#setTokenModal').modal('show');
+    } else {
+      params.group = 'aYnJE67m';
+      //waits for graph lib to load before drawing
+      google.charts.setOnLoadCallback(function() { 
+        hlib.hApiSearch(params, processSearchResults, '');
+      });
+      //waits for drop down to load before
+      //setting dropdown
+      var promise1 = new Promise(function(resolve, reject) {  
+        setTimeout(function() {                              
+          resolve();
+        }, 300);
+      });
+      promise1.then(function(value) {
+        $('#groupControlSelect').val('aYnJE67m');
+      });
+      promise1;
     }
-    createGroupInputFormModified();
-    params.group = 'G9d4q3j6';
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
-  }
 
-  if (startURL.href.includes("r2l.html") || startURL.href.includes("ci2311w.html")){
-    $("#conversation_summary").html(syllabus['active']['summary']);
-    params.url = syllabus['active']['url'];
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+    $("#setTokenButton").click(function(){
+    //function setTokenButton(){
+      let _token = inputQuerySelector('#tokenInputBar').value;
+      localStorage.setItem('h_token', _token);
+      $('#setTokenModal').modal('hide');
+      //createGroupInputFormModified();
+      //Added this to give 
+      params.group = 'aYnJE67m';
+      //waits for graph lib to load before drawing
+      //google.charts.setOnLoadCallback(function() { 
       hlib.hApiSearch(params, processSearchResults, '');
+      //});
+      //waits for drop down to load before
+      //setting dropdown
+      var promise1 = new Promise(function(resolve, reject) {  
+        setTimeout(function() {                              
+          resolve();
+        }, 300);
+      });
+      promise1.then(function(value) {
+        $('#groupControlSelect').val('aYnJE67m');
+      });
+      promise1;
     });
   }
 
   //Share button adds the url from the search bar as a parameter to the 
   //crowdlaaers search url.
-  $( "#urlShare" ).click(function() {
-    var baseURL = "https://crowdlaaers.org?url=";
-    var searchURL = $('#urlBar').val();
-    baseURL.concat(searchURL);
-    $('#shareURLModalBody').text(baseURL + searchURL);
-    $('#shareURLModal').modal('show');
-  });
     
   $(document).keypress(
     function(event){
@@ -634,13 +637,6 @@ function openSetTokenModal(){
 
 function inputQuerySelector(query) {
     return document.querySelector(query);
-}
-
-function setTokenButton(){
-  let _token = inputQuerySelector('#tokenInputBar').value;
-  localStorage.setItem('h_token', _token);
-  $('#setTokenModal').modal('hide');
-  createGroupInputFormModified();
 }
 
 let params = {

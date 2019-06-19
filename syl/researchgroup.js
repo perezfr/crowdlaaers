@@ -1,0 +1,24 @@
+var syllabus = {
+  active:{
+    url:"https://docdrop.org/static/drop-pdf/Kiili-Leu-2019-9tMBX.pdf",
+    title:"",
+    summary:""
+  },
+  doc1:{
+    url:"https://www.theatlantic.com/politics/archive/2019/01/why-tv-networks-sometimes-deny-president-airtime/579817/",
+    title:"",
+    summary:""
+  },
+  doc2:{
+    url:"https://firstmonday.org/ojs/index.php/fm/article/view/466/387",
+    summary:""
+  },
+  doc3:{
+    url:"https://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/",
+    summary:""
+  },
+  doc4:{
+    url:"http://remikalir.com/wp-content/uploads/2017/02/4638-23389-1-PB.pdf",
+    summary:""
+  }
+}

@@ -22,7 +22,15 @@
     <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
     <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
     <script type="text/javascript" src="../syl/r2l.js"></script>
-    <script type="text/javascript" src="../js/crowdlaaers.js"></script>
+    <!--<script type="text/javascript" src="../js/crowdlaaersGroup.js"></script>-->
+    <script type="text/javascript" src="../test/tagsGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/groupObjectBuilder.js"></script>
+    <script type="text/javascript" src="../test/annotationTableBuilder.js"></script>
+    <script type="text/javascript" src="../test/participantGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/threadGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/urlGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/daysGraphBuilder.js"></script>
+    <script type="text/javascript" src="../test/group.js"></script>
   </head>
 
   <body>
@@ -68,40 +76,48 @@
               </select>
             </div>
             <hr>
+            <ul class="nav flex-column mb-2" >
+              <li class="nav-item">
+                <a class="nav-link url-filter active" href="#" id="groupLevel">
+                  <span data-feather="users"></span>
+                  Right to Learn
+                </a>
+              </li>
+            </ul>
             <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#ResearchNotes" class="nav-link" data-toggle="collapse" aria-expanded="true">
+              <a href="#ResearchNotes" class="nav-link" data-toggle="collapse">
                 <span data-feather="archive"></span>
                 Research Notes 
               </a>
             </h8>
-            <div class="collapse show" id="ResearchNotes">
+            <div class="collapse" id="ResearchNotes">
               <ul class="nav flex-column mb-2" >
                 <li class="nav-item">
-                  <a class="nav-link month-link active" href="#" id="ResearchNote1">
+                  <a class="nav-link url-filter" href="#" id="ResearchNote1">
                     <span data-feather="file-text"></span>
                     Research Note 1
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="ResearchNote2">
+                  <a class="nav-link url-filter" href="#" id="ResearchNote2">
                     <span data-feather="file-text"></span>
                     Research Note 2
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="ResearchNote3">
+                  <a class="nav-link url-filter" href="#" id="ResearchNote3">
                     <span data-feather="file-text"></span>
                     Research Note 3
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="ResearchNote4">
+                  <a class="nav-link url-filter" href="#" id="ResearchNote4">
                     <span data-feather="file-text"></span>
                     Research Note 4
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="ResearchNote5">
+                  <a class="nav-link url-filter" href="#" id="ResearchNote5">
                     <span data-feather="file-text"></span>
                     Research Note 5
                   </a>
@@ -117,97 +133,97 @@
             <div class="collapse" id="DignityReadings">
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Carozza2013">
+                  <a class="nav-link url-filter" href="#" id="Carozza2013">
                     <span data-feather="file-text"></span>
                     Carozza 2013
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Espinozaetal2019">
+                  <a class="nav-link url-filter" href="#" id="Espinozaetal2019">
                     <span data-feather="file-text"></span>
                     Espinoza et al. 2019
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Kearse2018">
+                  <a class="nav-link url-filter" href="#" id="Kearse2018">
                     <span data-feather="file-text"></span>
                     Kearse 2018
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Paust1984">
+                  <a class="nav-link url-filter" href="#" id="Paust1984">
                     <span data-feather="file-text"></span>
                     Paust 1984
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Schlink2013">
+                  <a class="nav-link url-filter" href="#" id="Schlink2013">
                     <span data-feather="file-text"></span>
                     Schlink 2013
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="Talero2008">
+                  <a class="nav-link url-filter" href="#" id="Talero2008">
                     <span data-feather="file-text"></span>
                     Talero 2008
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen1">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen1">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 1
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen2">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen2">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 2
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen3">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen3">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 3
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen4">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen4">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 4
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen5">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen5">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 5
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen6">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen6">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 6
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen7">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen7">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 7
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="WaldronDanCohen8">
+                  <a class="nav-link url-filter" href="#" id="WaldronDanCohen8">
                     <span data-feather="file-text"></span>
                     Waldron & Dan-Cohen 8
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="White2010">
+                  <a class="nav-link url-filter" href="#" id="White2010">
                     <span data-feather="file-text"></span>
                     White 2010
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="UDHR">
+                  <a class="nav-link url-filter" href="#" id="UDHR">
                     <span data-feather="file-text"></span>
                     UDHR
                   </a>
@@ -223,103 +239,103 @@
             <div class="collapse" id="TennesseevLane">
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneDist011998">
+                  <a class="nav-link url-filter" href="#" id="LaneDist011998">
                     <span data-feather="file-text"></span>
                     Lane Dist 01 1998
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS06022003">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS06022003">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 06 02 2003
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS09082003a">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS09082003a">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 09 08 2003a
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS09082003b">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS09082003b">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 09 08 2003b
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003a">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003a">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003a
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003b">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003b">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003b
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003c">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003c">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003c
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003d">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003d">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003d
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003e">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003e">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003e
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003f">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003f">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003f
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003g">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003g">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003g
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11122003h">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11122003h">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 12 2003h
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS11142003">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS11142003">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 11 14 2003
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS1132004">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS1132004">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 1 13 2004
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneSCOTUS06182004">
+                  <a class="nav-link url-filter" href="#" id="LaneSCOTUS06182004">
                     <span data-feather="file-text"></span>
                     Lane SCOTUS 06 18 2004
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneDist37902232005">
+                  <a class="nav-link url-filter" href="#" id="LaneDist37902232005">
                     <span data-feather="file-text"></span>
                     Lane Dist 379 02 23 2005
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LaneDist38002232005">
+                  <a class="nav-link url-filter" href="#" id="LaneDist38002232005">
                     <span data-feather="file-text"></span>
                     Lane Dist 380 02 23 2005
                   </a>
@@ -335,187 +351,187 @@
             <div class="collapse" id="LobatovColorado">
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDistrictCourtJudgment2008">
+                  <a class="nav-link url-filter" href="#" id="LobatoDistrictCourtJudgment2008">
                     <span data-feather="file-text"></span>
                     Lobato District Court Judgment 2008
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay1">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay1">
                     <span data-feather="file-text"></span>
                     Lobato Day 1
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay2">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay2">
                     <span data-feather="file-text"></span>
                     Lobato Day 2
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay3">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay3">
                     <span data-feather="file-text"></span>
                     Lobato Day 3
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay4">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay4">
                     <span data-feather="file-text"></span>
                     Lobato Day 4
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay5">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay5">
                     <span data-feather="file-text"></span>
                     Lobato Day 5
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay6">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay6">
                     <span data-feather="file-text"></span>
                     Lobato Day 6
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay7">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay7">
                     <span data-feather="file-text"></span>
                     Lobato Day 7
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay8CON">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay8CON">
                     <span data-feather="file-text"></span>
                     Lobato Day 8 CON
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay8FULL">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay8FULL">
                     <span data-feather="file-text"></span>
                     Lobato Day 8 FULL
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay9">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay9">
                     <span data-feather="file-text"></span>
                     Lobato Day 9
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay10">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay10">
                     <span data-feather="file-text"></span>
                     Lobato Day 10
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay11">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay11">
                     <span data-feather="file-text"></span>
                     Lobato Day 11
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay12">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay12">
                     <span data-feather="file-text"></span>
                     Lobato Day 12
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay13">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay13">
                     <span data-feather="file-text"></span>
                     Lobato Day 13
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay14CON">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay14CON">
                     <span data-feather="file-text"></span>
                     Lobato Day 14 CON
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay14FULL">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay14FULL">
                     <span data-feather="file-text"></span>
                     Lobato Day 14 FULL
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay15">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay15">
                     <span data-feather="file-text"></span>
                     Lobato Day 15
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay16CON">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay16CON">
                     <span data-feather="file-text"></span>
                     Lobato Day 16 CON
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay16FULL">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay16FULL">
                     <span data-feather="file-text"></span>
                     Lobato Day 16 FULL
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay17CON">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay17CON">
                     <span data-feather="file-text"></span>
                     Lobato Day 17 CON
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay17FULL">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay17FULL">
                     <span data-feather="file-text"></span>
                     Lobato Day 17 FULL
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay18">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay18">
                     <span data-feather="file-text"></span>
                     Lobato Day 18
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay19">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay19">
                     <span data-feather="file-text"></span>
                     Lobato Day 19
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay20">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay20">
                     <span data-feather="file-text"></span>
                     Lobato Day 20
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay21">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay21">
                     <span data-feather="file-text"></span>
                     Lobato Day 21
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay22">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay22">
                     <span data-feather="file-text"></span>
                     Lobato Day 22
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay23">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay23">
                     <span data-feather="file-text"></span>
                     Lobato Day 23
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay24">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay24">
                     <span data-feather="file-text"></span>
                     Lobato Day 24
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoDay25">
+                  <a class="nav-link url-filter" href="#" id="LobatoDay25">
                     <span data-feather="file-text"></span>
                     Lobato Day 25
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="LobatoCOSCFinal2013">
+                  <a class="nav-link url-filter" href="#" id="LobatoCOSCFinal2013">
                     <span data-feather="file-text"></span>
                     Lobato CO SC Final 2013
                   </a>
@@ -603,14 +619,26 @@
             </div>
             <div class="collapse show" id="collapseCell6">
               <div class="card-body">
-                <div id="table_div"></div>
+                <div id="annotation_table_div"></div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
                   <div class="btn-toolbar mb-2 mb-md-0">
-                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="allResetButton">
                       <span data-feather="refresh-ccw"></span>
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by URL.">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">URLs</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="url_graph_div"></div>
               </div>
             </div>
          </div>
@@ -622,7 +650,7 @@
             </div>
             <div class="collapse show" id="collapseCell2">
               <div class="card-body">
-                <div id="graphContributors"></div>
+                <div id="participant_graph_div"></div>
               </div>
             </div>
          </div>
@@ -634,11 +662,11 @@
             </div>
             <div class="collapse show" id="collapseCell4">
               <div class="card-body">
-                <div id="graphThreads"></div>
+                <div id="threads_graph_div"></div>
               </div>
             </div>
          </div>
-         <div class="card mb-3"">
+         <div class="card mb-3">
             <div class="card-header" style="background-color:#F8C471;" data-toggle="tooltip" title="Click graph to filter Annotations table by day.">
               <i class="fas fa-chart-area"></i>
               <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
@@ -646,7 +674,7 @@
             </div>
             <div class="collapse show" id="collapseCell3">
               <div class="card-body">
-                <div id="graphCalendar"></div>
+                <div id="days_graph_div"></div>
               </div>
             </div>
          </div>
@@ -658,7 +686,7 @@
             </div>
             <div class="collapse show" id="collapseCell5">
               <div class="card-body">
-                <div id="graphTags"></div>
+                <div id="tags_graph_div"></div>
               </div>
             </div>
          </div>
@@ -697,7 +725,7 @@
             <input class="form-control" type="password" placeholder="" id="tokenInputBar">
           </div>
           <div class="modal-footer">
-            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
+            <button type="button" class="btn btn-secondary" id="setTokenButton">Set token</button>
           </div>
         </div>
       </div>
