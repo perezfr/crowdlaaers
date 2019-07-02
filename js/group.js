@@ -239,6 +239,7 @@ $( document ).ready(function() {
     }
     //hlib.hApiSearch(params, processSearchResults, '');
     //let annoRows = await hlib.search(params, 'annotationCounter');
+    response = [];
     hlib.search(params, 'annotationCounter')
       .then( data => {
         for(let i = 0; i < data[0].length; i++){
