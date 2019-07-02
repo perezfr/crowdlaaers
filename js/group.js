@@ -3,7 +3,7 @@ $( document ).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
   let startURL = new URL(window.location.href);
   let dataObjects;
-  let response;
+  let response = [];
 
   if (hlib.getToken() != ""){//excludes token check from index.html
     createGroupInputFormModified();                                     
@@ -115,7 +115,7 @@ $( document ).ready(function() {
     for (i = 1; i < 8; i++) {
       $("#collapseCell" + i).collapse('show');
     };
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+    $( "#annotationCounter" ).html('<h3>Loading</h3>');
   };
 
   $("#setTokenButton").click(function(){
@@ -139,6 +139,7 @@ $( document ).ready(function() {
   });
 
   function processSearchResults(annos, replies) {
+    console.log(annos);
     let format = 'json';
     let csv = '';
     let json = [];
@@ -236,7 +237,22 @@ $( document ).ready(function() {
       $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
-    hlib.hApiSearch(params, processSearchResults, '');
+    //hlib.hApiSearch(params, processSearchResults, '');
+    //let annoRows = await hlib.search(params, 'annotationCounter');
+    hlib.search(params, 'annotationCounter')
+      .then( data => {
+        for(let i = 0; i < data[0].length; i++){
+          response.push(hlib.parseAnnotation(data[0][i]));
+        }
+        for(let i = 0; i < data[1].length; i++){
+          response.push(hlib.parseAnnotation(data[1][i]));
+        }
+        initCharts(response);
+      })
+      .catch( _ => {
+        alert('Cannot search for those parameters')
+      })
+    //console.log(annoRows);
   });
 
   //Share button adds the url from the search bar as a parameter to the 
