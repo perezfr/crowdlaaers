@@ -139,7 +139,6 @@ $( document ).ready(function() {
   });
 
   function processSearchResults(annos, replies) {
-    console.log(annos);
     let format = 'json';
     let csv = '';
     let json = [];
@@ -187,6 +186,7 @@ $( document ).ready(function() {
         }
     });
     response = json;
+    console.log(json);
     initCharts(json);
   };
 
@@ -239,20 +239,33 @@ $( document ).ready(function() {
     }
     //hlib.hApiSearch(params, processSearchResults, '');
     //let annoRows = await hlib.search(params, 'annotationCounter');
-    response = [];
-    hlib.search(params, 'annotationCounter')
-      .then( data => {
-        for(let i = 0; i < data[0].length; i++){
-          response.push(hlib.parseAnnotation(data[0][i]));
-        }
-        for(let i = 0; i < data[1].length; i++){
-          response.push(hlib.parseAnnotation(data[1][i]));
-        }
-        initCharts(response);
-      })
-      .catch( _ => {
-        alert('Cannot search for those parameters')
-      })
+    response = [];  
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
+    // hlib.search(params, 'annotationCounter')
+    //   .then( data => {
+    //     console.log(data[0].length, data[1].length)
+    //     for(let i = 0; i < data[0].length; i++){
+    //       response.push(hlib.parseAnnotation(data[0][i]));
+    //     }
+    //     for(let i = 0; i < data[1].length; i++){
+    //       response.push(hlib.parseAnnotation(data[1][i]));
+    //     }
+    //     initCharts(response);
+    //   })
+    //   .catch( _ => {
+    //     alert('Cannot search for those parameters')
+    //   })
     //console.log(annoRows);
   });
 

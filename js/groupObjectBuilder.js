@@ -78,13 +78,15 @@ function groupObjectBuilder(rows,filter){
     if ( !participantData[username] ){  //url is not in object
       participantData[username] = {
         'participantTotalMessages':0, 
-        'dateLatest':null,
+        'dateLatest':date,
         'replies':0, 
         'annotations':0
       };
     }
     ++participantData[username]['participantTotalMessages'];
-    participantData[username]['dateLatest'] = date;
+    if(participantData[username]['dateLatest'] < date){
+      participantData[username]['dateLatest'] = date;
+    }
 
     //for messagetype
     if (glevel == 0) {
