@@ -223,7 +223,21 @@ $( document ).ready(function() {
       return false;
     };
     params.url = url;
-    hlib.hApiSearch(params, processSearchResults, '');
+    //hlib.hApiSearch(params, processSearchResults, '');
+    response = [];
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      console.log('annotations',data[0].length,'replies',data[1].length)
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
   });
 
   $("#groupControlSelect").change(function(){
@@ -296,7 +310,10 @@ let params = {
   wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
   tag: "",//inputQuerySelector('#tagContainer input').value,
   any: "",//inputQuerySelector('#anyContainer input').value,
-  max: "5000"//inputQuerySelector('#maxContainer input').value,
+  max: "5000",//inputQuerySelector('#maxContainer input').value,
+  _separate_replies: "false",
+  expanded: "true",
+  service: "https://hypothes.is"
 };
 
 let filter = {
