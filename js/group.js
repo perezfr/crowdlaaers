@@ -32,9 +32,24 @@ $( document ).ready(function() {
     var u = startURL.searchParams.get("url");
     $('#urlBar').val(u);  //add url param to search bar for sharing 
     params.url = u;
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
+    // google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+    //   hlib.hApiSearch(params, processSearchResults, '');
+    // });
+    //hlib.hApiSearch(params, processSearchResults, '');
+    response = [];
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      console.log('annotations',data[0].length,'replies',data[1].length)
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
   } 
 
   // used only if graph are loading too fast
