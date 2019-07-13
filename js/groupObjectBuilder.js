@@ -1,7 +1,7 @@
 function groupObjectBuilder(rows,filter){
   let _url;
   let groupData = {};
-  let threadsID = [];
+  let threadsID = {};
   let threadsData = {};
   let tagsData = {};
   let gtagCounts = {};
@@ -27,7 +27,6 @@ function groupObjectBuilder(rows,filter){
       }
     }  
   }
-
   for (s of rows){
     let inThread = false; //for filtering
     let tags = s['tags'].join().toLowerCase();

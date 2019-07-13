@@ -41,7 +41,6 @@ $( document ).ready(function() {
       //let response = await fetch('/article/promise-chaining/user.json');
       //let user = await response.json();
       let data = await hlib.search(params, 'annotationCounter');
-      console.log('annotations',data[0].length,'replies',data[1].length)
       for(let i = 0; i < data[0].length; i++){
         response.push(hlib.parseAnnotation(data[0][i]));
       }
@@ -201,7 +200,6 @@ $( document ).ready(function() {
         }
     });
     response = json;
-    console.log(json);
     initCharts(json);
   };
 
@@ -244,7 +242,6 @@ $( document ).ready(function() {
       //let response = await fetch('/article/promise-chaining/user.json');
       //let user = await response.json();
       let data = await hlib.search(params, 'annotationCounter');
-      console.log('annotations',data[0].length,'replies',data[1].length)
       for(let i = 0; i < data[0].length; i++){
         response.push(hlib.parseAnnotation(data[0][i]));
       }
@@ -273,7 +270,6 @@ $( document ).ready(function() {
       //let response = await fetch('/article/promise-chaining/user.json');
       //let user = await response.json();
       let data = await hlib.search(params, 'annotationCounter');
-      console.log('annotations',data[0].length,'replies',data[1].length)
       for(let i = 0; i < data[0].length; i++){
         response.push(hlib.parseAnnotation(data[0][i]));
       }
