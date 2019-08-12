@@ -78,7 +78,7 @@ function annotationTableBuilder(rows,threadsID,filter) {
 
         level = 0;
         nodeMsg = "document";
-        if (threadsID.includes(s['id'])){
+        if (s['id'] in threadsID){
         //if message is anchor annotation in the thread sets anchor ID it to
         //message ID 
             nodeMsg = s['id'];

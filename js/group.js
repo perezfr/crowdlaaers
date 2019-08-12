@@ -3,7 +3,7 @@ $( document ).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
   let startURL = new URL(window.location.href);
   let dataObjects;
-  let response;
+  let response = [];
 
   if (hlib.getToken() != ""){//excludes token check from index.html
     createGroupInputFormModified();                                     
@@ -32,9 +32,23 @@ $( document ).ready(function() {
     var u = startURL.searchParams.get("url");
     $('#urlBar').val(u);  //add url param to search bar for sharing 
     params.url = u;
-    google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-      hlib.hApiSearch(params, processSearchResults, '');
-    });
+    // google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
+    //   hlib.hApiSearch(params, processSearchResults, '');
+    // });
+    //hlib.hApiSearch(params, processSearchResults, '');
+    response = [];
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
   } 
 
   // used only if graph are loading too fast
@@ -115,7 +129,7 @@ $( document ).ready(function() {
     for (i = 1; i < 8; i++) {
       $("#collapseCell" + i).collapse('show');
     };
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+    $( "#annotationCounter" ).html('<h3>Loading</h3>');
   };
 
   $("#setTokenButton").click(function(){
@@ -222,7 +236,20 @@ $( document ).ready(function() {
       return false;
     };
     params.url = url;
-    hlib.hApiSearch(params, processSearchResults, '');
+    //hlib.hApiSearch(params, processSearchResults, '');
+    response = [];
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
   });
 
   $("#groupControlSelect").change(function(){
@@ -236,7 +263,36 @@ $( document ).ready(function() {
       $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
       return false;
     }
-    hlib.hApiSearch(params, processSearchResults, '');
+    //hlib.hApiSearch(params, processSearchResults, '');
+    //let annoRows = await hlib.search(params, 'annotationCounter');
+    response = [];  
+    (async () => {
+      //let response = await fetch('/article/promise-chaining/user.json');
+      //let user = await response.json();
+      let data = await hlib.search(params, 'annotationCounter');
+      for(let i = 0; i < data[0].length; i++){
+        response.push(hlib.parseAnnotation(data[0][i]));
+      }
+      for(let i = 0; i < data[1].length; i++){
+        response.push(hlib.parseAnnotation(data[1][i]));
+      }
+      initCharts(response);
+    })();
+    // hlib.search(params, 'annotationCounter')
+    //   .then( data => {
+    //     console.log(data[0].length, data[1].length)
+    //     for(let i = 0; i < data[0].length; i++){
+    //       response.push(hlib.parseAnnotation(data[0][i]));
+    //     }
+    //     for(let i = 0; i < data[1].length; i++){
+    //       response.push(hlib.parseAnnotation(data[1][i]));
+    //     }
+    //     initCharts(response);
+    //   })
+    //   .catch( _ => {
+    //     alert('Cannot search for those parameters')
+    //   })
+    //console.log(annoRows);
   });
 
   //Share button adds the url from the search bar as a parameter to the 
@@ -265,7 +321,10 @@ let params = {
   wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
   tag: "",//inputQuerySelector('#tagContainer input').value,
   any: "",//inputQuerySelector('#anyContainer input').value,
-  max: ""//inputQuerySelector('#maxContainer input').value,
+  max: "5000",//inputQuerySelector('#maxContainer input').value,
+  _separate_replies: "false",
+  expanded: "true",
+  service: "https://hypothes.is"
 };
 
 let filter = {
