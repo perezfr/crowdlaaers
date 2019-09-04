@@ -379,6 +379,8 @@ function createGroupInputFormModified(e, selectId) {
         let form = createGroupSelector(response.groups);
         let g = document.getElementById("groupControlSelect");
         g.innerHTML = form;
+        let _user_ID = response['userid'];
+        localStorage.setItem('h_profile',_user_ID);
     })["catch"](function (e) {
         console.log(e);
     });
