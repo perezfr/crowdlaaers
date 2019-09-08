@@ -79,17 +79,3 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate){
     </table>`;
   return table;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

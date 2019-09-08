@@ -9,7 +9,7 @@ function groupObjectBuilder(rows,filter){
   let participantData = {};
   let urlCounts = {};
   let dateCounts = {};
-  
+  let suggested = {};
 
   if ( filter['url'] != "" ){
     if ( filter['url'].includes('https://via.hypothes.is/') ) { 
@@ -27,6 +27,7 @@ function groupObjectBuilder(rows,filter){
       }
     }  
   }
+
   for (s of rows){
     let inThread = false; //for filtering
     let tags = s['tags'].join().toLowerCase();
@@ -36,6 +37,8 @@ function groupObjectBuilder(rows,filter){
     let _month = date.getMonth() + 1;
     let dateDay = date.getDate();
     let _date =new Date( _month + "/" + dateDay + "/" + year );
+
+    //filter check
     if ( filter['group'] != "" ){
       if ( s['group'] != filter['group'] ) { continue; }
     }
@@ -63,6 +66,7 @@ function groupObjectBuilder(rows,filter){
     if ( filter['date'] != "" ){
         if ( !sameDay(date,new Date(filter['date'] ))) { continue; }
     }
+
     let offset = new Date().getTimezoneOffset()*60;
     let newdate = new Date(date.getTime() + offset);
     let hour = date.getHours();
@@ -79,7 +83,8 @@ function groupObjectBuilder(rows,filter){
         'participantTotalMessages':0, 
         'dateLatest':date,
         'replies':0, 
-        'annotations':0
+        'annotations':0,
+        'repliesReceived':0
       };
     }
     ++participantData[username]['participantTotalMessages'];
@@ -136,6 +141,7 @@ function groupObjectBuilder(rows,filter){
       threadsData[s['id']] = {
         'names': [username],
         'threadsDateLatest': date,
+        'threadsDateLatestID': '',
         'threadMsgCount': 1
       };
     };
@@ -154,6 +160,7 @@ function groupObjectBuilder(rows,filter){
         ++threadsData[s['refs'][0]]['threadMsgCount'];
         if ( threadsData[s['refs'][0]]['threadsDateLatest'] < date ){
           threadsData[s['refs'][0]]['threadsDateLatest'] = date;
+          threadsData[s['refs'][0]]['threadsDateLatestID'] = s['id'];
         }
       }
     }
