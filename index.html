@@ -105,21 +105,19 @@
             <div class="collapse show" id="collapseCell8">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-sm-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">Remi posted</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
-                        <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
-                      </div>
+                  <div id="card_container_1" class="col-sm-4 d-none">
+                    <div class="card">                  
+                      <div class="card-body" onclick="openAnnotationModal()">
+                        <h5 class="card-title" id="recommended_card_title_1"></h5>
+                        <p class="card-text" id="recommended_card_text_1"></p>
+                      </div>  
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Joe replied to Remi</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <h5 class="card-title" id="recommended_card_title_2"></h5>
+                        <p class="card-text" id="recommended_card_text_2"></p>
                         <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
                         <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
                       </div>
