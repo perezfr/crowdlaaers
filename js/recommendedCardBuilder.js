@@ -25,6 +25,8 @@ function threadAndMsgRecommender(threadData, Response){
 
   //find the text for the message
   for ( let row in _response ){
+    //if user profile in threads show the first message of thread
+    //card 1 will be the thread with user participation
     if ( profileSortedDates.length > 0) {
       if ( _response[row]['id'] == profileSortedDates[0]['threadID'] ) {
         if (_response[row]['refs'].length == 0){
@@ -39,20 +41,8 @@ function threadAndMsgRecommender(threadData, Response){
         } 
         $('#card_container_1').attr("class", "col-sm-4"); //removes the 'd-none' class to show the element
       }
+      //card 3 will be the thread with most participation
       if ( _response[row]['id'] == sortedDates[0]['threadID'] ) {
-        if (_response[row]['refs'].length == 0){
-          card_title_2 = _response[row]['user'] + " annotated...";
-        } else {
-          card_title_2 = _response[row]['user'] + " replied...";
-        }
-        if (_response[row]['text'].length > 140){
-            textSummary_2 = _response[row]['text'].slice(0, 140) + "...";
-        } else {
-            textSummary_2 = _response[row]['text'];
-        }  
-        $('#card_container_2').attr("class", "col-sm-4");
-      }
-      if ( _response[row]['id'] == sortedDates[1]['threadID'] ) {
         if (_response[row]['refs'].length == 0){
           card_title_3 = _response[row]['user'] + " annotated...";
         } else {
@@ -63,20 +53,23 @@ function threadAndMsgRecommender(threadData, Response){
         } else {
             textSummary_3 = _response[row]['text'];
         }  
-        $('#card_container_3').attr("class", "col-sm-4"); 
+        $('#card_container_2').attr("class", "col-sm-4");
       }
-    } else if ( _response[row]['id'] == sortedDates[0]['threadID'] ){
+    } 
+    //if user profile not in threads show the first message of thread
+    //card 3 will be the thread with user participation
+    else if ( _response[row]['id'] == sortedDates[0]['threadID'] ){
       if (_response[row]['refs'].length == 0){
-        card_title_2 = _response[row]['user'] + " annotated...";
+        card_title_1 = _response[row]['user'] + " annotated...";
       } else {
-        card_title_2 = _response[row]['user'] + " replied...";
+        card_title_1 = _response[row]['user'] + " replied...";
       }
       if (_response[row]['text'].length > 50){
-          textSummary_2 = _response[row]['text'].slice(0, 140) + "...";
+          textSummary_1 = _response[row]['text'].slice(0, 140) + "...";
       } else {
-          textSummary_2 = _response[row]['text'];
+          textSummary_1 = _response[row]['text'];
       }  
-      $('#card_container_2').attr("class", "col-sm-4");
+      $('#card_container_1').attr("class", "col-sm-4");
       //$('#inContextButton').attr("href", annotationDataTable.getValue(row, 6));
       // $('#annotationModalLabel').text(annotationDataTable.getValue(row, 1) + ":");
       // $('#annotationModalBody').text(annotationDataTable.getValue(row, 4));
@@ -95,18 +88,45 @@ function threadAndMsgRecommender(threadData, Response){
 }
 
 function userRecommender(participantData, Response){
-  let _response = Response;
+  let response = Response;
   let sortedParticipantDates = [];
+  let latestMsgIDforParticipant;
+  let card_title_2, textSummary_2;
 
   for (let p in participantData){
     sortedParticipantDates.push({ user: p, repliesReceived: participantData[p]['repliesReceived'] });
   }
 
-  //sort by date newest first
+  //sort by most replies received
   sortedParticipantDates.sort(function(a,b){
     return a.repliesReceived > b.repliesReceived ? -1: a.date < b.date ? 1: 0;
   });
   
+  if ( sortedParticipantDates.length > 0 ){
+    latestMsgIDforParticipant = participantData[sortedParticipantDates[0]['user']]['dateLatestMsgID'];
+    for ( let row in response ){
+      if ( response[row]['id'] == latestMsgIDforParticipant ){
+        if (response[row]['refs'].length == 0){
+          card_title_2 = response[row]['user'] + " annotated...";
+        } else {
+          card_title_2 = response[row]['user'] + " replied...";
+        };
+
+        if (response[row]['text'].length > 140){
+            textSummary_2 = response[row]['text'].slice(0, 140) + "...";
+        } else {
+            textSummary_2 = response[row]['text'];
+        };
+
+        $('#card_container_2').attr("class", "col-sm-4");
+
+        break;
+      }
+    }
+
+  $( "#recommended_card_title_2" ).text(card_title_2);
+  $( "#recommended_card_text_2" ).text(textSummary_2);
+  }
   console.log(sortedParticipantDates);
 
 }
@@ -114,3 +134,15 @@ function userRecommender(participantData, Response){
 function buildRecommendedCard(content, card){
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
