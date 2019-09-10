@@ -1,5 +1,5 @@
 function groupObjectBuilder(rows,filter){
-  let _url;
+  let _url, userReplyTo;
   let groupData = {};
   let threadsID = {};
   let threadsData = {};
@@ -9,7 +9,7 @@ function groupObjectBuilder(rows,filter){
   let participantData = {};
   let urlCounts = {};
   let dateCounts = {};
-  let suggested = {};
+  let messageSentByUser = {};
 
   if ( filter['url'] != "" ){
     if ( filter['url'].includes('https://via.hypothes.is/') ) { 
@@ -26,8 +26,10 @@ function groupObjectBuilder(rows,filter){
         threadsID[ss['refs'][0]] = ss['user'];
       }
     }  
+    //create dict of messages and usernames to build reply to field later
+    messageSentByUser[ss['id']] = ss['user']
   }
-
+  
   for (s of rows){
     let inThread = false; //for filtering
     let tags = s['tags'].join().toLowerCase();
@@ -82,6 +84,7 @@ function groupObjectBuilder(rows,filter){
       participantData[username] = {
         'participantTotalMessages':0, 
         'dateLatest':date,
+        'dateLatestMsgID':"",
         'replies':0, 
         'annotations':0,
         'repliesReceived':0
@@ -90,6 +93,7 @@ function groupObjectBuilder(rows,filter){
     ++participantData[username]['participantTotalMessages'];
     if(participantData[username]['dateLatest'] < date){
       participantData[username]['dateLatest'] = date;
+      participantData[username]['dateLatestMsgID'] = s['id'];
     }
 
     //for messagetype
@@ -162,6 +166,11 @@ function groupObjectBuilder(rows,filter){
           threadsData[s['refs'][0]]['threadsDateLatest'] = date;
           threadsData[s['refs'][0]]['threadsDateLatestID'] = s['id'];
         }
+      }
+      //increments replies to user counts
+      userReplyTo = messageSentByUser[s['refs'][s['refs'].length - 1]] 
+      if (participantData[userReplyTo]){
+        ++participantData[userReplyTo]['repliesReceived'];
       }
     }
 
