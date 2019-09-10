@@ -85,7 +85,7 @@ $( document ).ready(function() {
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);
     threadAndMsgRecommender(_dataObjects[3],response);
-    userRecommender(_dataObjects[2],response)
+    userRecommender(_dataObjects[2],response);
   }
 
   $( ".nav-link" ).click(function(event) {

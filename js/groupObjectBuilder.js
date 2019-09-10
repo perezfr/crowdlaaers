@@ -84,7 +84,7 @@ function groupObjectBuilder(rows,filter){
       participantData[username] = {
         'participantTotalMessages':0, 
         'dateLatest':date,
-        'dateLatestMsgID':"",
+        'dateLatestMsgID':s['id'],
         'replies':0, 
         'annotations':0,
         'repliesReceived':0
