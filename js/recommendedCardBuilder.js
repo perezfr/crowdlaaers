@@ -3,7 +3,7 @@ function threadAndMsgRecommender(threadData, Response){
   let profileName = localStorage.getItem('h_profile');
   let sortedDates = [];
   let profileSortedDates = [];
-  let card_title_1, textSummary_1, card_title_2, textSummary_2, card_title_3, textSummary_3;
+  let card_title_1, textSummary_1, card_title_2, textSummary_2, card_title_3, textSummary_3, card_url_container;
   let cardContentObject_1 = {};
 
   //removes the card first
@@ -41,8 +41,11 @@ function threadAndMsgRecommender(threadData, Response){
         } else {
             textSummary_1 = response[row]['text'];
         } 
+        card_url_container = "window.open('https://hyp.is/" + response[row]['id'] + "')"
+
         $( "#recommended_card_title_1" ).text(card_title_1);
-        $( "#recommended_card_text_1" ).text(textSummary_1);
+        $( "#card_url_container_1" ).text(textSummary_1);
+        $('#card_url_container_1').attr("onclick", card_url_container);
         $('#card_container_1').attr("class", "col-sm-4"); //shows the card by removing the 'd-none' class 
         break;
       }
@@ -61,9 +64,12 @@ function threadAndMsgRecommender(threadData, Response){
         } else {
             textSummary_3 = response[row]['text'];
         }
+        card_url_container = "window.open('https://hyp.is/" + response[row]['id'] + "')"
+
         $( "#recommended_card_title_3" ).text(card_title_3);
         $( "#recommended_card_text_3" ).text(textSummary_3);
-        $('#card_container_3').attr("class", "col-sm-4"); //shows the card by removing the 'd-none' class 
+        $( "#card_url_container_3" ).attr("onclick", card_url_container);
+        $( "#card_container_3" ).attr("class", "col-sm-4"); //shows the card by removing the 'd-none' class 
         break;
       }
     }   
@@ -73,7 +79,7 @@ function threadAndMsgRecommender(threadData, Response){
 function userRecommender(participantData, Response){
   let response = Response;
   let sortedParticipantDates = [];
-  let latestMsgIDforParticipant = "";
+  let latestMsgIDforParticipant, card_url_container;
   let card_title_2, textSummary_2;
 
   $('#card_container_2').attr("class", "col-sm-4 d-none");
@@ -102,9 +108,10 @@ function userRecommender(participantData, Response){
         } else {
             textSummary_2 = response[row]['text'];
         };
+        card_url_container = "window.open('https://hyp.is/" + response[row]['id'] + "')"
 
-        $('#card_container_2').attr("class", "col-sm-4");
-
+        $( "#card_url_container_2" ).attr("onclick", card_url_container);
+        $( "#card_container_2" ).attr("class", "col-sm-4");
         break;
       }
     }
