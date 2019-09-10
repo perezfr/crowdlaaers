@@ -5,7 +5,6 @@ function threadAndMsgRecommender(threadData, Response){
   let profileSortedDates = [];
   let card_title_1, textSummary_1, card_title_3, textSummary_3;
   let cardContentObject_1 = {};
-  profileName = 'sandyfritz' 
 
   //build array of thread ID and date for sorting by date
   for (let t in threadData){
@@ -23,8 +22,6 @@ function threadAndMsgRecommender(threadData, Response){
   sortedDates.sort(function(a, b){
     return a.date > b.date ? -1: a.date < b.date ? 1: 0; 
   });
-  console.log(profileSortedDates)
-  console.log(sortedDates)
 
   //find the text for the message
   for ( let row in _response ){
