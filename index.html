@@ -107,40 +107,31 @@
                 <div class="row">
                   <div id="card_container_1" class="col-sm-4 d-none">
                     <div class="card">                  
-                      <div class="card-body" onclick="openAnnotationModal()">
+                      <div class="card-body" onclick="window.open('https://www.google.com')" target="_blank">
                         <h5 class="card-title" id="recommended_card_title_1"></h5>
                         <p class="card-text" id="recommended_card_text_1"></p>
+                        <p><i>Click for context...</i></p>
                       </div>  
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card">
-                      <div class="card-body">
+                  <div id="card_container_2" class="col-sm-4 d-none">
+                    <div class="card">                  
+                      <div class="card-body" href="">
                         <h5 class="card-title" id="recommended_card_title_2"></h5>
                         <p class="card-text" id="recommended_card_text_2"></p>
-                        <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
-                        <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
-                      </div>
+                        <a id="recommended_card_href_1" href="" target="_blank"><i>Click for context...</i></a>
+                      </div>  
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">Joe replied to Remi</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
-                        <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
-                      </div>
+                  <div id="card_container_3" class="col-sm-4 d-none">
+                    <div class="card">                  
+                      <div class="card-body" href="">
+                        <h5 class="card-title" id="recommended_card_title_3"></h5>
+                        <p class="card-text" id="recommended_card_text_3"></p>
+                        <a id="recommended_card_href_1" href="" target="_blank"><i>Click for context...</i></a>
+                      </div>  
                     </div>
-                  </div>
-                </div>
-                <div id="recommended_card_div"></div>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
-                  <div class="btn-toolbar mb-2 mb-md-0">
-                    <button class="btn btn-sm btn-outline-secondary float-right" id="allResetButton">
-                      <span data-feather="refresh-ccw"></span>
-                    </button>
-                  </div>
+                  </div>            
                 </div>
               </div>
             </div>
