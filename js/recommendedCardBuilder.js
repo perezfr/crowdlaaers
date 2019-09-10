@@ -108,7 +108,6 @@ function userRecommender(participantData, Response){
         break;
       }
     }
-
     $( "#recommended_card_title_2" ).text(card_title_2);
     $( "#recommended_card_text_2" ).text(textSummary_2);
   }
