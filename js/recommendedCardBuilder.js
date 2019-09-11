@@ -45,8 +45,8 @@ function threadAndMsgRecommender(threadData, Response){
 
         $( "#recommended_card_title_1" ).text(card_title_1);
         $( "#card_url_container_1" ).text(textSummary_1);
-        $('#card_url_container_1').attr("onclick", card_url_container);
-        $('#card_container_1').attr("class", "col-sm-4"); //shows the card by removing the 'd-none' class 
+        $( "#card_url_container_1" ).attr("onclick", card_url_container);
+        $( "#card_container_1" ).attr("class", "col-sm-4"); //shows the card by removing the 'd-none' class 
         break;
       }
     }
@@ -112,11 +112,11 @@ function userRecommender(participantData, Response){
 
         $( "#card_url_container_2" ).attr("onclick", card_url_container);
         $( "#card_container_2" ).attr("class", "col-sm-4");
+        $( "#recommended_card_title_2" ).text(card_title_2);
+        $( "#recommended_card_text_2" ).text(textSummary_2);
         break;
       }
     }
-    $( "#recommended_card_title_2" ).text(card_title_2);
-    $( "#recommended_card_text_2" ).text(textSummary_2);
   }
 
 }
