@@ -14,41 +14,35 @@ $( document ).ready(function() {
     });
     setGroupSelect.then(function(value) {
       $('#groupControlSelect').val('__world__');
-      //Use when group specific pages 
-      //params.group = 'aYnJE67m'; 
-      //hlib.hApiSearch(params, processSearchResults, '');
-      //$("#groupControlSelect").prop("disabled", true);
     });
-    setGroupSelect;//runs async function to set dropdown to specific group then disable dropdown
+    setGroupSelect; //runs async function to set dropdown to specific group then disable dropdown
   } else {
     if(!startURL.href.includes("index.html") && (startURL.pathname != "/")){
-      openSetTokenModal();
+      $( "#annotationCounter" ).html('<h3>Loading...</h3>');
+      var u = startURL.searchParams.get("url");
+      $('#urlBar').val(u);  //add url param to search bar for sharing 
+      params.url = u;
+      response = [];
+      for (const key in syllabus){
+        params.url = syllabus[key]['url'];
+        console.log(syllabus[key]['url']);
+        (async () => {
+          let data = await hlib.search(params, 'annotationCounter');
+          for(let i = 0; i < data[0].length; i++){
+            response.push(hlib.parseAnnotation(data[0][i]));
+          }
+          for(let i = 0; i < data[1].length; i++){
+            response.push(hlib.parseAnnotation(data[1][i]));
+          }
+          initCharts(response);
+        })();
+      }
     }
   }
 
   //document in url param
   if (startURL.searchParams.get("url")){
-    $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-    var u = startURL.searchParams.get("url");
-    $('#urlBar').val(u);  //add url param to search bar for sharing 
-    params.url = u;
-    // google.charts.setOnLoadCallback(function() { //waits for graph lib to load before drawing
-    //   hlib.hApiSearch(params, processSearchResults, '');
-    // });
-    //hlib.hApiSearch(params, processSearchResults, '');
-    response = [];
-    (async () => {
-      //let response = await fetch('/article/promise-chaining/user.json');
-      //let user = await response.json();
-      let data = await hlib.search(params, 'annotationCounter');
-      for(let i = 0; i < data[0].length; i++){
-        response.push(hlib.parseAnnotation(data[0][i]));
-      }
-      for(let i = 0; i < data[1].length; i++){
-        response.push(hlib.parseAnnotation(data[1][i]));
-      }
-      initCharts(response);
-    })();
+
   } 
 
   // used only if graph are loading too fast
