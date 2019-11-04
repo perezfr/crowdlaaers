@@ -25,6 +25,10 @@ $( document ).ready(function() {
       response = [];
       for (const key in syllabus){
         params.url = syllabus[key]['url'];
+        if ( key == 'active' ){ 
+          console.log('inside')
+          continue; 
+        }
         (async () => {
           let data = await hlib.search(params, 'annotationCounter');
           for(let i = 0; i < data[0].length; i++){
@@ -78,7 +82,7 @@ $( document ).ready(function() {
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);
 
-    filter = {user: "",group: "",url: syllabus['december']['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    filter = {user: "",group: "",url: syllabus['active']['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -93,15 +97,6 @@ $( document ).ready(function() {
     let m = event.target.id;
     inactivate();
     $( "#" + m  ).attr("class", "nav-link active");
-    filter = {user: "",group: "",url: syllabus[m]['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
-    dataObjects = groupObjectBuilder(response, filter);
-
-    annotationTableBuilder(response,dataObjects[5],filter);
-    participantGraphBuilder(dataObjects[2],response);
-    threadGraphBuilder(dataObjects[3],response);
-    urlGraphBuilder(dataObjects[0],response);
-    daysGraphBuilder(dataObjects[4],response);
-    tagsGraphBuilder(dataObjects[1],response);
     
     //hlib.hApiSearch(params, processSearchResults, '');
     $("#conversation_summary").html(syllabus[m]['summary']);
@@ -255,7 +250,7 @@ $( document ).ready(function() {
     })();
   });
 
-  //this to change the active month
+  //this is what will filter by the dropdown selector
   $("#groupControlSelect").change(function(){
     inactivate();
     let select = document.getElementById('groupControlSelect');
@@ -282,6 +277,21 @@ $( document ).ready(function() {
       }
       initCharts(response);
     })();
+    // hlib.search(params, 'annotationCounter')
+    //   .then( data => {
+    //     console.log(data[0].length, data[1].length)
+    //     for(let i = 0; i < data[0].length; i++){
+    //       response.push(hlib.parseAnnotation(data[0][i]));
+    //     }
+    //     for(let i = 0; i < data[1].length; i++){
+    //       response.push(hlib.parseAnnotation(data[1][i]));
+    //     }
+    //     initCharts(response);
+    //   })
+    //   .catch( _ => {
+    //     alert('Cannot search for those parameters')
+    //   })
+    //console.log(annoRows);
   });
 
   //Share button adds the url from the search bar as a parameter to the 

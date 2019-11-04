@@ -11,16 +11,8 @@
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/EJ1084Mar19Miles.pdf",
       summary:""
     },
-    january:{
-      url:"",
-      summary:""
-    },
     february:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0534May19Praisesongs.pdf",
-      summary:""
-    },
-    march:{
-      url:"",
       summary:""
     },
     april:{
@@ -29,10 +21,6 @@
     },
     may:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/EE0514Jul19Performative.pdf",
-      summary:""
-    },
-    june:{
-      url:"",
       summary:""
     }
   }
