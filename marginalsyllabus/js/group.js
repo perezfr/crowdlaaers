@@ -26,7 +26,6 @@ $( document ).ready(function() {
       for (const key in syllabus){
         params.url = syllabus[key]['url'];
         if ( key == 'active' ){ 
-          console.log('inside')
           continue; 
         }
         (async () => {
@@ -226,72 +225,12 @@ $( document ).ready(function() {
     tagsGraphBuilder(dataObjects[1],response);
   });
 
-  $("#urlSearchButton").click(function(){
-    inactivate();
-    var url = $('#urlBar').val();
-    if (url == ""){
-      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
-      return false;
-    };
-    params.url = url;
-    //hlib.hApiSearch(params, processSearchResults, '');
-    response = [];
-    (async () => {
-      //let response = await fetch('/article/promise-chaining/user.json');
-      //let user = await response.json();
-      let data = await hlib.search(params, 'annotationCounter');
-      for(let i = 0; i < data[0].length; i++){
-        response.push(hlib.parseAnnotation(data[0][i]));
-      }
-      for(let i = 0; i < data[1].length; i++){
-        response.push(hlib.parseAnnotation(data[1][i]));
-      }
-      initCharts(response);
-    })();
-  });
-
   //this is what will filter by the dropdown selector
   $("#groupControlSelect").change(function(){
-    inactivate();
+    //inactivate();
     let select = document.getElementById('groupControlSelect');
     let selectedString = select.options[select.selectedIndex].value;
-    params.group = selectedString;
-    params.url = "";
-    $('#urlBar').val("");
-    if (params.group == "__world__"){
-      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
-      return false;
-    }
-    //hlib.hApiSearch(params, processSearchResults, '');
-    //let annoRows = await hlib.search(params, 'annotationCounter');
-    response = [];  
-    (async () => {
-      //let response = await fetch('/article/promise-chaining/user.json');
-      //let user = await response.json();
-      let data = await hlib.search(params, 'annotationCounter');
-      for(let i = 0; i < data[0].length; i++){
-        response.push(hlib.parseAnnotation(data[0][i]));
-      }
-      for(let i = 0; i < data[1].length; i++){
-        response.push(hlib.parseAnnotation(data[1][i]));
-      }
-      initCharts(response);
-    })();
-    // hlib.search(params, 'annotationCounter')
-    //   .then( data => {
-    //     console.log(data[0].length, data[1].length)
-    //     for(let i = 0; i < data[0].length; i++){
-    //       response.push(hlib.parseAnnotation(data[0][i]));
-    //     }
-    //     for(let i = 0; i < data[1].length; i++){
-    //       response.push(hlib.parseAnnotation(data[1][i]));
-    //     }
-    //     initCharts(response);
-    //   })
-    //   .catch( _ => {
-    //     alert('Cannot search for those parameters')
-    //   })
-    //console.log(annoRows);
+    filter.url = selectedString;
   });
 
   //Share button adds the url from the search bar as a parameter to the 
