@@ -19,9 +19,6 @@ $( document ).ready(function() {
   } else {
     if(!startURL.href.includes("index.html") && (startURL.pathname != "/")){
       $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-      var u = startURL.searchParams.get("url");
-      $('#urlBar').val(u);  //add url param to search bar for sharing 
-      params.url = u;
       response = [];
       for (const key in syllabus){
         params.url = syllabus[key]['url'];
