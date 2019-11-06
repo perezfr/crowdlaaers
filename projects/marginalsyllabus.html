@@ -20,22 +20,28 @@
     <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
     <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
-    <script type="text/javascript" src="https://jonudell.info/hlib/hlib.bundle.js"></script>
-    <script type="text/javascript" src="../syl/marginalsyllabus.js"></script>
-    <script type="text/javascript" src="../js/crowdlaaers.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib2.bundle.js"></script>
+    <script type="text/javascript" src="syl/marginalsyllabus.js"></script>
+    <script type="text/javascript" src="js/tagsGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/groupObjectBuilder.js"></script>
+    <script type="text/javascript" src="js/annotationTableBuilder.js"></script>
+    <script type="text/javascript" src="js/participantGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/threadGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/urlGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/daysGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/group.js"></script>
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
-      <a class="navbar-brand  col-lg-2 col-md-2" href="https://crowdlaaers.org/">CROWDLAAERS</a>
+      <a class="navbar-brand col-lg-2 col-md-2" href="https://crowdlaaers.org">CROWDLAAERS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="https://crowdlaaers.org/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="https://crowdlaaers.org">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://crowdlaaers.org/about.html">About</a>
@@ -55,255 +61,30 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <div class="d-flex justify-content-center">
-              <button class="btn btn-secondary col-md-9 mt-3" onclick="openSetTokenModal()">
-                Group layers
-              </button>
-            </div>
-            <br>
-            <div class="d-flex justify-content-center ">
-              <select class="form-control col-md-9" id="groupControlSelect" >
-              </select>
-            </div>
-            <hr>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2019" class="nav-link" data-toggle="collapse" aria-expanded="true">
-                <span data-feather="archive"></span>
-                Summer 2019 
-              </a>
-            </h8>
-            <div class="collapse" id="collapse2019">
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="watulaketal2018">
-                    <span data-feather="file-text"></span>
-                    Watulak et al. (2018)
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="hsieh2018">
-                    <span data-feather="file-text"></span>
-                    Hsieh (2018)
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="westpuckettetal2018">
-                    <span data-feather="file-text"></span>
-                    West-Puckett et al. (2018)
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="bakerdoyle2018">
-                    <span data-feather="file-text"></span>
-                    Baker-Doyle (2018)
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2018" class="nav-link" data-toggle="collapse" aria-expanded="true">
-                <span data-feather="archive"></span>
-                2018-19 Syllabus 
-              </a>
-            </h8>
-            <div class="collapse show" id="collapse2018">
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link month-link active" href="#" id="june2018">
-                    <span data-feather="file-text"></span>
-                    June
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="may2018">
-                    <span data-feather="file-text"></span>
-                    May
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="april2018">
-                    <span data-feather="file-text"></span>
-                    April
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="march2018">
-                    <span data-feather="file-text"></span>
-                    March
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="february2018">
-                    <span data-feather="file-text"></span>
-                    February
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="january2018">
-                    <span data-feather="file-text"></span>
-                    January
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="december2018">
-                    <span data-feather="file-text"></span>
-                    December
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="october2018">
-                    <span data-feather="file-text"></span>
-                    Oct/November
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2017" class="nav-link" data-toggle="collapse">
-                <span data-feather="archive"></span>
-                2017-18 Syllabus 
-              </a>
-            </h8>
-            <div class="collapse" id="collapse2017">
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="june2017">
-                    <span data-feather="file-text"></span>
-                    June
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="may2017">
-                    <span data-feather="file-text"></span>
-                    May
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="april2017">
-                    <span data-feather="file-text"></span>
-                    April
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="march2017">
-                    <span data-feather="file-text"></span>
-                    March
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="february2017">
-                    <span data-feather="file-text"></span>
-                    February
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="january2017">
-                    <span data-feather="file-text"></span>
-                    January
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="december2017">
-                    <span data-feather="file-text"></span>
-                    December
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="november2017">
-                    <span data-feather="file-text"></span>
-                    November
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="october2017">
-                    <span data-feather="file-text"></span>
-                    October
-                  </a>
-                </li>    
-              </ul>
-            </div>
-            <h8 class="sidebar-heading d-flex justify-content-between align-items-left px-1 mt-4 mb-1 text-muted">
-              <a href="#collapse2016" class="nav-link" data-toggle="collapse">
-                <span data-feather="archive"></span>
-                2016-17 Syllabus 
-              </a>
-            </h8>
-            <div class="collapse" id="collapse2016">
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="may2016">
-                    <span data-feather="file-text"></span>
-                    May
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="april2016">
-                    <span data-feather="file-text"></span>
-                    April
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="march2016">
-                    <span data-feather="file-text"></span>
-                    March
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="february2016">
-                    <span data-feather="file-text"></span>
-                    February
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="january2016">
-                    <span data-feather="file-text"></span>
-                    January
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="november2016">
-                    <span data-feather="file-text"></span>
-                    November
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="october2016">
-                    <span data-feather="file-text"></span>
-                    October
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="september2016">
-                    <span data-feather="file-text"></span>
-                    September
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link month-link" href="#" id="august2016">
-                    <span data-feather="file-text"></span>
-                    August
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4">
           <!-- Search Cards-->
           <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-               <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Summary</a>
-            </div>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Marginal Syllabus</a>
+            </div><!--End card header-->
             <div class="collapse show" id="collapseCell1">
-              <div class="card-body" id="conversation_summary">
-              </div>
+              <div class="card-body" id="homeMessage">
+                <div class="row">
+                  <div class="input-group m-2">
+                    <select class="custom-select" id="groupControlSelect">
+                      <option>All</option>
+                      <option selected>November</option>
+                    </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-secondary" onclick="openSetTokenModal()" type="button">Month</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!--End card body-->
             </div>
-          </div>
-          <!-- Icon Cards-->
+          </div><!--End Search Card-->
+         <!-- Icon Cards--> 
          <div class="row">
            <div class="col mb-3">
              <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
@@ -325,6 +106,17 @@
                  <h4 class="text-center"><span id="participantCounter">0</span></h4>
                  <p class="text-center">Participants</p>
                 </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#CC9FCC;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="documentCounter">0</span></h4>
+                 <p class="text-center">Documents</p>
+               </div>
              </div>
            </div>
            <div class="col mb-3">
@@ -362,17 +154,17 @@
            </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#A2D9CE;" data-toggle="tooltip" title="Click the graphs below to filter the annotations table, and click any annotation to read more.">
+            <div class="card-header" style="background-color:#A2D9CE;">
               <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Annotations</a>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Annotations</a>
               <span data-feather="maximize-2"></span>
             </div>
-            <div class="collapse show" id="collapseCell6">
+            <div class="collapse show" id="collapseCell2">
               <div class="card-body">
-                <div id="table_div"></div>
+                <div id="annotation_table_div"></div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
                   <div class="btn-toolbar mb-2 mb-md-0">
-                    <button class="btn btn-sm btn-outline-secondary float-right" id="resetButton">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="allResetButton">
                       <span data-feather="refresh-ccw"></span>
                     </button>
                   </div>
@@ -381,50 +173,62 @@
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#A9CCE3;" data-toggle="tooltip" title="Click graph column to filter Annotations table by participant.">
+            <div class="card-header" style="background-color:#A9CCE3;">
               <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Participants</a>
-              <span data-feather="maximize-2"></span>
-            </div>
-            <div class="collapse show" id="collapseCell2">
-              <div class="card-body">
-                <div id="graphContributors"></div>
-              </div>
-            </div>
-         </div>
-         <div class="card mb-3">
-            <div class="card-header" style="background-color:#F9E79F;" data-toggle="tooltip" title="Click graph column to filter Annotations table by conversation thread.">
-              <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Threads</a>
-              <span data-feather="maximize-2"></span>
-            </div>
-            <div class="collapse show" id="collapseCell4">
-              <div class="card-body">
-                <div id="graphThreads"></div>
-              </div>
-            </div>
-         </div>
-         <div class="card mb-3"">
-            <div class="card-header" style="background-color:#F8C471;" data-toggle="tooltip" title="Click graph to filter Annotations table by day.">
-              <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Days</a>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Participants</a>
               <span data-feather="maximize-2"></span>
             </div>
             <div class="collapse show" id="collapseCell3">
               <div class="card-body">
-                <div id="graphCalendar"></div>
+                <div id="participant_graph_div"></div>
               </div>
             </div>
          </div>
          <div class="card mb-3">
-            <div class="card-header" style="background-color:#F1948A;" data-toggle="tooltip" title="Click graph column to filter Annotations table by tag.">
+            <div class="card-header" style="background-color:#CC9FCC;">
               <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Tags</a>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Documents</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell4">
+              <div class="card-body">
+                <div id="url_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F9E79F;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Threads</a>
               <span data-feather="maximize-2"></span>
             </div>
             <div class="collapse show" id="collapseCell5">
               <div class="card-body">
-                <div id="graphTags"></div>
+                <div id="threads_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F8C471;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Days</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell6">
+              <div class="card-body">
+                <div id="days_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F1948A;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell7">Tags</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell7">
+              <div class="card-body">
+                <div id="tags_graph_div"></div>
               </div>
             </div>
          </div>
@@ -446,6 +250,19 @@
             <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
             <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="shareURLModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Copy this URL:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="shareURLModalBody" class="modal-body"></div>
         </div>
       </div>
     </div>
