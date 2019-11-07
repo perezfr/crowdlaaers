@@ -19,12 +19,12 @@ $( document ).ready(function() {
   } else {
     if(!startURL.href.includes("index.html") && (startURL.pathname != "/")){
       $( "#annotationCounter" ).html('<h3>Loading...</h3>');
-      var u = startURL.searchParams.get("url");
-      $('#urlBar').val(u);  //add url param to search bar for sharing 
-      params.url = u;
       response = [];
       for (const key in syllabus){
         params.url = syllabus[key]['url'];
+        if ( key == 'active' ){ 
+          continue; 
+        }
         (async () => {
           let data = await hlib.search(params, 'annotationCounter');
           for(let i = 0; i < data[0].length; i++){
@@ -78,7 +78,7 @@ $( document ).ready(function() {
     daysGraphBuilder(_dataObjects[4],response);
     tagsGraphBuilder(_dataObjects[1],response);
 
-    filter = {user: "",group: "",url: syllabus['december']['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    filter = {user: "",group: "",url: syllabus['active']['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -93,15 +93,6 @@ $( document ).ready(function() {
     let m = event.target.id;
     inactivate();
     $( "#" + m  ).attr("class", "nav-link active");
-    filter = {user: "",group: "",url: syllabus[m]['url'],wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
-    dataObjects = groupObjectBuilder(response, filter);
-
-    annotationTableBuilder(response,dataObjects[5],filter);
-    participantGraphBuilder(dataObjects[2],response);
-    threadGraphBuilder(dataObjects[3],response);
-    urlGraphBuilder(dataObjects[0],response);
-    daysGraphBuilder(dataObjects[4],response);
-    tagsGraphBuilder(dataObjects[1],response);
     
     //hlib.hApiSearch(params, processSearchResults, '');
     $("#conversation_summary").html(syllabus[m]['summary']);
@@ -231,57 +222,12 @@ $( document ).ready(function() {
     tagsGraphBuilder(dataObjects[1],response);
   });
 
-  $("#urlSearchButton").click(function(){
-    inactivate();
-    var url = $('#urlBar').val();
-    if (url == ""){
-      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
-      return false;
-    };
-    params.url = url;
-    //hlib.hApiSearch(params, processSearchResults, '');
-    response = [];
-    (async () => {
-      //let response = await fetch('/article/promise-chaining/user.json');
-      //let user = await response.json();
-      let data = await hlib.search(params, 'annotationCounter');
-      for(let i = 0; i < data[0].length; i++){
-        response.push(hlib.parseAnnotation(data[0][i]));
-      }
-      for(let i = 0; i < data[1].length; i++){
-        response.push(hlib.parseAnnotation(data[1][i]));
-      }
-      initCharts(response);
-    })();
-  });
-
-  //this to change the active month
+  //this is what will filter by the dropdown selector
   $("#groupControlSelect").change(function(){
-    inactivate();
+    //inactivate();
     let select = document.getElementById('groupControlSelect');
     let selectedString = select.options[select.selectedIndex].value;
-    params.group = selectedString;
-    params.url = "";
-    $('#urlBar').val("");
-    if (params.group == "__world__"){
-      $( "#annotationCounter" ).html('<h3>Enter valid URL...</h3>');
-      return false;
-    }
-    //hlib.hApiSearch(params, processSearchResults, '');
-    //let annoRows = await hlib.search(params, 'annotationCounter');
-    response = [];  
-    (async () => {
-      //let response = await fetch('/article/promise-chaining/user.json');
-      //let user = await response.json();
-      let data = await hlib.search(params, 'annotationCounter');
-      for(let i = 0; i < data[0].length; i++){
-        response.push(hlib.parseAnnotation(data[0][i]));
-      }
-      for(let i = 0; i < data[1].length; i++){
-        response.push(hlib.parseAnnotation(data[1][i]));
-      }
-      initCharts(response);
-    })();
+    filter.url = selectedString;
   });
 
   //Share button adds the url from the search bar as a parameter to the 
