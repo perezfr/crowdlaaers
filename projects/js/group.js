@@ -226,8 +226,24 @@ $( document ).ready(function() {
   $("#groupControlSelect").change(function(){
     //inactivate();
     let select = document.getElementById('groupControlSelect');
-    let selectedString = select.options[select.selectedIndex].value;
-    filter.url = selectedString;
+    let selectedString = select.options[select.selectedIndex].id;
+    let selectedUrl;
+    if ( selectedString == 'every') {
+      selectedUrl = "";
+    } else {
+      selectedUrl = syllabus[selectedString]['url'];
+    }
+    
+    filter = {user: "",group: "",url: selectedUrl,wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
+
   });
 
   //Share button adds the url from the search bar as a parameter to the 
@@ -250,13 +266,13 @@ function inputQuerySelector(query) {
 }
 
 let params = {
-  user: "",//inputQuerySelector('#userContainer input').value,
-  group: "",//"G9d4q3j6"
-  url: "",//inputQuerySelector('#urlContainer input').value,
-  wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
-  tag: "",//inputQuerySelector('#tagContainer input').value,
-  any: "",//inputQuerySelector('#anyContainer input').value,
-  max: "5000",//inputQuerySelector('#maxContainer input').value,
+  user: "",
+  group: "",
+  url: "",
+  wildcard_uri: "",
+  tag: "",
+  any: "",
+  max: "5000",
   _separate_replies: "false",
   expanded: "true",
   service: "https://hypothes.is"
