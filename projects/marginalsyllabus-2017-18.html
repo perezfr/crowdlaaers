@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121574943-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-121574943-1');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>CROWDLAAERS - Marginal Syllabus</title>
+    <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
+    <script type="text/javascript" src="https://jonudell.info/hlib/hlib2.bundle.js"></script>
+    <script type="text/javascript" src="syl/marginalsyllabus-2017-18.js"></script>
+    <script type="text/javascript" src="js/tagsGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/groupObjectBuilder.js"></script>
+    <script type="text/javascript" src="js/annotationTableBuilder.js"></script>
+    <script type="text/javascript" src="js/participantGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/threadGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/urlGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/daysGraphBuilder.js"></script>
+    <script type="text/javascript" src="js/group.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-dark fixed-top bg-secondary flex-md-nowrap p-0">
+      <a class="navbar-brand col-lg-2 col-md-2" href="https://crowdlaaers.org">CROWDLAAERS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://crowdlaaers.org/about.html">About</a>
+          </li>
+          <li class="nav-item active dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Projects
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/marginalsyllabus.html">Marginal Syllabus</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/engelbart.html">Engelbart</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/equityunbound.html">#UnboundEq</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4">
+          <!-- Search Cards-->
+          <div class="card mb-3 mt-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Marginal Syllabus</a>
+            </div><!--End card header-->
+            <div class="collapse show" id="collapseCell1">
+              <div class="card-body" id="homeMessage">
+                <div class="row">
+                  <div class="btn-group m-2" data-toggle="buttons">
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus.html';">
+                      2019-20
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-summer2019.html';">
+                      Summer 2019
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-2018-19.html';">
+                      2018-19
+                    </button>
+                    <button class="btn btn-secondary active">
+                      2017-18
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-2016-17.html';">
+                      2016-17
+                    </button>
+                  </div>
+                  <div class="input-group m-2">
+                    <select class="custom-select" id="groupControlSelect">
+                      <option id="every">All</option>
+                      <option id="june2017" selected>June</option>
+                      <option id="may2017">May</option>
+                      <option id="april2017">April</option>
+                      <option id="march2017">March</option>
+                      <option id="february2017">February</option>
+                      <option id="january2017">January</option>
+                      <option id="december2017">December</option>
+                      <option id="november2017">November</option>
+                      <option id="october2017">October</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!--End card body-->
+            </div>
+          </div><!--End Search Card-->
+         <!-- Icon Cards--> 
+         <div class="row">
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A2D9CE;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-comments"></i>
+                 </div>
+                 <h4 class="text-center"><span id="annotationCounter">0</span></h4>
+                 <p class="text-center">Annotations</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#A9CCE3;">
+                <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-list"></i>
+                 </div>
+                 <h4 class="text-center"><span id="participantCounter">0</span></h4>
+                 <p class="text-center">Participants</p>
+                </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#CC9FCC;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="documentCounter">0</span></h4>
+                 <p class="text-center">Documents</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F9E79F;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="threadCounter">0</span></h4>
+                 <p class="text-center">Threads</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F8C471;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-shopping-cart"></i>
+                 </div>
+                 <h4 class="text-center"><span id="calendarCounter">0</span></h4>
+                 <p class="text-center">Days</p>
+               </div>
+             </div>
+           </div>
+           <div class="col mb-3">
+             <div class="card text-secondary border-secondary o-hidden h-100" style="background-color:#F1948A;">
+               <div class="card-body">
+                 <div class="card-body-icon">
+                   <i class="fas fa-fw fa-life-ring"></i>
+                 </div>
+                 <h4 class="text-center"><span id="tagCounter">0</span></h4>
+                 <p class="text-center">Tags</p>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A2D9CE;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell2">Annotations</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell2">
+              <div class="card-body">
+                <div id="annotation_table_div"></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap flex-row-reverse pt-3 pb-2 mb-3">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <button class="btn btn-sm btn-outline-secondary float-right" id="allResetButton">
+                      <span data-feather="refresh-ccw"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#A9CCE3;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell3">Participants</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell3">
+              <div class="card-body">
+                <div id="participant_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#CC9FCC;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell4">Documents</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell4">
+              <div class="card-body">
+                <div id="url_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F9E79F;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell5">Threads</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell5">
+              <div class="card-body">
+                <div id="threads_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F8C471;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell6">Days</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell6">
+              <div class="card-body">
+                <div id="days_graph_div"></div>
+              </div>
+            </div>
+         </div>
+         <div class="card mb-3">
+            <div class="card-header" style="background-color:#F1948A;">
+              <i class="fas fa-chart-area"></i>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell7">Tags</a>
+              <span data-feather="maximize-2"></span>
+            </div>
+            <div class="collapse show" id="collapseCell7">
+              <div class="card-body">
+                <div id="tags_graph_div"></div>
+              </div>
+            </div>
+         </div>
+        </main>
+      </div>
+    </div>
+    <div class="modal fade" id="annotationModal" tabindex="-1" role="dialog" aria-labelledby="annotationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="annotationModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="annotationModalBody" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <a id="threadButton" thread=""><button type="button" class="btn" style="background-color:#f6db6f;color:white;">In Thread</button></a>
+            <a id="inContextButton" href="" target="_blank"><button type="button" class="btn btn-primary">In Context</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="shareURLModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Copy this URL:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="shareURLModalBody" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="setTokenModal" tabindex="-1" role="dialog" aria-labelledby="setTokenModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setTokenModalLabel">Enter API token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="setTokanModalBody" class="modal-body">
+            <p><a href="https://hypothes.is/" target="_blank">Access your</a> API token via Hypothesis Settings > Developer</p>
+            <input class="form-control" type="password" placeholder="" id="tokenInputBar">
+          </div>
+          <div class="modal-footer">
+            <button onclick="setTokenButton()" type="button" class="btn btn-secondary">Set token</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+      });
+    </script>
+  </body>
+</html>
