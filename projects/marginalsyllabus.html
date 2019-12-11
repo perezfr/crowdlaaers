@@ -71,10 +71,28 @@
             <div class="collapse show" id="collapseCell1">
               <div class="card-body" id="homeMessage">
                 <div class="row">
+                  <div class="btn-group m-2" data-toggle="buttons">
+                    <button class="btn btn-secondary active">
+                      2019-20
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-summer2019.html';">
+                      Summer 2019
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-2018-19.html';">
+                      2018-19
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-2017-18.html';">
+                      2017-18
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.href='https://crowdlaaers.org/projects/marginalsyllabus-2016-17.html';">
+                      2016-17
+                    </button>
+                  </div>
                   <div class="input-group m-2">
                     <select class="custom-select" id="groupControlSelect">
-                      <option>All</option>
-                      <option selected>November</option>
+                      <option id="every">All</option>
+                      <option id="december" selected>Worlds & Miller (2019)</option>
+                      <option id="november">Tanner (2019)</option>
                     </select>
                   </div>
                 </div>
