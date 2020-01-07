@@ -1,6 +1,6 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/EJ1084Mar19Miles.pdf",
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2020/01/VM0272Dec19Revising.pdf",
       summary:""
     },
     november:{
@@ -9,6 +9,10 @@
     },
     december:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/EJ1084Mar19Miles.pdf",
+      summary:""
+    },
+    january:{
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2020/01/VM0272Dec19Revising.pdf",
       summary:""
     },
     february:{
