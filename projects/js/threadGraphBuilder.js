@@ -115,13 +115,13 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate, topicLabels)
 };
 
 function addThreadTopicLabels(threadId){
-  for(var i = 0; i < topics['thread_topics'].length; i++){
-    if ( topics['thread_topics'][i]['rootId'] == threadId){
-      return topics['thread_topics'][i]['labels'];
-    }
+  let _t = topics['thread_topics']
+  for(var i = 0; i < _t.length; i++){
+    if ( _t[i]['ids'].includes(threadId) ){
+      return _t[i]['labels'];
+    } 
   }
 };
-
 
 
 
