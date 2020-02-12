@@ -1,4 +1,4 @@
-function threadGraphBuilder(threadData,response) {   
+function threadGraphBuilder(threadData,response) {
   let threadDataTable = new google.visualization.DataTable();
   let bar_graph_threads = new google.visualization.ColumnChart(document.getElementById('threads_graph_div'));
   let opts = {
@@ -17,13 +17,15 @@ function threadGraphBuilder(threadData,response) {
     let _month = threadData[t]['threadsDateLatest'].getMonth() + 1;
     let _dateDay = threadData[t]['threadsDateLatest'].getDate();
     let _dd = _month + "/" + _dateDay + "/" + _year;
-    let _t = threadGraphTooltipHTML(threadData[t]['names'].join(', '), _dd);
+    let _topics = addThreadTopicLabels(t);
+    let _t = threadGraphTooltipHTML(threadData[t]['names'].join(', '), _dd, _topics);
     threadDataTable.addRows([
       [ threadData[t]['names'].toString(), threadData[t]['threadMsgCount'], threadData[t]['threadsDateLatest'], t, _t ]
     ]);
   }
-
-  threadDataTable.sort({column:3, desc:true});
+  
+  //sorts by amount: col 1; recent: col 2
+  threadDataTable.sort({column:2, desc:true});
   let threadDataView = new google.visualization.DataView(threadDataTable);
   threadDataView.setColumns([0,1,4]);
   bar_graph_threads.draw(threadDataView, opts);
@@ -57,8 +59,9 @@ function threadGraphBuilder(threadData,response) {
   });
 }
 
-function threadGraphTooltipHTML(participants, recentAnnotationDate){
-  let table = `
+function threadGraphTooltipHTML(participants, recentAnnotationDate, topicLabels){
+  if (topicLabels === undefined) {
+    let table = `
     <table class='table'>
       <tr> 
         <td align='left'>
@@ -77,9 +80,49 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate){
         </td>
       </tr>
     </table>`;
-  return table;
+    return table;
+  } else {
+    let uniqueTopics = Array.from(new Set(topicLabels))
+    let uniqueTopicsAsString = uniqueTopics.join(', ');
+    let table = `
+    <table class='table'>
+      <tr> 
+        <td align='left'>
+          <b>Participants:</b>
+        </td>
+        <td>` 
+          + participants + `
+        </td>
+      </tr>
+      <tr> 
+        <td align='left'>
+          <b>Topics:</b>
+        </td>
+        <td>` 
+          + uniqueTopicsAsString + `
+        </td>
+      </tr>
+      <tr>
+        <td align='left'>
+          <b>Most recent:</b>
+        </td>
+        <td>` 
+          + recentAnnotationDate + `
+        </td>
+      </tr>
+    </table>`;
+    return table;
+  }
 };
 
+function addThreadTopicLabels(threadId){
+  let _t = topics['thread_topics']
+  for(var i = 0; i < _t.length; i++){
+    if ( _t[i]['ids'].includes(threadId) ){
+      return _t[i]['labels'];
+    } 
+  }
+};
 
 
 

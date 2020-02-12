@@ -164,7 +164,7 @@ function groupObjectBuilder(rows,filter){
     } else {
       ++dateCounts[_date];
     }
-  } // end rows loop
+  } // end rows 
   return [urlCounts,tagsData,participantData,threadsData,dateCounts,threadsID];
 }
 

@@ -19,7 +19,7 @@ function participantGraphBuilder(participantData,response) {
     ]);
   }
 
-  //sort by columns: 1 = amount, 4 is recent
+  //sorts by amount: col 1; recent: col 4 
   participantMessageTypeDataTable.sort({column:4, desc:true});
   let participantMessageTypeDataView = new google.visualization.DataView(participantMessageTypeDataTable);
   participantMessageTypeDataView.setColumns([0,2,3]);
