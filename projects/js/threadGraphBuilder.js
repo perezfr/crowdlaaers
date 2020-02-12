@@ -83,6 +83,7 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate, topicLabels)
     return table;
   } else {
     let uniqueTopics = Array.from(new Set(topicLabels))
+    let uniqueTopicsAsString = uniqueTopics.join(', ');
     let table = `
     <table class='table'>
       <tr> 
@@ -98,7 +99,7 @@ function threadGraphTooltipHTML(participants, recentAnnotationDate, topicLabels)
           <b>Topics:</b>
         </td>
         <td>` 
-          + uniqueTopics + `
+          + uniqueTopicsAsString + `
         </td>
       </tr>
       <tr>
