@@ -198,7 +198,10 @@ $( document ).ready(function() {
   };
 
   $( "#allResetButton" ).click(function() {
+    select = document.getElementById('groupControlSelect');
+    selectedString = select.options[select.selectedIndex].id;
     filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    filter.url = syllabus[selectedString]['url'];
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -226,8 +229,23 @@ $( document ).ready(function() {
   $("#groupControlSelect").change(function(){
     //inactivate();
     let select = document.getElementById('groupControlSelect');
-    let selectedString = select.options[select.selectedIndex].value;
-    filter.url = selectedString;
+    let selectedString = select.options[select.selectedIndex].id;
+    let selectedUrl;
+    if ( selectedString == 'every') {
+      selectedUrl = "";
+    } else {
+      selectedUrl = syllabus[selectedString]['url'];
+    }
+    
+    filter = {user: "",group: "",url: selectedUrl,wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    dataObjects = groupObjectBuilder(response, filter);
+
+    annotationTableBuilder(response,dataObjects[5],filter);
+    participantGraphBuilder(dataObjects[2],response);
+    threadGraphBuilder(dataObjects[3],response);
+    urlGraphBuilder(dataObjects[0],response);
+    daysGraphBuilder(dataObjects[4],response);
+    tagsGraphBuilder(dataObjects[1],response);
   });
 
   //Share button adds the url from the search bar as a parameter to the 

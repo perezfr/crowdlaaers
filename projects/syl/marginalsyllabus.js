@@ -1,6 +1,6 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2020/01/VM0272Dec19Revising.pdf",
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0534May19Praisesongs.pdf",
       summary:""
     },
     november:{
