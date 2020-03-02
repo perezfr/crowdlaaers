@@ -268,13 +268,13 @@ function inputQuerySelector(query) {
 }
 
 let params = {
-  user: "",//inputQuerySelector('#userContainer input').value,
-  group: "",//"G9d4q3j6"
-  url: "",//inputQuerySelector('#urlContainer input').value,
-  wildcard_uri: "",//inputQuerySelector('#wildcard_uriContainer input').value,
-  tag: "",//inputQuerySelector('#tagContainer input').value,
-  any: "",//inputQuerySelector('#anyContainer input').value,
-  max: "5000",//inputQuerySelector('#maxContainer input').value,
+  user: "",
+  group: "",
+  url: "",
+  wildcard_uri: "",
+  tag: "",
+  any: "",
+  max: "5000",
   _separate_replies: "false",
   expanded: "true",
   service: "https://hypothes.is"
