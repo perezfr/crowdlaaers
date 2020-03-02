@@ -198,7 +198,10 @@ $( document ).ready(function() {
   };
 
   $( "#allResetButton" ).click(function() {
+    select = document.getElementById('groupControlSelect');
+    selectedString = select.options[select.selectedIndex].id;
     filter = {user: "",group: "",url: "",wildcard_uri: "",tag: "",any: "",max: "",thread: "",date: ""};
+    filter.url = syllabus[selectedString]['url'];
     dataObjects = groupObjectBuilder(response, filter);
 
     annotationTableBuilder(response,dataObjects[5],filter);
@@ -243,7 +246,6 @@ $( document ).ready(function() {
     urlGraphBuilder(dataObjects[0],response);
     daysGraphBuilder(dataObjects[4],response);
     tagsGraphBuilder(dataObjects[1],response);
-
   });
 
   //Share button adds the url from the search bar as a parameter to the 
