@@ -1,6 +1,6 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0534May19Praisesongs.pdf",
+      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0531aug18Untold.pdf",
       summary:""
     },
     november:{
@@ -19,7 +19,7 @@
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0534May19Praisesongs.pdf",
       summary:""
     },
-    april:{
+    march:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0531aug18Untold.pdf",
       summary:""
     },
