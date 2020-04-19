@@ -1,6 +1,6 @@
   var syllabus = {
     active:{
-      url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0531aug18Untold.pdf",
+      url:"https://educatorinnovator.org/wp-content/uploads/2020/04/Let%E2%80%99s-Give-Them-Something-to-Talk-And-Act-About-Privilege-Racism-and-Oppression-in-the-Middle-School-Classroom.pdf",
       summary:""
     },
     november:{
@@ -21,6 +21,10 @@
     },
     march:{
       url:"https://via.hypothes.is/https://educatorinnovator.org/wp-content/uploads/2019/10/RTE0531aug18Untold.pdf",
+      summary:""
+    },
+    april:{
+      url:"https://educatorinnovator.org/wp-content/uploads/2020/04/Let%E2%80%99s-Give-Them-Something-to-Talk-And-Act-About-Privilege-Racism-and-Oppression-in-the-Middle-School-Classroom.pdf",
       summary:""
     },
     may:{
