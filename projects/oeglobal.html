@@ -16,12 +16,13 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <title>CROWDLAAERS</title>
+    <title>CROWDLAAERS - OEGlobal</title>
     <link href="https://crowdlaaers.org/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://crowdlaaers.org/css/dashboard.css" rel="stylesheet">
     <script type="text/javascript" src="https://jonudell.info/hlib/showdown.js"></script>
     <script type="text/javascript" src="https://jonudell.info/hlib/hlib2.bundle.js"></script>
-    <script type="text/javascript" src="syl/marginalsyllabus.js"></script>
+    <script type="text/javascript" src="syl/oeglobal.js"></script>
+    <script type="text/javascript" src="syl/topics.js"></script>
     <script type="text/javascript" src="js/tagsGraphBuilder.js"></script>
     <script type="text/javascript" src="js/groupObjectBuilder.js"></script>
     <script type="text/javascript" src="js/annotationTableBuilder.js"></script>
@@ -40,18 +41,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="https://crowdlaaers.org">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://crowdlaaers.org/about.html">About</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Projects
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="https://crowdlaaers.org/projects/oeglobal.html">OEGlobal</a>
+              <a class="dropdown-item" href="https://crowdlaaers.org/projects/marginalsyllabus.html">OEGlobal</a>
             </div>
           </li>
         </ul>
@@ -64,29 +65,21 @@
           <div class="card mb-3 mt-3">
             <div class="card-header">
               <i class="fas fa-chart-area"></i>
-              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">Search</a>
+              <a class="text-dark" data-toggle="collapse" href="#collapseCell1">OEGlobal</a>
             </div><!--End card header-->
             <div class="collapse show" id="collapseCell1">
               <div class="card-body" id="homeMessage">
                 <div class="row">
-                  <span class="mx-3">Explore social learning analytics associated with Hypothesis annotation. Enter a URL and click Search to visualize collaborative annotation activity associated with a single document, or enter your Hypothesis API token to access analytics associated with Group activity across multiple documents. Every "crowd layers" graph - Annotations, Participants, Documents, Threads, Days, and Tags - is interactive, and selecting data within one graph will automatically filter corresponding analytics in all other graphs. Select the circular arrows near the Annotations graph to reset your Search or Group activity.
-                  </span>
-                  <div class="input-group m-2">
-                    <div class="input-group-prepend" id="button-addon4">
-                      <button id="urlSearchButton" class="btn btn-secondary" type="button">Search</button>
-                    </div>
-                    <input id="urlBar" type="text" class="form-control" placeholder="URL">
-                    <div class="input-group-append" id="button-addon4">
-                      <button id="urlShare" class="btn btn-secondary" type="button">Share</button>
-                    </div>
-                  </div>
                   <div class="input-group m-2">
                     <select class="custom-select" id="groupControlSelect">
-                      <option selected>Public</option>
+                      <option id="every">All</option>
+                      <option id="english" selected>English</option>
+                      <option id="spanish">Spanish</option>
+                      <option id="french">French</option>
+                      <option id="russian">Russian</option>
+                      <option id="arabic">Arabic</option>
+                      <option id="chinese">Chinese</option>
                     </select>
-                    <div class="input-group-append">
-                      <button class="btn btn-secondary" onclick="openSetTokenModal()" type="button">Groups</button>
-                    </div>
                   </div>
                 </div>
               </div><!--End card body-->
